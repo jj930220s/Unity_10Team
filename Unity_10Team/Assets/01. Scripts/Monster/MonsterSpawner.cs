@@ -2,35 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterSpawner : MonoBehaviour
+public class MonsterSpawner : Singleton<MonsterSpawner>
 {
-    public Monster monsterPrefab;
+    public GameObject[] monsterPrefabs;
     public int initialPoolSize = 10;
     public int maxMonsterCount = 10;
     public Transform player;
     public float spawnRadius = 10f;
     public int spawnCount = 5;
 
-    public ObjectPool<Monster> monsterPool;
-    private int activeMonsterCount = 0;
+    private List<ObjectPool<Monster>> monsterPools = new List<ObjectPool<Monster>>();
+    private List<Monster> activeMonsters = new List<Monster>();
+    private List<string> monsterTypes = new List<string>();
 
     void Start()
     {
-        if (monsterPrefab == null)
+        if (monsterPrefabs.Length == 0)
         {
-            Debug.LogError("[MonsterSpawner] monsterPrefab이 설정되지 않음!");
+            Debug.LogError("[MonsterSpawner] 몬스터 프리팹이 설정되지 않았습니다!");
             return;
         }
 
-        monsterPool = new ObjectPool<Monster>(monsterPrefab, initialPoolSize, transform);
-
-        if (monsterPool == null)
+        foreach (var prefab in monsterPrefabs)
         {
-            Debug.LogError("[MonsterSpawner] monsterPool 생성 실패!");
-        }
-        else
-        {
-            Debug.Log("[MonsterSpawner] monsterPool 생성 성공!");
+            Monster monster = prefab.GetComponent<Monster>();
+            ObjectPool<Monster> pool = new ObjectPool<Monster>(monster, initialPoolSize, transform);
+            monsterPools.Add(pool);
+            monsterTypes.Add(monster.monsterData.monsterType);
         }
 
         StartCoroutine(SpawnMonstersRoutine());
@@ -40,30 +38,55 @@ public class MonsterSpawner : MonoBehaviour
     {
         while (true)
         {
-            if (activeMonsterCount < maxMonsterCount)
+            if (activeMonsters.Count < maxMonsterCount)
             {
                 SpawnMonsters();
             }
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
     void SpawnMonsters()
     {
+        if (activeMonsters.Count >= maxMonsterCount) return;
+
         for (int i = 0; i < spawnCount; i++)
         {
-            if (activeMonsterCount >= maxMonsterCount) return;
+            if (activeMonsters.Count >= maxMonsterCount) return;
 
-            Vector3 randomPos = GetRandomPosition();
-            Monster monster = monsterPool.Get();
+            int attempts = 0;  // 무한 루프 방지를 위한 최대 시도 횟수
+            Monster monster = null;
+
+            while (attempts < 5)  // 최대 5번까지 시도
+            {
+                int randomIndex = Random.Range(0, monsterPools.Count);
+                monster = monsterPools[randomIndex].Get();
+
+                if (monster != null && !activeMonsters.Contains(monster))
+                {
+                    break;  // 정상적으로 새로운 몬스터를 가져왔다면 반복문 탈출
+                }
+
+                attempts++;
+            }
+
+            if (monster == null || activeMonsters.Contains(monster))
+            {
+                Debug.LogWarning("새로운 몬스터를 가져올 수 없습니다.");
+                break;  // 새로운 몬스터를 가져오지 못하면 스폰 종료
+            }
+
             if (monster != null)
             {
+                Vector3 randomPos = GetRandomPosition();
+
                 monster.transform.position = randomPos;
                 monster.transform.rotation = Quaternion.identity;
+
                 monster.Initialize();
 
-                activeMonsterCount++;
-                Debug.Log($"활성화된 몬스터 수: {activeMonsterCount}");
+                activeMonsters.Add(monster);
+                Debug.Log($"활성화된 몬스터 수(생성 후): {activeMonsters.Count} {monster.name}");
                 monster.OnDisableEvent += DeactivateMonster;
             }
         }
@@ -79,21 +102,34 @@ public class MonsterSpawner : MonoBehaviour
 
     public void DeactivateMonster(Monster monster)
     {
-        activeMonsterCount--;
-        Debug.Log($"활성화된 몬스터 수: {activeMonsterCount}");
+        if (activeMonsters.Contains(monster))
+        {
+            activeMonsters.Remove(monster);
+            Debug.Log($"[Deactivate] 활성화된 몬스터 수: {activeMonsters.Count}");
+        }
+
+        ReturnMonster(monster);
     }
 
     public void ReturnMonster(Monster monster)
     {
-        if (monsterPool == null)
+        if (monsterPools == null || monsterPools.Count == 0)
         {
-            Debug.Log("ReturnMonster: monsterPool이 null입니다!");
+            Debug.Log("ReturnMonster: monsterPools가 비어있거나 null입니다!");
             return;
         }
 
-        monster.OnDisableEvent -= DeactivateMonster;
-        monster.gameObject.SetActive(false);
+        string monsterType = monster.monsterData.monsterType;
+        int poolIndex = monsterTypes.IndexOf(monsterType);
 
-        monsterPool.Release(monster);
+        if (poolIndex != -1)
+        {
+            ObjectPool<Monster> targetPool = monsterPools[poolIndex];
+
+            monster.OnDisableEvent -= DeactivateMonster;
+            monster.gameObject.SetActive(false);
+
+            targetPool.Release(monster);
+        }
     }
 }

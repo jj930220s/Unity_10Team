@@ -444,7 +444,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c92cf6f20c35a1248808649dee350908, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterPrefab: {fileID: 4558716864930935290, guid: 05ee4fdd054f2e04b9133654d18b0f80, type: 3}
+  monsterPrefabs:
+  - {fileID: 8947726655480984209, guid: 05ee4fdd054f2e04b9133654d18b0f80, type: 3}
+  - {fileID: 8947726655480984209, guid: 10652b4523125b64da19002687d2ab4f, type: 3}
+  - {fileID: 8947726655480984209, guid: 96bae3c0ea33da441ad999fa0070ffd7, type: 3}
+  - {fileID: 8947726655480984209, guid: cfdc7d338c9f1d4448ef3f54fc992986, type: 3}
   initialPoolSize: 10
   maxMonsterCount: 10
   player: {fileID: 1381477545}

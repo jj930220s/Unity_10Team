@@ -31,8 +31,7 @@ public class ObjectPool<T> where T : MonoBehaviour
         }
         else
         {
-            T obj = Object.Instantiate(prefab, parent);
-            return obj;
+            return null;
         }
     }
 

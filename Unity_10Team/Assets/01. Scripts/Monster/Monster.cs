@@ -5,19 +5,36 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
-    public float health = 100f;
+    public MonsterData monsterData;
+
+    public string monsterName;
+    public string monsterType;
+    public float health;
+    public float attackDamage;
+    public float moveSpeed;
 
     public delegate void OnDisableDelegate(Monster monster);
     public event OnDisableDelegate OnDisableEvent;
 
     public void Initialize()
     {
-        health = 100f;  // 체력 초기화
+        if (monsterData != null)
+        {
+            monsterName = monsterData.monsterName;
+            monsterType = monsterData.monsterType;
+            health = monsterData.health;
+            attackDamage = monsterData.attackDamage;
+            moveSpeed = monsterData.moveSpeed;
+        }
+        else
+        {
+            Debug.LogError("[Monster] monsterData가 설정되지 않았습니다!");
+        }
     }
 
     private void OnDisable()
     {
-        MonsterSpawner spawner = FindObjectOfType<MonsterSpawner>();
+        MonsterSpawner spawner = MonsterSpawner.Instance;
 
         if (spawner == null)
         {
@@ -26,5 +43,6 @@ public class Monster : MonoBehaviour
         }
         OnDisableEvent?.Invoke(this);
         spawner.ReturnMonster(this);
+        Debug.Log($"{gameObject.name} 비활성화됨");
     }
 }
