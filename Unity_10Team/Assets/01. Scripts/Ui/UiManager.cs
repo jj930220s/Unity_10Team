@@ -8,6 +8,7 @@ public class UiManager : Singleton<UiManager>
 
     private void Awake()
     {
+        Uis = GetComponentsInChildren<BaseUi>();
         foreach (var ui in Uis)
             ui.Init();
         OnUi(UITYPE.TITLE);
