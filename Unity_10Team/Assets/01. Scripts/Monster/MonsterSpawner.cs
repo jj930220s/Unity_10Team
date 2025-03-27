@@ -28,7 +28,7 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
             Monster monster = prefab.GetComponent<Monster>();
             ObjectPool<Monster> pool = new ObjectPool<Monster>(monster, initialPoolSize, transform);
             monsterPools.Add(pool);
-            monsterTypes.Add(monster.monsterData.monsterType);
+            monsterTypes.Add(monster.monsterData.monsterType.ToString());
         }
 
         StartCoroutine(SpawnMonstersRoutine());
@@ -119,7 +119,7 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
             return;
         }
 
-        string monsterType = monster.monsterData.monsterType;
+        string monsterType = monster.monsterData.monsterType.ToString();
         int poolIndex = monsterTypes.IndexOf(monsterType);
 
         if (poolIndex != -1)

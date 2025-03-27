@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MonsterData4
   m_EditorClassIdentifier: 
   monsterName: "\uBAAC\uC2A4\uD1304"
-  monsterType: "\uC6D0\uAC70\uB9AC"
+  monsterType: 
   health: 100
   attackDamage: 3
   moveSpeed: 3

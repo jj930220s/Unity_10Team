@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -8,7 +9,8 @@ public class Monster : MonoBehaviour
     public MonsterData monsterData;
 
     public string monsterName;
-    public string monsterType;
+    public MonsterType monsterType;
+    public AttackType attackType;
     public float health;
     public float attackDamage;
     public float moveSpeed;
@@ -22,6 +24,7 @@ public class Monster : MonoBehaviour
         {
             monsterName = monsterData.monsterName;
             monsterType = monsterData.monsterType;
+            attackType = monsterData.attackType;
             health = monsterData.health;
             attackDamage = monsterData.attackDamage;
             moveSpeed = monsterData.moveSpeed;
