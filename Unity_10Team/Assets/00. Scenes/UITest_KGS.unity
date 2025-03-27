@@ -194,8 +194,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 231811277}
-  - component: {fileID: 231811278}
   - component: {fileID: 231811279}
+  - component: {fileID: 231811278}
   m_Layer: 5
   m_Name: SettingUI
   m_TagString: Untagged
@@ -234,6 +234,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 224c4727f32d5484ca738dc407b12d80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  optionPrefeb: {fileID: 5911179301900724016, guid: 6e5e60dd9ae70b64fa7de1b288db9c8f, type: 3}
+  datas:
+  - OptionName: Volume
+    onValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
+  - OptionName: Sensitivity
+    onValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!114 &231811279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1932,7 +1942,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 347102432400958892, guid: b00cd396938d6154391b1a990c28d0e2, type: 3}
       propertyPath: buttonsInfo.Array.data[3].buttonName
-      value: Settings
+      value: Option
       objectReference: {fileID: 0}
     - target: {fileID: 347102432400958892, guid: b00cd396938d6154391b1a990c28d0e2, type: 3}
       propertyPath: buttonsInfo.Array.data[4].buttonName

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -15,11 +16,18 @@ public class SettingOption : MonoBehaviour
         optionName.text = name;
         value = Mathf.Clamp(value, 0, 100);
         slider.value = value / 100f;
-        OnValueChange();
+        slider.onValueChanged.Invoke(slider.value);
     }
 
-    public void OnValueChange()
+    public void Init(OptionData data)
     {
-        value.text = (slider.value * 100).ToString("F0");
+        slider.onValueChanged = data.onValueChanged;
+        slider.onValueChanged.AddListener(OnValueChange);
+        Init(data.OptionName);
+    }
+
+    public void OnValueChange(float changed)
+    {
+        value.text = (changed * 100).ToString("F0");
     }
 }
