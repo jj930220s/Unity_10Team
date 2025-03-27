@@ -11,6 +11,10 @@ public class PlayerTargeting : MonoBehaviour
     private void Update()
     {
         currentTarget = FindNearestEnemy();
+        if (currentTarget != null )
+        {
+            Debug.Log("적탐지");
+        }
     }
 
     //적찾기
