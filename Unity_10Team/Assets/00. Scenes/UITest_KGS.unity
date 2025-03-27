@@ -171,7 +171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 224c4727f32d5484ca738dc407b12d80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <UiType>k__BackingField: 0
 --- !u!1 &268060038
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +281,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526475489af6ad641a6fd4660b3a765a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <UiType>k__BackingField: 0
 --- !u!1 &697856624
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,7 +1002,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf42ba18798e7434cb0412145aacb4b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <UiType>k__BackingField: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

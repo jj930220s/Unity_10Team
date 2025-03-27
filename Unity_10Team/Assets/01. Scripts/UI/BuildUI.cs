@@ -8,5 +8,6 @@ public class BuildUI : BaseUI
     {
         base.Init();
         UiType = UITYPE.BUILD;
+        //
     }
 }

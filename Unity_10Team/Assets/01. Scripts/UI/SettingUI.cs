@@ -8,5 +8,6 @@ public class SettingUI : BaseUI
     {
         base.Init();
         UiType = UITYPE.SETTING;
+        //
     }
 }

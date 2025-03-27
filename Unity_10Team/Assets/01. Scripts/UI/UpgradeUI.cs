@@ -6,7 +6,7 @@ public class UpgradeUI : BaseUI
 {
     public override void Init()
     {
-        base.Init();        
+        base.Init();
         UiType = UITYPE.UPGRADE;
     }
 }
