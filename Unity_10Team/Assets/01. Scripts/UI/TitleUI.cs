@@ -13,6 +13,7 @@ public class ButtonInfo
 {
     public string buttonName;
     public UnityAction onclickEvent;
+    public Button.ButtonClickedEvent onClickEvent;
 
     public ButtonInfo(string buttonName, UnityAction onclickEvent)
     {
@@ -25,7 +26,7 @@ public class ButtonInfo
         TextMeshProUGUI buttonName = button.GetComponentInChildren<TextMeshProUGUI>();
         buttonName.text = this.buttonName;
 
-        button.onClick.AddListener(onclickEvent);
+        button.onClick = onClickEvent;
 
         return button;
     }
@@ -38,27 +39,28 @@ public class TitleUI : BaseUI
     [SerializeField] private Button titleButton;
     [SerializeField] private string gameSceneName;
 
-    private ButtonInfo[] buttonInfos;
+    [SerializeField] private ButtonInfo[] buttonInfos;
 
     public override void Init()
     {
         base.Init();
         UiType = UITYPE.TITLE;
-        ButtonInfo[] buttonInfos =
-        {
-            new ButtonInfo("GameStart", () => SceneManager.LoadScene(gameSceneName)),
-            new ButtonInfo("Upgrade", () => UIManager.Instance.OnUI(UITYPE.UPGRADE)),
-            new ButtonInfo("Drons", () => UIManager.Instance.OnUI(UITYPE.BUILD)),
-            new ButtonInfo("Setting", () => UIManager.Instance.OnUI(UITYPE.SETTING)),
-#if UNITY_EDITOR
-            new ButtonInfo("Exit", EditorApplication.ExitPlaymode)
-#else
-            new ButtonInfo("Exit", Application.Quit)
-#endif
-        };
-        this.buttonInfos = buttonInfos;
 
         foreach (var info in buttonInfos)
             info.InitButton(Instantiate(titleButton, Buttons));
+    }
+
+    public void OnStartGame()
+    {
+        SceneManager.LoadScene(gameSceneName);
+    }
+
+    public void OnExitGame()
+    {
+#if UNITY_EDITOR
+        EditorApplication.ExitPlaymode();
+#else
+        Application.Quit();
+#endif
     }
 }

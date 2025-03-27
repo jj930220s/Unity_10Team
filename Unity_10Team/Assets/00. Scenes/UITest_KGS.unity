@@ -1516,6 +1516,87 @@ MonoBehaviour:
   Buttons: {fileID: 268060039}
   titleButton: {fileID: 823148865181045370, guid: b32196e8ec4fd2241927a20f784819cd, type: 3}
   gameSceneName: SampleScene
+  buttonInfos:
+  - buttonName: GameStart
+    onClickEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1549661832}
+          m_TargetAssemblyTypeName: TitleUI, Assembly-CSharp
+          m_MethodName: OnStartGame
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - buttonName: Upgrade
+    onClickEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1342312375}
+          m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+          m_MethodName: OnUI
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 484578617}
+            m_ObjectArgumentAssemblyTypeName: BaseUI, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - buttonName: Drons
+    onClickEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1342312375}
+          m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+          m_MethodName: OnUI
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 2051698496}
+            m_ObjectArgumentAssemblyTypeName: BaseUI, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - buttonName: Settings
+    onClickEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1342312375}
+          m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+          m_MethodName: OnUI
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 231811278}
+            m_ObjectArgumentAssemblyTypeName: BaseUI, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - buttonName: Exit
+    onClickEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1549661832}
+          m_TargetAssemblyTypeName: TitleUI, Assembly-CSharp
+          m_MethodName: OnExitGame
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1589542476
 GameObject:
   m_ObjectHideFlags: 0
