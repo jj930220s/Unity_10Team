@@ -11,7 +11,7 @@ public class UIManager : Singleton<UIManager>
         Uis = GetComponentsInChildren<BaseUI>();
         foreach (var ui in Uis)
             ui.Init();
-        OnUi(UITYPE.TITLE);
+        OnUI(UITYPE.TITLE);
     }
 
     protected override void Init()
@@ -20,9 +20,14 @@ public class UIManager : Singleton<UIManager>
         _instance = this;
     }
 
-    public void OnUi(UITYPE type)
+    public void OnUI(UITYPE type)
     {
         foreach (var ui in Uis)
             ui.gameObject.SetActive(ui.UiType == type);
+    }
+
+    public void OnUI(BaseUI onUI)
+    {
+        OnUI(onUI.UiType);
     }
 }
