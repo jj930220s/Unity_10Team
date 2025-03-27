@@ -37,4 +37,10 @@ public class PlayerTargeting : MonoBehaviour
         return closest;
     }
 
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, searchRadius);
+    }
 }
