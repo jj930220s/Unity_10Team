@@ -195,6 +195,7 @@ GameObject:
   m_Component:
   - component: {fileID: 231811277}
   - component: {fileID: 231811278}
+  - component: {fileID: 231811279}
   m_Layer: 5
   m_Name: SettingUI
   m_TagString: Untagged
@@ -233,6 +234,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 224c4727f32d5484ca738dc407b12d80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &231811279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231811276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &390882705
 GameObject:
   m_ObjectHideFlags: 0
