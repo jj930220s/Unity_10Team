@@ -132,4 +132,10 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
             targetPool.Release(monster);
         }
     }
+
+    public Monster GetRandomMonster()
+    {
+        int randomIndex = Random.Range(0, monsterPools.Count);
+        return monsterPools[randomIndex].Get();
+    }
 }

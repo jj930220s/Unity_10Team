@@ -22,8 +22,13 @@ public class Monster : MonoBehaviour
     public delegate void OnDisableDelegate(Monster monster);
     public event OnDisableDelegate OnDisableEvent;
 
+    public delegate void OnDeathDelegate(Monster monster);
+    public event OnDeathDelegate OnDeathEvent;
+
     private void Start()
     {
+        Initialize();
+
         if (animator == null)
         {
             animator = GetComponent<Animator>();
@@ -85,9 +90,11 @@ public class Monster : MonoBehaviour
         }
     }
 
+    [ContextMenu("Kill Monster")]
     private void Die()
     {
-        OnDisableEvent?.Invoke(this);
+        Debug.Log("Die() called, invoking OnDeathEvent");
+        OnDeathEvent?.Invoke(this);
         gameObject.SetActive(false);
         Debug.Log($"{monsterName}가 사망했습니다");
     }
