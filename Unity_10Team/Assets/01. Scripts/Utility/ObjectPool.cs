@@ -41,6 +41,4 @@ public class ObjectPool<T> where T : MonoBehaviour
         obj.gameObject.SetActive(false);
         pool.Enqueue(obj);
     }
-
-
 }
