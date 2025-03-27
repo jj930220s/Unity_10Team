@@ -2,13 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UiManager : MonoBehaviour
+public class UiManager : Singleton<UiManager>
 {
-    public BaseUi[] uis;
+    [field: SerializeField] public BaseUi[] Uis { get; private set; }
+
+    private void Awake()
+    {
+        foreach (var ui in Uis)
+            ui.Init();
+        OnUi(UITYPE.TITLE);
+    }
+
+    protected override void Init()
+    {
+        base.Init();
+        _instance = this;
+    }
 
     public void OnUi(UITYPE type)
     {
-        foreach (var ui in uis)
+        foreach (var ui in Uis)
             ui.gameObject.SetActive(ui.UiType == type);
     }
 }

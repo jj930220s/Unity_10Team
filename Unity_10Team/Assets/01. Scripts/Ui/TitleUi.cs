@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class TitleUi : BaseUi
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Init()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        base.Init();
+        UiType = UITYPE.TITLE;
     }
 }

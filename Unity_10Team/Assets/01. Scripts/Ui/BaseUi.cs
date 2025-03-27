@@ -12,6 +12,10 @@ public enum UITYPE
 
 public class BaseUi : MonoBehaviour
 {
-    protected UITYPE uiType;
-    public UITYPE UiType => uiType;
+    public UITYPE UiType { get; protected set; }
+
+    public virtual void Init()
+    {
+
+    }
 }
