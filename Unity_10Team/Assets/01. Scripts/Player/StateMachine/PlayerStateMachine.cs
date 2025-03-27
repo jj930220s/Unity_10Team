@@ -9,12 +9,15 @@ public class PlayerStateMachine : StateMachine
 
     public PlayerIdleState idleState { get; }
     public PlayerMoveState moveState { get; }
+
     public PlayerAttackState attackState { get; }
+    public PlayerShotState shotState { get; }
 
     public Vector2 movementInput { get; set; }
     public float movementSpeed { get; private set; }
     public float rotationDamping { get; private set; }
     public float movementSpeedModifier { get; set; } = 1f;
+    public float attackMovementSpeedModifier { get; set; } = 0.5f;
 
     public PlayerStateMachine(Player player)
     {
@@ -23,8 +26,10 @@ public class PlayerStateMachine : StateMachine
         idleState = new PlayerIdleState(this);
         moveState = new PlayerMoveState(this);
         attackState = new PlayerAttackState(this);
+        shotState = new PlayerShotState(this);
 
         movementSpeed = player.data.defaultData.baseSpeed;
+        attackMovementSpeedModifier = player.data.attackData.attackMoveSpeedModifier;
         rotationDamping = player.data.defaultData.baseRotationDamping;
     }
 }

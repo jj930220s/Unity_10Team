@@ -16,4 +16,5 @@ MonoBehaviour:
     <baseSpeed>k__BackingField: 6
     <baseRotationDamping>k__BackingField: 10
     <moveSpeedModifier>k__BackingField: 1
-    <attackSpeedModifier>k__BackingField: 1.5
+  <attackData>k__BackingField:
+    <attackMoveSpeedModifier>k__BackingField: 0.5

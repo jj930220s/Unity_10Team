@@ -7,12 +7,15 @@ public class PlayerBaseState : IState
 {
     protected PlayerStateMachine stateMachine;
     protected readonly PlayerDefaultData defaultData;
+    protected readonly PlayerAttackData attackData;
 
     public PlayerBaseState(PlayerStateMachine stateMachine)
     {
         this.stateMachine = stateMachine;
         defaultData = this.stateMachine.player.data.defaultData;
+        attackData = this.stateMachine.player.data.attackData;
     }
+
     public virtual void StateEnter()
     {
         AddInputActionsCallbacks();
@@ -20,7 +23,6 @@ public class PlayerBaseState : IState
 
     public virtual void StateUpdate()
     {
-        Move();
     }
 
     public virtual void StateExit()
@@ -52,24 +54,24 @@ public class PlayerBaseState : IState
         stateMachine.movementInput = stateMachine.player.inputController.playerActions.Move.ReadValue<Vector2>();
     }
 
-    private void Move()
+    protected virtual void Move()
     {
         Vector3 movementDirection = GetMovementDirection();
 
         Move(movementDirection);
         Rotate(movementDirection);
     }
-    private void Move(Vector3 direction)
+    protected void Move(Vector3 direction)
     {
         float movementSpeed = GetMovementSpeed();
 
         stateMachine.player.characterController.Move((direction * movementSpeed) * Time.deltaTime);
     }
 
-    private Vector3 GetMovementDirection()
+    protected Vector3 GetMovementDirection()
     {
-        Vector3 forward = Vector3.forward;
-        Vector3 right = Vector3.right;
+        Vector3 forward = stateMachine.player.mainCameraTransform.forward;
+        Vector3 right = stateMachine.player.mainCameraTransform.right;
 
         forward.y = 0;
         right.y = 0;
@@ -86,8 +88,10 @@ public class PlayerBaseState : IState
         return moveSpeed;
     }
 
-    private void Rotate(Vector3 direction)
+    protected void Rotate(Vector3 direction)
     {
+        direction.y = 0f;
+
         if (direction != Vector3.zero)
         {
             Transform playerTransform = stateMachine.player.transform;
@@ -100,23 +104,33 @@ public class PlayerBaseState : IState
     {
         PlayerController input = stateMachine.player.inputController;
         input.playerActions.Move.canceled += OnMoveCanceled;
-        //input.playerActions.Attack.started += OnAttackStarted;
+        input.playerActions.Attack.started += OnAttackStarted;
+        input.playerActions.Attack.performed += OnAttackPerformed;
+        input.playerActions.Attack.canceled += OnAttackCanceled;
     }
 
     protected virtual void RemoveInputActionsCallbacks()
     {
         PlayerController input = stateMachine.player.inputController;
         input.playerActions.Move.canceled -= OnMoveCanceled;
-        //input.playerActions.Attack.started -= OnAttackStarted;
+        input.playerActions.Attack.started -= OnAttackStarted;
+        input.playerActions.Attack.performed -= OnAttackPerformed;
+        input.playerActions.Attack.canceled -= OnAttackCanceled;
     }
 
     protected virtual void OnMoveCanceled(InputAction.CallbackContext context)
     {
-
     }
 
     protected virtual void OnAttackStarted(InputAction.CallbackContext context)
     {
+    }
 
+    protected virtual void OnAttackPerformed(InputAction.CallbackContext context)
+    {
+    }
+
+    protected virtual void OnAttackCanceled(InputAction.CallbackContext context)
+    {
     }
 }

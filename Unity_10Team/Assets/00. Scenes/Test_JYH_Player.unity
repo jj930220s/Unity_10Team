@@ -213,7 +213,10 @@ MonoBehaviour:
     defaultParameterName: '@Default'
     idleParameterName: Idle
     moveParameterName: Move
-    attackParameterName: Attack
+    attackParameterName: '@Attack'
+    shotParameterName: Shot
+    verticalParameterName: Vertical
+    horizontalParameterName: Horizontal
 --- !u!1 &1007425957
 GameObject:
   m_ObjectHideFlags: 3
@@ -491,7 +494,7 @@ GameObject:
   - component: {fileID: 1987299444}
   - component: {fileID: 1987299443}
   - component: {fileID: 1987299442}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
