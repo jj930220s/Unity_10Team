@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UiManager : Singleton<UiManager>
+public class UIManager : Singleton<UIManager>
 {
     [field: SerializeField] public BaseUI[] Uis { get; private set; }
 

@@ -47,9 +47,9 @@ public class TitleUI : BaseUI
         ButtonInfo[] buttonInfos =
         {
             new ButtonInfo("GameStart", () => SceneManager.LoadScene(gameSceneName)),
-            new ButtonInfo("Upgrade", () => UiManager.Instance.OnUi(UITYPE.UPGRADE)),
-            new ButtonInfo("Drons", () => UiManager.Instance.OnUi(UITYPE.BUILD)),
-            new ButtonInfo("Setting", () => UiManager.Instance.OnUi(UITYPE.SETTING)),
+            new ButtonInfo("Upgrade", () => UIManager.Instance.OnUi(UITYPE.UPGRADE)),
+            new ButtonInfo("Drons", () => UIManager.Instance.OnUi(UITYPE.BUILD)),
+            new ButtonInfo("Setting", () => UIManager.Instance.OnUi(UITYPE.SETTING)),
 #if UNITY_EDITOR
             new ButtonInfo("Exit", EditorApplication.ExitPlaymode)
 #else
