@@ -20,7 +20,9 @@ public class MonsterData : ScriptableObject
     public string monsterName;
     public MonsterType monsterType;
     public AttackType attackType;
-    public float health;
     public float attackDamage;
+    public float attackRange;
+    public float attackCooldown;
+    public float health;
     public float moveSpeed;
 }

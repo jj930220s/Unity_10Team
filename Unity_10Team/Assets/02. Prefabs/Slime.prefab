@@ -425,6 +425,7 @@ GameObject:
   - component: {fileID: 4047972025199878}
   - component: {fileID: 95457531584545886}
   - component: {fileID: -2209506496038725275}
+  - component: {fileID: 7274535626061449519}
   m_Layer: 0
   m_Name: Slime
   m_TagString: Untagged
@@ -484,7 +485,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterData: {fileID: 11400000, guid: 136e054439043c84fb2a11eaa0de3e2e, type: 2}
   monsterName: 
-  monsterType: 
+  monsterType: 0
+  attackType: 0
   health: 0
   attackDamage: 0
+  attackRange: 0
   moveSpeed: 0
+--- !u!114 &7274535626061449519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931298151966786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c68e496048a060b4586a98e60a3cea61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
