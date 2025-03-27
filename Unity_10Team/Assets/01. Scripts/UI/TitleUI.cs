@@ -12,14 +12,7 @@ using UnityEngine.UI;
 public class ButtonInfo
 {
     public string buttonName;
-    public UnityAction onclickEvent;
     public Button.ButtonClickedEvent onClickEvent;
-
-    public ButtonInfo(string buttonName, UnityAction onclickEvent)
-    {
-        this.buttonName = buttonName;
-        this.onclickEvent = onclickEvent;
-    }
 
     public Button InitButton(Button button)
     {
