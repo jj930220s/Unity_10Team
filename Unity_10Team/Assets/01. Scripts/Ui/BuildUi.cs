@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildUi : BaseUi
+public class BuildUI : BaseUI
 {
     public override void Init()
     {

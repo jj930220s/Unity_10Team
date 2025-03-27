@@ -31,7 +31,7 @@ public class ButtonInfo
     }
 }
 
-public class TitleUi : BaseUi
+public class TitleUI : BaseUI
 {
     [SerializeField] private RectTransform Title;
     [SerializeField] private RectTransform Buttons;

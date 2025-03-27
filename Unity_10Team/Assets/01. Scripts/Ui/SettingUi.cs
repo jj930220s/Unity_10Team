@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SettingUi : BaseUi
+public class SettingUI : BaseUI
 {
     public override void Init()
     {

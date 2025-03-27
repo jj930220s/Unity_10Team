@@ -12,7 +12,7 @@ public enum UITYPE
     SETTING
 }
 
-public class BaseUi : MonoBehaviour
+public class BaseUI : MonoBehaviour
 {
     public UITYPE UiType { get; protected set; }
 

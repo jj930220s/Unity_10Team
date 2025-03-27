@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class UiManager : Singleton<UiManager>
 {
-    [field: SerializeField] public BaseUi[] Uis { get; private set; }
+    [field: SerializeField] public BaseUI[] Uis { get; private set; }
 
     private void Awake()
     {
-        Uis = GetComponentsInChildren<BaseUi>();
+        Uis = GetComponentsInChildren<BaseUI>();
         foreach (var ui in Uis)
             ui.Init();
         OnUi(UITYPE.TITLE);
