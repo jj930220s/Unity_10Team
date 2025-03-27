@@ -54,17 +54,17 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
         {
             if (activeMonsters.Count >= maxMonsterCount) return;
 
-            int attempts = 0;  // 무한 루프 방지를 위한 최대 시도 횟수
+            int attempts = 0;
             Monster monster = null;
 
-            while (attempts < 5)  // 최대 5번까지 시도
+            while (attempts < 5)
             {
                 int randomIndex = Random.Range(0, monsterPools.Count);
                 monster = monsterPools[randomIndex].Get();
 
                 if (monster != null && !activeMonsters.Contains(monster))
                 {
-                    break;  // 정상적으로 새로운 몬스터를 가져왔다면 반복문 탈출
+                    break;
                 }
 
                 attempts++;
@@ -72,8 +72,8 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
 
             if (monster == null || activeMonsters.Contains(monster))
             {
-                Debug.LogWarning("새로운 몬스터를 가져올 수 없습니다.");
-                break;  // 새로운 몬스터를 가져오지 못하면 스폰 종료
+                Debug.LogWarning("중복이거나 monster가 Null입니다.");
+                break;
             }
 
             if (monster != null)

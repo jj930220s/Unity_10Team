@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 5876949206263575393}
   - component: {fileID: 1121993135170234259}
   m_Layer: 0
-  m_Name: MushroomAngryPBR
+  m_Name: Mushroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

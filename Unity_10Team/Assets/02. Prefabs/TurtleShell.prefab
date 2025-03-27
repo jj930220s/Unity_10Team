@@ -517,7 +517,7 @@ GameObject:
   - component: {fileID: 95706204029656638}
   - component: {fileID: 1437458886579736110}
   m_Layer: 0
-  m_Name: TurtleShellPBR
+  m_Name: TurtleShell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
