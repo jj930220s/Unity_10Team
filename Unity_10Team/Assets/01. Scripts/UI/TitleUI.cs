@@ -35,19 +35,20 @@ public class ButtonInfo
 public class TitleUI : BaseUI
 {
     [SerializeField] private RectTransform Title;
-    [SerializeField] private RectTransform Buttons;
-    [SerializeField] private Button titleButton;
     [SerializeField] private string gameSceneName;
 
-    [SerializeField] private ButtonInfo[] buttonInfos;
+    [Header("ButtonInitInfo")]
+    [SerializeField] private RectTransform Buttons;
+    [SerializeField] private Button titleButtonPrepeb;
+    [SerializeField] private ButtonInfo[] buttonsInfo;
 
     public override void Init()
     {
         base.Init();
         UiType = UITYPE.TITLE;
 
-        foreach (var info in buttonInfos)
-            info.InitButton(Instantiate(titleButton, Buttons));
+        foreach (var info in buttonsInfo)
+            info.InitButton(Instantiate(titleButtonPrepeb, Buttons));
     }
 
     public void OnStartGame()
