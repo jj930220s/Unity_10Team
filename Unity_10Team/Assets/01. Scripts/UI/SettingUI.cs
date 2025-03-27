@@ -12,7 +12,7 @@ public class OptionData
 
     public SettingOption Init(SettingOption option)
     {
-        option.Init(OptionName);
+        option.Init(this);
 
         return option;
     }

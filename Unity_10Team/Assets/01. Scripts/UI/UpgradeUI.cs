@@ -33,6 +33,11 @@ public class UpgradeUI : BaseUI
     [SerializeField] WealthUI wealthInfoPrefebs;
     Dictionary<WEALTHTYPE, WealthUI> infoUIs = new();
 
+    [Header("Upgrade")]
+    [SerializeField] RectTransform content;
+    [SerializeField] UpgradePannel PannelPrefeb;
+    [SerializeField] Upgrade[] upgrades;
+
     public override void Init()
     {
         base.Init();
@@ -40,6 +45,9 @@ public class UpgradeUI : BaseUI
 
         foreach (var info in wealthInfos)
             infoUIs[info.wealthType] = info.Init(Instantiate(wealthInfoPrefebs, wealth));
+
+        foreach (var upgrade in upgrades)
+            Instantiate(PannelPrefeb, content);
 
         UpdateUI();
     }

@@ -499,6 +499,23 @@ MonoBehaviour:
     icon: {fileID: 0}
     textColor: {r: 1, g: 0.78431374, b: 0, a: 1}
   wealthInfoPrefebs: {fileID: 3400064161705983480, guid: 5a79e255c6987504ca4c898255ba5fa4, type: 3}
+  content: {fileID: 524129158}
+  PannelPrefeb: {fileID: 1425345672322985075, guid: 02f6d3ce72255f2429f14d4e18a66d6c, type: 3}
+  upgrades:
+  - name: "\uACF5\uC5C5"
+    icon: {fileID: 0}
+    cost: 20
+    upgraded: 0
+    upgradeStat:
+    - type: 1
+      value: 1
+  - name: "\uBC29\uC5C5"
+    icon: {fileID: 0}
+    cost: 0
+    upgraded: 0
+    upgradeStat:
+    - type: 2
+      value: 2
 --- !u!1 &519201341
 GameObject:
   m_ObjectHideFlags: 0
