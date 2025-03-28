@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeName: AttackPlus
   icon: {fileID: 0}
-  description: upgrad atk.
+  description: upgrade atk.
   cost: 10
   upgradeStat:
   - type: 1

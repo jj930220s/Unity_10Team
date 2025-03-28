@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UpgradeUI : BaseUI
 {
@@ -23,6 +25,13 @@ public class UpgradeUI : BaseUI
     [SerializeField] Upgrade[] upgrades;
     List<UpgradePannel> upgradePannels = new();
 
+    [Header("SelectedUpgrade")]
+    [SerializeField] Image selectedIcon;
+    [SerializeField] TextMeshProUGUI upgradeName;
+    [SerializeField] TextMeshProUGUI upgradeDesc;
+    [SerializeField] Button upgradeButton;
+    Upgrade selectedUpgrade;
+
     public override void Init()
     {
         base.Init();
@@ -35,7 +44,7 @@ public class UpgradeUI : BaseUI
             statInfoUIs[info.statType] = Instantiate(StatusPrefeb, playerStat).Init(info);
 
         foreach (var upgrade in upgrades)
-            upgradePannels.Add(Instantiate(PannelPrefeb, content).Init(upgrade, upgradePannels.Count));
+            upgradePannels.Add(Instantiate(PannelPrefeb, content).Init(upgrade, UpgradeSelected, upgradePannels.Count));
 
         UpdateUI();
     }
@@ -52,5 +61,26 @@ public class UpgradeUI : BaseUI
 
         foreach (var pannel in upgradePannels)
             pannel.UpdateInfo();
+
+        upgradeName.text = upgradeDesc.text = string.Empty;
+        selectedIcon.gameObject.SetActive(false);
+        upgradeButton.gameObject.SetActive(false);
+    }
+
+    public void UpgradeSelected(int idx)
+    {
+        UpdateUI();
+        selectedUpgrade = upgrades[idx];
+
+        if (selectedUpgrade == null || selectedUpgrade.upgraded) return;
+
+        selectedIcon.gameObject.SetActive(true);
+        upgradeButton.gameObject.SetActive(selectedUpgrade.data.cost <= GameManager.Instance.wealth.wealths[WEALTHTYPE.Gold]);
+
+        selectedIcon.sprite = selectedUpgrade.data.icon;
+        upgradeName.text = selectedUpgrade.data.upgradeName;
+        if (!upgradeButton.gameObject.activeSelf)
+            upgradeName.text += " (Can't Upgrade)";
+        upgradeDesc.text = selectedUpgrade.data.description;
     }
 }

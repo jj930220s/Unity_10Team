@@ -14,14 +14,16 @@ public class UpgradePannel : MonoBehaviour
     [SerializeField] Color costDisabled;
     Upgrade upgrade;
     int idx;
+    public Action<int> pannelclickAction;
 
-    public UpgradePannel Init(Upgrade upgrade, int idx = 0)
+    public UpgradePannel Init(Upgrade upgrade, Action<int> action, int idx = 0)
     {
         this.upgrade = upgrade;
         icon.sprite = upgrade.data.icon;
         cost.text = upgrade.data.cost.ToString();
 
         this.idx = idx;
+        pannelclickAction += action;
 
         return this;
     }
@@ -34,5 +36,10 @@ public class UpgradePannel : MonoBehaviour
             cost.text = "";
 
         saledMask.gameObject.SetActive(upgrade.upgraded);
+    }
+
+    public void OnClickPannel()
+    {
+        pannelclickAction.Invoke(idx);
     }
 }
