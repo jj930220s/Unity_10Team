@@ -87,8 +87,7 @@ public class UpgradeUI : BaseUI
     public void OnUpgrade()
     {
         GameManager.Instance.wealth.PerChase(WEALTHTYPE.Gold, selectedUpgrade.data.cost);
-        //플레이어의 능력치에 업그레이드 수치 적용
-        selectedUpgrade.upgraded = true;
+        selectedUpgrade.ApplyUpgrade(GameManager.Instance.player);
 
         UpdateUI();
     }
