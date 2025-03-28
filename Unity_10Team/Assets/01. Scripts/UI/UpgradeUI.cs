@@ -34,7 +34,8 @@ public class UpgradeUI : BaseUI
 
     void UpdateUI()
     {
-        //foreach (var info in infoUIs)
-        //    info = player.wealth[info.Key];
+        foreach (var info in wealthInfoUIs)
+            if (GameManager.Instance.wealth.wealths.ContainsKey(info.Key))
+                info.Value.UpdateInfo(GameManager.Instance.wealth.wealths[info.Key]);
     }
 }
