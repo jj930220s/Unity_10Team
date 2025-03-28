@@ -11,5 +11,5 @@ public class Upgrade
     public Sprite icon;
     public int cost;
     public bool upgraded;
-    public Status[] upgradeStat;
+    //public Status[] upgradeStat;
 }

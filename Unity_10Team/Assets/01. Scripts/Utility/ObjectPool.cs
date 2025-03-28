@@ -40,4 +40,14 @@ public class ObjectPool<T> where T : MonoBehaviour
         obj.gameObject.SetActive(false);
         pool.Enqueue(obj);
     }
+
+    public void ReleaseAllObject()
+    {
+        foreach(T obj in pool)
+        {
+            obj.gameObject.SetActive(false);
+            pool.Enqueue((T)obj);
+        }
+        pool.Clear();
+    }
 }

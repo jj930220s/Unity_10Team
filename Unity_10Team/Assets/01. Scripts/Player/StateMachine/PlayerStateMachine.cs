@@ -11,7 +11,6 @@ public class PlayerStateMachine : StateMachine
     public PlayerMoveState moveState { get; }
 
     public PlayerAttackState attackState { get; }
-    public PlayerShotState shotState { get; }
 
     public Vector2 movementInput { get; set; }
     public float movementSpeed { get; private set; }
@@ -26,9 +25,8 @@ public class PlayerStateMachine : StateMachine
         idleState = new PlayerIdleState(this);
         moveState = new PlayerMoveState(this);
         attackState = new PlayerAttackState(this);
-        shotState = new PlayerShotState(this);
 
-        movementSpeed = player.data.defaultData.baseSpeed;
+        movementSpeed = player.pStat.status[STATTYPE.SPEED];
         attackMovementSpeedModifier = player.data.attackData.attackMoveSpeedModifier;
         rotationDamping = player.data.defaultData.baseRotationDamping;
     }

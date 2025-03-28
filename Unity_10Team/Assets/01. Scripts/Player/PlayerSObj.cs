@@ -6,6 +6,11 @@ using UnityEngine;
 [Serializable]
 public class PlayerDefaultData
 {
+    [field: Header("BaseData")]
+    [field: SerializeField][field: Range(0f, 1000f)] public float baseHP { get; private set; } = 100f;
+    [field: SerializeField][field: Range(0f, 100f)] public float baseAttack { get; private set; } = 10f;
+    [field: SerializeField][field: Range(0f, 100f)] public float baseDefence { get; private set; } = 10f;
+    [field: SerializeField][field: Range(0.25f, 2f)] public float baseAttackDelay { get; private set; } = 1f;
     [field: SerializeField][field: Range(0f, 25f)] public float baseSpeed { get; private set; } = 6f;
     [field: SerializeField][field: Range(0f, 25f)] public float baseRotationDamping { get; private set; } = 10f;
 

@@ -123,7 +123,7 @@ public class PlayerAttackState : PlayerBaseState
         {
             stateMachine.player.animator.SetTrigger("Shot");
 
-            yield return new WaitForSeconds(1.0f); // 나중에 플레이어 공속 스탯 등과 연동해서 수정필요
+            yield return new WaitForSeconds(playerStatus.status[STATTYPE.ATKDELAY]);
         }
     }
 }
