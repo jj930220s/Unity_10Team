@@ -11,8 +11,14 @@ public class DronPannel : MonoBehaviour
     [SerializeField] Image icon;
     [SerializeField] TextMeshProUGUI dronName;
     [SerializeField] Image typeIcon;
+    [SerializeField] Outline builded;
     Button clickButton;
     int idx;
+    public bool isSelected
+    {
+        get => builded.enabled;
+        set => builded.enabled = value;
+    }
 
     public DronPannel Init(DronData data, UnityAction<int> onClick, int idx = 0)
     {
@@ -21,6 +27,7 @@ public class DronPannel : MonoBehaviour
 
         clickButton = GetComponent<Button>();
         clickButton.onClick.AddListener(() => onClick(this.idx));
+        isSelected = false;
 
         this.idx = idx;
         return this;
