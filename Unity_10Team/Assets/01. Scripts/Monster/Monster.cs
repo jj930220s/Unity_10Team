@@ -9,6 +9,7 @@ public class Monster : MonoBehaviour
     public Animator animator;
     public MonsterData monsterData;
     private MonsterAttack attack;
+    public Transform target;
 
     public string monsterName;
     public MonsterType monsterType;

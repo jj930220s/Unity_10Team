@@ -28,6 +28,7 @@ public class EnemyAI : MonoBehaviour
         {
             agent.speed = monster.moveSpeed;            // 이동속도
             agent.stoppingDistance = monster.attackRange; // 사정거리
+            monster.target = player;
         }
     }
 

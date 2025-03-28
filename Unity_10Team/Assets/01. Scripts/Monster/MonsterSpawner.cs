@@ -132,12 +132,10 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
 
         if (poolIndex != -1)
         {
-            ObjectPool<Monster> targetPool = monsterPools[poolIndex];
-
             monster.OnDisableEvent -= DeactivateMonster;
             monster.gameObject.SetActive(false);
 
-            targetPool.Release(monster);
+            monsterPools[poolIndex].Release(monster);
         }
     }
 
