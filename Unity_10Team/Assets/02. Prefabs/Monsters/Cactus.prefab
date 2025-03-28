@@ -170,6 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   monsterData: {fileID: 11400000, guid: 0d46548ac2e4d164491e44edd71017b7, type: 2}
+  target: {fileID: 0}
   monsterName: 
   monsterType: 0
   attackType: 0
@@ -178,6 +179,8 @@ MonoBehaviour:
   attackCooldown: 0
   health: 0
   moveSpeed: 0
+  isDead: 0
+  projectilePrefab: {fileID: 560055856979309104, guid: 9a96397d82a50fb44bbdee350150c34d, type: 3}
 --- !u!114 &-148038010124867661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,6 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c68e496048a060b4586a98e60a3cea61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handTransform: {fileID: 5000040911161189537}
 --- !u!114 &-7339528428363561117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,6 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  monster: {fileID: 0}
 --- !u!195 &-2457302405919948840
 NavMeshAgent:
   m_ObjectHideFlags: 0

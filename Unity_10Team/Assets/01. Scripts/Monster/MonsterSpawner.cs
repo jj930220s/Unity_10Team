@@ -12,15 +12,14 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
     [SerializeField] private int spawnCount = 5;
     [SerializeField] private float safeRadius = 3f;
 
-    private List<ObjectPool<Monster>> monsterPools = new List<ObjectPool<Monster>>();
-    private List<Monster> activeMonsters = new List<Monster>();
-    private List<string> monsterTypes = new List<string>();
+    private Dictionary<GameObject, ObjectPool<Monster>> monsterPools = new Dictionary<GameObject, ObjectPool<Monster>>();
+    private HashSet<Monster> activeMonsters = new HashSet<Monster>();
 
     void Start()
     {
         if (monsterPrefabs.Length == 0)
         {
-            Debug.LogError("[MonsterSpawner] 몬스터 프리팹이 설정되지 않았습니다!");
+            Debug.LogError("몬스터 프리팹이 설정되지 않았습니다");
             return;
         }
 
@@ -28,8 +27,7 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
         {
             Monster monster = prefab.GetComponent<Monster>();
             ObjectPool<Monster> pool = new ObjectPool<Monster>(monster, initialPoolSize, transform);
-            monsterPools.Add(pool);
-            monsterTypes.Add(monster.monsterData.monsterType.ToString());
+            monsterPools.Add(prefab, pool); 
         }
 
         StartCoroutine(SpawnMonstersRoutine());
@@ -60,8 +58,9 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
 
             while (attempts < 5)
             {
-                int randomIndex = Random.Range(0, monsterPools.Count);
-                monster = monsterPools[randomIndex].Get();
+                // 랜덤 인덱스로 풀을 선택하고 몬스터를 얻음
+                GameObject randomPrefab = monsterPrefabs[Random.Range(0, monsterPrefabs.Length)];
+                monster = monsterPools[randomPrefab].Get();
 
                 if (monster != null && !activeMonsters.Contains(monster))
                 {
@@ -73,7 +72,7 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
 
             if (monster == null || activeMonsters.Contains(monster))
             {
-                Debug.LogWarning("중복이거나 monster가 Null입니다.");
+                Debug.LogWarning("[SpawnMonsters] 중복이거나 monster가 Null입니다.");
                 break;
             }
 
@@ -87,7 +86,7 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
                 monster.Initialize();
 
                 activeMonsters.Add(monster);
-                Debug.Log($"활성화된 몬스터 수(생성 후): {activeMonsters.Count} {monster.name}");
+                Debug.Log($"[SpawnMonsters] 활성화된 몬스터 수(생성 후): {activeMonsters.Count} {monster.name}");
                 monster.OnDisableEvent += DeactivateMonster;
             }
         }
@@ -123,27 +122,28 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
     {
         if (monsterPools == null || monsterPools.Count == 0)
         {
-            Debug.Log("ReturnMonster: monsterPools가 비어있거나 null입니다!");
+            Debug.Log("[ReturnMonster] monsterPools가 비어있거나 null입니다");
             return;
         }
 
-        string monsterType = monster.monsterData.monsterType.ToString();
-        int poolIndex = monsterTypes.IndexOf(monsterType);
-
-        if (poolIndex != -1)
+        if (activeMonsters.Contains(monster))
         {
-            ObjectPool<Monster> targetPool = monsterPools[poolIndex];
+            activeMonsters.Remove(monster);
+            Debug.Log($"[Return] 활성화된 몬스터 수: {activeMonsters.Count}");
+        }
 
+        // 풀을 찾기 위해 키를 사용
+        foreach (var pool in monsterPools.Values)
+        {
             monster.OnDisableEvent -= DeactivateMonster;
-            monster.gameObject.SetActive(false);
-
-            targetPool.Release(monster);
+            pool.Release(monster);
+            break;
         }
     }
 
     public Monster GetRandomMonster()
     {
-        int randomIndex = Random.Range(0, monsterPools.Count);
-        return monsterPools[randomIndex].Get();
+        GameObject randomPrefab = monsterPrefabs[Random.Range(0, monsterPrefabs.Length)];
+        return monsterPools[randomPrefab].Get();
     }
 }

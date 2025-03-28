@@ -11,7 +11,6 @@ public class MonsterPattern : MonoBehaviour
     [SerializeField] private int spawnCount = 5;
     [SerializeField] private float spawnRadius = 10f;
     [SerializeField] private float safeRadius = 1f;
-    [SerializeField] private float patternDuration = 10f;
 
     private List<Obstacle> activeObstacles = new List<Obstacle>();
     private Monster eliteMonster;
@@ -33,15 +32,19 @@ public class MonsterPattern : MonoBehaviour
 
     IEnumerator PatternLoop()
     {
-        Debug.Log("Pattern Loop 시작!");
         yield return new WaitForSeconds(2f);
 
         while (true)
         {
-            StartCoroutine(ActivatePatternRoutine());
+            yield return StartCoroutine(ActivatePatternRoutine());
 
             yield return new WaitUntil(() => eliteMonsterDefeated);
-            eliteMonsterDefeated = false;
+
+            if (eliteMonsterDefeated)
+            {
+                DestroyObstacle();
+                eliteMonsterDefeated = false;
+            }
 
             yield return new WaitForSeconds(180f);
         }
@@ -50,15 +53,9 @@ public class MonsterPattern : MonoBehaviour
     IEnumerator ActivatePatternRoutine()
     {
         PlaceObstacleInCircle();
-
         SpawnEliteMonster();
 
-        yield return new WaitForSeconds(patternDuration);
-
-        if (eliteMonsterDefeated)
-        {
-            DestroyObstacle();
-        }
+        yield return null;
     }
 
     void PlaceObstacleInCircle()
@@ -85,6 +82,7 @@ public class MonsterPattern : MonoBehaviour
 
     void DestroyObstacle()
     {
+        Debug.Log("장애물 파괴");
         foreach (Obstacle obstacle in activeObstacles)
         {
             obstaclePool.Release(obstacle);
@@ -119,10 +117,8 @@ public class MonsterPattern : MonoBehaviour
     {
         Debug.Log("Elite Monster Defeated!");
         eliteMonsterDefeated = true;
-        DestroyObstacle();
-
+        Debug.Log($"eliteMonsterDefeated : {eliteMonsterDefeated}");
         eliteMonsterPool.Release(monster);
-        
     }
 
     Vector3 GetRandomPositionInObstacleRange()

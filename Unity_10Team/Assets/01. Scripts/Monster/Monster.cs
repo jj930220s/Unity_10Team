@@ -9,6 +9,7 @@ public class Monster : MonoBehaviour
     public Animator animator;
     public MonsterData monsterData;
     private MonsterAttack attack;
+    public Transform target;
 
     public string monsterName;
     public MonsterType monsterType;
@@ -18,6 +19,8 @@ public class Monster : MonoBehaviour
     public float attackCooldown;
     public float health;
     public float moveSpeed;
+    public bool isDead;
+    public GameObject projectilePrefab;
 
     public delegate void OnDisableDelegate(Monster monster);
     public event OnDisableDelegate OnDisableEvent;
@@ -25,10 +28,10 @@ public class Monster : MonoBehaviour
     public delegate void OnDeathDelegate(Monster monster);
     public event OnDeathDelegate OnDeathEvent;
 
+    private bool isInitialized = false;
+
     private void Start()
     {
-        Initialize();
-
         if (animator == null)
         {
             animator = GetComponent<Animator>();
@@ -44,6 +47,8 @@ public class Monster : MonoBehaviour
 
     public void Initialize()
     {
+        if (isInitialized) return;
+
         if (monsterData != null)
         {
             monsterName = monsterData.monsterName;
@@ -53,13 +58,16 @@ public class Monster : MonoBehaviour
             attackRange = monsterData.attackRange;
             attackCooldown = monsterData.attackCooldown;
             health = monsterData.health;
-            moveSpeed = monsterData.moveSpeed; 
+            moveSpeed = monsterData.moveSpeed;
+            isDead = monsterData.isDead;
+            projectilePrefab = monsterData.projectilePrefab;
         }
         else
         {
-            Debug.LogError(" monsterData가 설정되지 않았습니다");
+            Debug.LogWarning(" monsterData가 설정되지 않았습니다");
         }
-        SetStats(attackDamage, attackRange, attackCooldown, health, moveSpeed);
+
+        isInitialized = true;
     }
 
     public void SetStats(float damage, float range, float cooldown, float hp, float speed)
@@ -84,7 +92,7 @@ public class Monster : MonoBehaviour
 
         if (spawner == null)
         {
-            Debug.LogError("MonsterSpawner를 찾을 수 없음");
+            Debug.LogWarning("MonsterSpawner를 찾을 수 없음");
             return;
         }
         OnDisableEvent?.Invoke(this);
@@ -103,14 +111,29 @@ public class Monster : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            Die(); //죽음
+            StartCoroutine(Die());
         }
     }
 
     [ContextMenu("Kill Monster")]
-    private void Die()
+    private void KillMonster()
+    {
+        //테스트용
+        StartCoroutine(Die());
+    }
+
+    private IEnumerator Die()
     {
         Debug.Log("Die() called, invoking OnDeathEvent");
+
+        animator.SetBool("isAttack", false);
+        animator.SetBool("isMoving", false);
+        animator.SetBool("isDie", true);
+
+        isDead = true;
+
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+
         OnDeathEvent?.Invoke(this);
         gameObject.SetActive(false);
         Debug.Log($"{monsterName}가 사망했습니다");
