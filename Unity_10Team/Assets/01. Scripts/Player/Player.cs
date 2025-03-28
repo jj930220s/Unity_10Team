@@ -14,10 +14,16 @@ public class Player : MonoBehaviour
     public CharacterController characterController { get; private set; }
     private PlayerStateMachine stateMachine;
     public Transform mainCameraTransform { get; set; }
-    [field: SerializeField]public PlayerStatus pStat { get; private set; }
+    [field: SerializeField] public PlayerStatus pStat { get; private set; }
+
+    [field: SerializeField] public Bullet bulletPrefab { get; private set; }
+    public ObjectPool<Bullet> bulletPool { get; private set; }
+    public Transform shotPoint { get; private set; }
 
     private void Awake()
     {
+        shotPoint = transform.Find("Character/ShotPoint");
+
         animationData.Initialize();
         animator = GetComponentInChildren<Animator>();
 
@@ -28,6 +34,9 @@ public class Player : MonoBehaviour
         pStat.Init();
 
         stateMachine = new PlayerStateMachine(this);
+
+        bulletPool = new ObjectPool<Bullet>(bulletPrefab, 100, transform);
+
         stateMachine.ChangeState(stateMachine.idleState);
     }
 

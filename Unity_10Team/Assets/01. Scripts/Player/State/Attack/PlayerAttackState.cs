@@ -50,18 +50,22 @@ public class PlayerAttackState : PlayerBaseState
     protected override void Move()
     {
         Vector3 movementDirection = GetMovementDirection();
-        Vector3 attackDirection = GetAttackDirection();
+        Vector3 attackDirection = GetAttackDirection(GetAttackPoint());
 
         Move(movementDirection);
         Rotate(attackDirection);
     }
 
-    private Vector3 GetAttackDirection()
+    private Vector3 GetAttackDirection(Vector3 attackPoint)
+    {
+        return (attackPoint - stateMachine.player.transform.position).normalized;
+    }
+
+    private Vector3 GetAttackPoint()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         Vector3 groundPoint;
-
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Water")))// 임시 레이어 마스크
         {
             groundPoint = hit.point;
@@ -71,8 +75,7 @@ public class PlayerAttackState : PlayerBaseState
             Debug.Log("지면 검출 실패");
             return Vector3.zero;
         }
-
-        return (groundPoint - stateMachine.player.transform.position).normalized;
+        return groundPoint;
     }
 
     private void AttackMoveAnimationBlend()
@@ -117,12 +120,31 @@ public class PlayerAttackState : PlayerBaseState
         }
     }
 
+    private void ShotBullet()
+    {
+        Bullet bullet = stateMachine.player.bulletPool.Get();
+
+        if (bullet != null)
+        {
+            if (bullet.player == null)
+            {
+                bullet.player = stateMachine.player;
+            }
+
+            bullet.transform.position = stateMachine.player.shotPoint.position;
+            Vector3 dir = (GetAttackPoint() - stateMachine.player.shotPoint.position).normalized;
+            dir.y = 0f;
+            bullet.transform.rotation = Quaternion.LookRotation(dir);
+        }
+    }
+
     private IEnumerator RepeatedShot()
     {
         while (true)
         {
             stateMachine.player.animator.SetTrigger("Shot");
 
+            ShotBullet();
             yield return new WaitForSeconds(playerStatus.status[STATTYPE.ATKDELAY]);
         }
     }
