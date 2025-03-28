@@ -605,3 +605,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e001c83d30c9e1949b50dc0837e32b08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  icon: {fileID: 3828559994901560784}
+  StatLabel: {fileID: 132225922639050719}
+  StatValue: {fileID: 9222310327792432791}
+  UpgradeValue: {fileID: 6230717653845713998}

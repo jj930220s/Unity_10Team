@@ -12,6 +12,6 @@ public class GameManager : Singleton<GameManager>
     void Awake()
     {
         wealth.Init();
-        //pStat.Init();
+        player.pStat.Init();
     }
 }
