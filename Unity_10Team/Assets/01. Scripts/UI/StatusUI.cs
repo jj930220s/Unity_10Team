@@ -31,6 +31,12 @@ public class StatusUI : MonoBehaviour
     public void UpdateInfo(int statAmount, int upgradeAmount = 0)
     {
         StatValue.text = statAmount.ToString();
+
+        UpdateUpgradeAmount(upgradeAmount);
+    }
+
+    public void UpdateUpgradeAmount(int upgradeAmount)
+    {
         if (upgradeAmount > 0)
             UpgradeValue.text = "(+ {0})";
         else if (upgradeAmount < 0)

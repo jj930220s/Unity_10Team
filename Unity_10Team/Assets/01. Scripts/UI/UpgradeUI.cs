@@ -82,6 +82,9 @@ public class UpgradeUI : BaseUI
         if (!upgradeButton.gameObject.activeSelf)
             upgradeName.text += " (Can't Upgrade)";
         upgradeDesc.text = selectedUpgrade.data.description;
+
+        foreach (var upgradeStat in selectedUpgrade.data.upgradeStat)
+            statInfoUIs[upgradeStat.type].UpdateUpgradeAmount(upgradeStat.value);
     }
 
     public void OnUpgrade()
