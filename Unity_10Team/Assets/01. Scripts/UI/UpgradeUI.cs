@@ -33,6 +33,8 @@ public class UpgradeUI : BaseUI
     [SerializeField] WealthUI wealthInfoPrefebs;
     Dictionary<WEALTHTYPE, WealthUI> infoUIs = new();
 
+    [Header("PlayerStat")]
+
     [Header("Upgrade")]
     [SerializeField] RectTransform content;
     [SerializeField] UpgradePannel PannelPrefeb;
