@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class PlayerState
+public class PlayerStatus
 {
     [SerializeField] Status[] baseStat;
     public Dictionary<STATTYPE, int> status { get; private set; } = new();
