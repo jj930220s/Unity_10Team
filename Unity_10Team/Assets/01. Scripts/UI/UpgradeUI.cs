@@ -21,6 +21,7 @@ public class UpgradeUI : BaseUI
     [SerializeField] RectTransform content;
     [SerializeField] UpgradePannel PannelPrefeb;
     [SerializeField] Upgrade[] upgrades;
+    List<UpgradePannel> upgradePannels = new();
 
     public override void Init()
     {
@@ -34,7 +35,7 @@ public class UpgradeUI : BaseUI
             statInfoUIs[info.statType] = Instantiate(StatusPrefeb, playerStat).Init(info);
 
         foreach (var upgrade in upgrades)
-            Instantiate(PannelPrefeb, content);
+            upgradePannels.Add(Instantiate(PannelPrefeb, content).Init(upgrade, upgradePannels.Count));
 
         UpdateUI();
     }
@@ -48,5 +49,8 @@ public class UpgradeUI : BaseUI
         foreach (var info in statInfoUIs)
             if (GameManager.Instance.player.pStat.status.ContainsKey(info.Key))
                 info.Value.UpdateInfo(GameManager.Instance.player.pStat.status[info.Key]);
+
+        foreach (var pannel in upgradePannels)
+            pannel.UpdateInfo();
     }
 }

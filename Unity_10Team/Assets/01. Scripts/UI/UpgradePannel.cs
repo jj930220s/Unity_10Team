@@ -12,11 +12,27 @@ public class UpgradePannel : MonoBehaviour
     [SerializeField] Image saledMask;
     [SerializeField] Color costEnabled;
     [SerializeField] Color costDisabled;
+    Upgrade upgrade;
+    int idx;
 
-    public void SetPannel(Upgrade upgrade)
+    public UpgradePannel Init(Upgrade upgrade, int idx = 0)
     {
-        icon.sprite = upgrade.icon;
-        cost.text = upgrade.cost.ToString();
-        saledMask.gameObject.SetActive(!upgrade.upgraded);
+        this.upgrade = upgrade;
+        icon.sprite = upgrade.data.icon;
+        cost.text = upgrade.data.cost.ToString();
+
+        this.idx = idx;
+
+        return this;
+    }
+
+    public void UpdateInfo()
+    {
+        if (!upgrade.upgraded)
+            cost.color = upgrade.data.cost > GameManager.Instance.wealth.wealths[WEALTHTYPE.Gold] ? costDisabled : costEnabled;
+        else
+            cost.text = "";
+
+        saledMask.gameObject.SetActive(upgrade.upgraded);
     }
 }

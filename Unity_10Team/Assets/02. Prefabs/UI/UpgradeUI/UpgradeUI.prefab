@@ -147,20 +147,10 @@ MonoBehaviour:
   content: {fileID: 5612426934621726073}
   PannelPrefeb: {fileID: 1425345672322985075, guid: 02f6d3ce72255f2429f14d4e18a66d6c, type: 3}
   upgrades:
-  - name: "\uACF5\uC5C5"
-    icon: {fileID: 0}
-    cost: 20
+  - data: {fileID: 11400000, guid: 9128c612e8c38bd409e9ac4fc0c91c9a, type: 2}
     upgraded: 0
-    upgradeStat:
-    - type: 1
-      value: 1
-  - name: "\uBC29\uC5C5"
-    icon: {fileID: 0}
-    cost: 0
+  - data: {fileID: 11400000, guid: 12f887527e8e37b43b7ad0a4f18c9e9e, type: 2}
     upgraded: 0
-    upgradeStat:
-    - type: 2
-      value: 2
 --- !u!1 &2558482519164913203
 GameObject:
   m_ObjectHideFlags: 0
