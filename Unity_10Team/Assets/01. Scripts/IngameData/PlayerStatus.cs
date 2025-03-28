@@ -3,15 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum STATTYPE
+{
+    HP,
+    ATK,
+    DEF,
+    HPGEN,
+    SPEED,
+    ATKDELAY
+}
+
 [Serializable]
 public class PlayerStatus
 {
-    [SerializeField] Status[] baseStat;
-    public Dictionary<STATTYPE, int> status { get; private set; } = new();
+    public PlayerStatus(Player player)
+    {
+        this.player = player;
+    }
+
+    private Player player;
+
+    public Dictionary<STATTYPE, float> status { get; private set; } = new();
 
     public void Init()
     {
-        foreach (var stat in baseStat)
-            status[stat.type] = stat.value;
+        
     }
 }
