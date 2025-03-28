@@ -5,8 +5,8 @@ using UnityEngine;
 public class MonsterProjectile : MonoBehaviour
 {
     private Vector3 direction;
-    private float damage;
-    public float speed = 10f;
+    public float damage;
+    public float speed = 2f;
     public float lifeTime = 5f;
 
     private void Start()
@@ -29,10 +29,6 @@ public class MonsterProjectile : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log($"플레이어가 {damage}의 데미지를 입었습니다!");
-
-            // 플레이어 체력 처리
-
             Destroy(gameObject);
         }
         else if (!other.isTrigger)

@@ -19,16 +19,15 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
     {
         if (monsterPrefabs.Length == 0)
         {
-            Debug.LogError("[MonsterSpawner] 몬스터 프리팹이 설정되지 않았습니다!");
+            Debug.LogError("몬스터 프리팹이 설정되지 않았습니다");
             return;
         }
 
-        // 각 몬스터 프리팹에 대해 풀을 설정
         foreach (var prefab in monsterPrefabs)
         {
             Monster monster = prefab.GetComponent<Monster>();
             ObjectPool<Monster> pool = new ObjectPool<Monster>(monster, initialPoolSize, transform);
-            monsterPools.Add(prefab, pool);  // 프리팹을 키로 사용
+            monsterPools.Add(prefab, pool); 
         }
 
         StartCoroutine(SpawnMonstersRoutine());
@@ -73,7 +72,7 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
 
             if (monster == null || activeMonsters.Contains(monster))
             {
-                Debug.LogWarning("중복이거나 monster가 Null입니다.");
+                Debug.LogWarning("[SpawnMonsters] 중복이거나 monster가 Null입니다.");
                 break;
             }
 
@@ -87,7 +86,7 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
                 monster.Initialize();
 
                 activeMonsters.Add(monster);
-                Debug.Log($"활성화된 몬스터 수(생성 후): {activeMonsters.Count} {monster.name}");
+                Debug.Log($"[SpawnMonsters] 활성화된 몬스터 수(생성 후): {activeMonsters.Count} {monster.name}");
                 monster.OnDisableEvent += DeactivateMonster;
             }
         }
@@ -123,7 +122,7 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
     {
         if (monsterPools == null || monsterPools.Count == 0)
         {
-            Debug.Log("monsterPools가 비어있거나 null입니다");
+            Debug.Log("[ReturnMonster] monsterPools가 비어있거나 null입니다");
             return;
         }
 

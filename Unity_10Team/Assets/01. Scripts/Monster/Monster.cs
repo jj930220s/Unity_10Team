@@ -19,6 +19,7 @@ public class Monster : MonoBehaviour
     public float attackCooldown;
     public float health;
     public float moveSpeed;
+    public bool isDead;
     public GameObject projectilePrefab;
 
     public delegate void OnDisableDelegate(Monster monster);
@@ -58,6 +59,7 @@ public class Monster : MonoBehaviour
             attackCooldown = monsterData.attackCooldown;
             health = monsterData.health;
             moveSpeed = monsterData.moveSpeed;
+            isDead = monsterData.isDead;
             projectilePrefab = monsterData.projectilePrefab;
         }
         else
@@ -109,14 +111,29 @@ public class Monster : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            Die(); //죽음
+            StartCoroutine(Die());
         }
     }
 
     [ContextMenu("Kill Monster")]
-    private void Die()
+    private void KillMonster()
+    {
+        //테스트용
+        StartCoroutine(Die());
+    }
+
+    private IEnumerator Die()
     {
         Debug.Log("Die() called, invoking OnDeathEvent");
+
+        animator.SetBool("isAttack", false);
+        animator.SetBool("isMoving", false);
+        animator.SetBool("isDie", true);
+
+        isDead = true;
+
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+
         OnDeathEvent?.Invoke(this);
         gameObject.SetActive(false);
         Debug.Log($"{monsterName}가 사망했습니다");
