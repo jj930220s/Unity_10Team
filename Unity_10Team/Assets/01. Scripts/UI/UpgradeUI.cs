@@ -9,7 +9,7 @@ public class UpgradeUI : BaseUI
     [SerializeField] RectTransform wealth;
     [SerializeField] WealthUIData[] wealthInfos;
     [SerializeField] WealthUI wealthInfoPrefebs;
-    Dictionary<WEALTHTYPE, WealthUI> infoUIs = new();
+    Dictionary<WEALTHTYPE, WealthUI> wealthInfoUIs = new();
 
     [Header("PlayerStat")]
 
@@ -24,7 +24,7 @@ public class UpgradeUI : BaseUI
         UiType = UITYPE.UPGRADE;
 
         foreach (var info in wealthInfos)
-            infoUIs[info.wealthType] = Instantiate(wealthInfoPrefebs, wealth).Init(info);
+            wealthInfoUIs[info.wealthType] = Instantiate(wealthInfoPrefebs, wealth).Init(info);
 
         foreach (var upgrade in upgrades)
             Instantiate(PannelPrefeb, content);

@@ -7,7 +7,8 @@ public enum STATTYPE
 {
     HP,
     ATK,
-    DEF
+    DEF,
+    HPGEN
 }
 
 [Serializable]

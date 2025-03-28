@@ -411,6 +411,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d22245d92b2e6146a315a38d71b5fe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wealth:
+    baseWealths:
+    - type: 0
+      amount: 10
   pStat:
     baseStat:
     - type: 0
@@ -1498,6 +1502,14 @@ PrefabInstance:
     - target: {fileID: 1721029581038042050, guid: d40950c3b9b1e174b9b6ea7b465b938d, type: 3}
       propertyPath: m_Name
       value: UpgradeUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612426934621726073, guid: d40950c3b9b1e174b9b6ea7b465b938d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612426934621726073, guid: d40950c3b9b1e174b9b6ea7b465b938d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5887362755329990747, guid: d40950c3b9b1e174b9b6ea7b465b938d, type: 3}
       propertyPath: m_Pivot.x
