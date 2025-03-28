@@ -15,8 +15,8 @@ MonoBehaviour:
   monsterName: "\uBAAC\uC2A4\uD1304"
   monsterType: 0
   attackType: 0
-  health: 100
   attackDamage: 5
-  attackRange: 3
+  attackRange: 2
   attackCooldown: 2
+  health: 100
   moveSpeed: 3

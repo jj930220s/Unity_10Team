@@ -61,6 +61,16 @@ public class Monster : MonoBehaviour
         }
     }
 
+    public void SetStats(int damage, int range, int cooldown, int hp, int speed)
+    {
+        attackDamage = damage;
+        attackRange = range;
+        attackCooldown = cooldown;
+        health = hp;
+        moveSpeed = speed;
+        
+    }
+
     private void OnDisable()
     {
         MonsterSpawner spawner = MonsterSpawner.Instance;

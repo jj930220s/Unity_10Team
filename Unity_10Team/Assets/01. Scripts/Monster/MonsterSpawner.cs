@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class MonsterSpawner : Singleton<MonsterSpawner>
 {
-    public GameObject[] monsterPrefabs;
-    public int initialPoolSize = 10;
-    public int maxMonsterCount = 10;
-    public Transform player;
-    public float spawnRadius = 10f;
-    public int spawnCount = 5;
+    [SerializeField] private GameObject[] monsterPrefabs;
+    [SerializeField] private int initialPoolSize = 10;
+    [SerializeField] private int maxMonsterCount = 10;
+    [SerializeField] private Transform player;
+    [SerializeField] private float spawnRadius = 10f;
+    [SerializeField] private int spawnCount = 5;
+    [SerializeField] private float safeRadius = 3f;
 
     private List<ObjectPool<Monster>> monsterPools = new List<ObjectPool<Monster>>();
     private List<Monster> activeMonsters = new List<Monster>();
@@ -92,11 +93,18 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
         }
     }
 
-    Vector3 GetRandomPosition()
+    public Vector3 GetRandomPosition()
     {
+        float radius = 0f;
+
+        while (radius < safeRadius)
+        {
+            radius = Random.Range(safeRadius, spawnRadius);
+        }
+
         float angle = Random.Range(0, 2 * Mathf.PI);
-        float radius = Random.Range(3f, spawnRadius);
         Vector3 offset = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * radius;
+
         return player.position + offset;
     }
 

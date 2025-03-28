@@ -4,26 +4,35 @@ using UnityEngine;
 
 public class MonsterPattern : MonoBehaviour
 {
-    public GameObject obstaclePrefab;
-    public GameObject eliteMonsterPrefab;
-    public int spawnCount = 5;
-    public float spawnRadius = 10f;
-    public float patternDuration = 10f;
-    public float eliteMonsterSpawnRadius = 2f;
+    [SerializeField] private GameObject obstaclePrefab;
+    [SerializeField] private GameObject eliteMonsterPrefab;
+    [SerializeField] private Transform player;
+    [SerializeField] private int spawnCount = 5;
+    [SerializeField] private float spawnRadius = 10f;
+    [SerializeField] private float safeRadius = 1f;
+    [SerializeField] private float patternDuration = 10f;
 
-    private List<GameObject> obstacles = new List<GameObject>();
+    private List<Obstacle> activeObstacles = new List<Obstacle>();
     private Monster eliteMonster;
-    private MonsterSpawner monsterSpawner;
     private bool eliteMonsterDefeated = false;
+
+    private ObjectPool<Obstacle> obstaclePool;
+    private ObjectPool<Monster> eliteMonsterPool;
 
     void Start()
     {
-        monsterSpawner = MonsterSpawner.Instance;
+        Obstacle obstacles = obstaclePrefab.GetComponent<Obstacle>();
+        obstaclePool = new ObjectPool<Obstacle>(obstacles, spawnCount, transform);
+
+        Monster eliteMonsters = eliteMonsterPrefab.GetComponent<Monster>();
+        eliteMonsterPool = new ObjectPool<Monster>(eliteMonsters, 1, transform);
+
         StartCoroutine(PatternLoop());
     }
 
     IEnumerator PatternLoop()
     {
+        Debug.Log("Pattern Loop 시작!");
         yield return new WaitForSeconds(2f);
 
         while (true)
@@ -49,8 +58,6 @@ public class MonsterPattern : MonoBehaviour
         {
             DestroyObstacle();
         }
-
-        //SpawnMonstersInCircle();
     }
 
     void PlaceObstacleInCircle()
@@ -59,9 +66,12 @@ public class MonsterPattern : MonoBehaviour
         for (int i = 0; i < spawnCount; i++)
         {
             Vector3 spawnPosition = GetCirclePosition(i, spawnRadius);
-            GameObject newObstacle = Instantiate(obstaclePrefab, spawnPosition, Quaternion.identity);
-            newObstacle.transform.SetParent(transform);
-            obstacles.Add(newObstacle);
+
+            Obstacle obstacle = obstaclePool.Get(); // 풀에서 가져옴
+            obstacle.Initialize(spawnPosition);
+            obstacle.transform.SetParent(transform);
+
+            activeObstacles.Add(obstacle);
         }
     }
 
@@ -74,22 +84,28 @@ public class MonsterPattern : MonoBehaviour
 
     void DestroyObstacle()
     {
-        foreach (GameObject obstacle in obstacles)
+        foreach (Obstacle obstacle in activeObstacles)
         {
-            Debug.Log("Obstacle destroyed!");
-            Destroy(obstacle); // 모든 장애물 삭제
+            obstaclePool.Release(obstacle);
         }
 
-        obstacles.Clear();
+        activeObstacles.Clear();
     }
 
     void SpawnEliteMonster()
     {
-        Vector3 spawnPosition = transform.position + Vector3.up * eliteMonsterSpawnRadius;
-        eliteMonster = Instantiate(eliteMonsterPrefab, spawnPosition, Quaternion.identity).GetComponent<Monster>();
-        eliteMonster.OnDeathEvent += OnEliteMonsterDefeated;
-        Debug.Log("OnDeathEvent has been subscribed to the elite monster.");
+        Vector3 spawnPosition;
+
+        spawnPosition = GetRandomPositionInObstacleRange();
+
+        eliteMonster = eliteMonsterPool.Get();
+        eliteMonster.transform.position = spawnPosition;
         eliteMonster.transform.SetParent(transform);
+
+        eliteMonster.SetStats(10, 5, 5, 1000, 5);
+        eliteMonster.transform.localScale = new Vector3(3f, 3f, 3f);
+
+        eliteMonster.OnDeathEvent += OnEliteMonsterDefeated;
     }
 
     void OnEliteMonsterDefeated(Monster monster)
@@ -97,22 +113,61 @@ public class MonsterPattern : MonoBehaviour
         Debug.Log("Elite Monster Defeated!");
         eliteMonsterDefeated = true;
         DestroyObstacle();
+
+        eliteMonsterPool.Release(monster);
+        
     }
 
-    void SpawnMonstersInCircle()
+    Vector3 GetRandomPositionInObstacleRange()
     {
-        for (int i = 0; i < spawnCount; i++)
-        {
-            Monster monster = monsterSpawner.GetRandomMonster();
+        Vector3 spawnPosition = Vector3.zero;
 
-            if (monster != null)
+        do
+        {
+            float radius = Random.Range(safeRadius, spawnRadius);
+            float angle = Random.Range(0, 2 * Mathf.PI);
+            Vector3 offset = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * radius;
+            spawnPosition = player.position + offset;
+
+        } while (IsPositionNearPlayer(spawnPosition) && IsPositionInsideObstacles(spawnPosition));
+
+        return spawnPosition;
+    }
+
+    bool IsPositionNearPlayer(Vector3 position)
+    {
+        return Vector3.Distance(position, player.position) < safeRadius;
+    }
+
+    bool IsPositionInsideObstacles(Vector3 position)
+    {
+        foreach (Obstacle obstacle in activeObstacles)
+        {
+            float distanceToObstacle = Vector3.Distance(position, obstacle.transform.position);
+            if (distanceToObstacle < obstacle.radius)
             {
-                Vector3 spawnPos = GetCirclePosition(i, spawnRadius);
-                monster.transform.position = spawnPos;
-                monster.transform.rotation = Quaternion.identity;
-                monster.gameObject.SetActive(true);
-                Debug.Log($"원형 안에 배치된 몬스터: {monster.name}");
+                return true;
             }
         }
+        return false;
+
+        // 나중에 임시큐브 말고 다른걸로 바꾸면 이거 쓸듯
+
+        //foreach (Obstacle obstacle in activeObstacles)
+        //{
+        //    MeshCollider collider = obstacle.GetComponent<MeshCollider>();
+        //    if (collider != null)
+        //    {
+        //
+        //        Bounds bounds = collider.bounds;
+
+        //
+        //        if (bounds.Contains(position))
+        //        {
+        //            return true;
+        //        }
+        //    }
+        //}
+        //return false;
     }
 }
