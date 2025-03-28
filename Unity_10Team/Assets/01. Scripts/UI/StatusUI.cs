@@ -43,6 +43,6 @@ public class StatusUI : MonoBehaviour
             UpgradeValue.text = "(- {0})";
         else
             UpgradeValue.text = "";
-        UpgradeValue.text = string.Format(UpgradeValue.text, upgradeAmount);
+        UpgradeValue.text = string.Format(UpgradeValue.text, Mathf.Abs(upgradeAmount));
     }
 }
