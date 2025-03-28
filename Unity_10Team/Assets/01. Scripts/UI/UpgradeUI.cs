@@ -24,7 +24,7 @@ public class UpgradeUI : BaseUI
         UiType = UITYPE.UPGRADE;
 
         foreach (var info in wealthInfos)
-            infoUIs[info.wealthType] = info.Init(Instantiate(wealthInfoPrefebs, wealth));
+            infoUIs[info.wealthType] = Instantiate(wealthInfoPrefebs, wealth).Init(info);
 
         foreach (var upgrade in upgrades)
             Instantiate(PannelPrefeb, content);

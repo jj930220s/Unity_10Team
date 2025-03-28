@@ -17,20 +17,20 @@ public class WealthUIData
     public WEALTHTYPE wealthType;
     public Sprite icon;
     public Color textColor;
-
-    public WealthUI Init(WealthUI ui)
-    {
-        ui.icon.sprite = icon;
-        ui.amountTxt.color = textColor;
-
-        return ui;
-    }
 }
 
 public class WealthUI : MonoBehaviour
 {
     public Image icon;
     public TextMeshProUGUI amountTxt;
+
+    public WealthUI Init(WealthUIData data)
+    {
+        icon.sprite = data.icon;
+        amountTxt.color = data.textColor;
+
+        return this;
+    }
 
     public void UpdateInfo(int amount)
     {
