@@ -75,8 +75,11 @@ GameObject:
   - component: {fileID: 535702951195797787}
   - component: {fileID: 5876949206263575393}
   - component: {fileID: 1121993135170234259}
+  - component: {fileID: 1461732553638790720}
+  - component: {fileID: 2701017740125772312}
+  - component: {fileID: -430952080974060289}
   m_Layer: 0
-  m_Name: MushroomAngryPBR
+  m_Name: Mushroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -132,12 +135,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d2bba4348f75d418fcff7512045a05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   monsterData: {fileID: 11400000, guid: ce834c136c4a69c47b2e103822843779, type: 2}
   monsterName: 
-  monsterType: 
-  health: 0
+  monsterType: 0
+  attackType: 0
   attackDamage: 0
+  attackRange: 0
+  attackCooldown: 0
+  health: 0
   moveSpeed: 0
+--- !u!114 &1461732553638790720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875073071404757921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c68e496048a060b4586a98e60a3cea61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2701017740125772312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875073071404757921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c0003faf7128f04ea595f7aa5fd0c98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+--- !u!195 &-430952080974060289
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875073071404757921}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &1326775223490303571
 GameObject:
   m_ObjectHideFlags: 0
