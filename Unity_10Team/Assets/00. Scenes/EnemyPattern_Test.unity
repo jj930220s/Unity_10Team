@@ -248,10 +248,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstaclePrefab: {fileID: 1065398836730543544, guid: fcc4ebde5feaf50459e54eec01814394, type: 3}
   eliteMonsterPrefab: {fileID: 1931298151966786, guid: 58adb8ade9d2cd647af117dacc1d5813, type: 3}
-  spawnCount: 20
-  spawnRadius: 10
+  player: {fileID: 1381477545}
+  spawnCount: 60
+  spawnRadius: 15
+  safeRadius: 3
   patternDuration: 10
-  eliteMonsterSpawnRadius: 2
 --- !u!4 &844854439
 Transform:
   m_ObjectHideFlags: 0
@@ -504,6 +505,7 @@ MonoBehaviour:
   player: {fileID: 1381477545}
   spawnRadius: 20
   spawnCount: 1
+  safeRadius: 3
 --- !u!4 &1784276886
 Transform:
   m_ObjectHideFlags: 0
