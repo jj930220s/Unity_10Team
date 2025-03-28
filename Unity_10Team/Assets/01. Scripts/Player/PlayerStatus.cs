@@ -27,6 +27,11 @@ public class PlayerStatus
 
     public void Init()
     {
-        
+        status.Add(STATTYPE.HP, player.data.defaultData.baseHP);
+        status.Add(STATTYPE.ATK, player.data.defaultData.baseAttack);
+        status.Add(STATTYPE.DEF, player.data.defaultData.baseDefence);
+        status.Add(STATTYPE.HPGEN, 0f); // 나중에 구현
+        status.Add(STATTYPE.SPEED, player.data.defaultData.baseSpeed);
+        status.Add(STATTYPE.ATKDELAY, player.data.defaultData.baseAttackDelay);
     }
 }

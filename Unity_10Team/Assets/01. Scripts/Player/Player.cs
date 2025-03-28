@@ -14,17 +14,20 @@ public class Player : MonoBehaviour
     public CharacterController characterController { get; private set; }
     private PlayerStateMachine stateMachine;
     public Transform mainCameraTransform { get; set; }
-
     [field: SerializeField]public PlayerStatus pStat { get; private set; }
 
     private void Awake()
     {
         animationData.Initialize();
         animator = GetComponentInChildren<Animator>();
+
         inputController = GetComponent<PlayerController>();
         characterController = GetComponent<CharacterController>();
+
         stateMachine = new PlayerStateMachine(this);
+
         pStat = new PlayerStatus(this);
+        pStat.Init();
 
         stateMachine.ChangeState(stateMachine.idleState);
     }

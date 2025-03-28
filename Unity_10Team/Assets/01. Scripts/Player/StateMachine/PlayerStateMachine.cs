@@ -26,7 +26,7 @@ public class PlayerStateMachine : StateMachine
         moveState = new PlayerMoveState(this);
         attackState = new PlayerAttackState(this);
 
-        movementSpeed = player.data.defaultData.baseSpeed;
+        movementSpeed = player.pStat.status[STATTYPE.SPEED];
         attackMovementSpeedModifier = player.data.attackData.attackMoveSpeedModifier;
         rotationDamping = player.data.defaultData.baseRotationDamping;
     }
