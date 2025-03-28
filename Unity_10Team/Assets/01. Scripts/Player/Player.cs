@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     private PlayerStateMachine stateMachine;
     public Transform mainCameraTransform { get; set; }
 
+    [field: SerializeField]public PlayerStatus pStat { get; private set; }
+
     private void Awake()
     {
         animationData.Initialize();
