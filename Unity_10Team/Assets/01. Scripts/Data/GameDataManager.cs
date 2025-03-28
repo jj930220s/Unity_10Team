@@ -10,7 +10,7 @@ public class GameDataManager : MonoBehaviour
         savePath = Application.persistentDataPath + "/playerSaveData.json";
     }
 
-    // 🔹 데이터 저장
+    //데이터 저장
     public void SavePlayerData(PlayerSObj playerSObj)
     {
         PlayerSaveData data = new PlayerSaveData(playerSObj);
@@ -19,7 +19,7 @@ public class GameDataManager : MonoBehaviour
         Debug.Log("데이터 저장 완료! 경로: " + savePath);
     }
 
-    // 🔹 데이터 불러오기
+    //데이터 불러오기
     public PlayerSaveData LoadPlayerData()
     {
         if (File.Exists(savePath))
@@ -36,3 +36,5 @@ public class GameDataManager : MonoBehaviour
         }
     }
 }
+
+//PPlayer 쪽 스크립트와 연계해야함
