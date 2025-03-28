@@ -62,7 +62,7 @@ public class Monster : MonoBehaviour
         }
         else
         {
-            Debug.LogError(" monsterData가 설정되지 않았습니다");
+            Debug.LogWarning(" monsterData가 설정되지 않았습니다");
         }
 
         isInitialized = true;
@@ -90,7 +90,7 @@ public class Monster : MonoBehaviour
 
         if (spawner == null)
         {
-            Debug.LogError("MonsterSpawner를 찾을 수 없음");
+            Debug.LogWarning("MonsterSpawner를 찾을 수 없음");
             return;
         }
         OnDisableEvent?.Invoke(this);

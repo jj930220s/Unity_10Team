@@ -12,8 +12,8 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
     [SerializeField] private int spawnCount = 5;
     [SerializeField] private float safeRadius = 3f;
 
-    private List<ObjectPool<Monster>> monsterPools = new List<ObjectPool<Monster>>();
-    private List<Monster> activeMonsters = new List<Monster>();
+    private Dictionary<GameObject, ObjectPool<Monster>> monsterPools = new Dictionary<GameObject, ObjectPool<Monster>>();
+    private HashSet<Monster> activeMonsters = new HashSet<Monster>();
 
     void Start()
     {
@@ -28,7 +28,7 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
         {
             Monster monster = prefab.GetComponent<Monster>();
             ObjectPool<Monster> pool = new ObjectPool<Monster>(monster, initialPoolSize, transform);
-            monsterPools.Add(pool);
+            monsterPools.Add(prefab, pool);  // 프리팹을 키로 사용
         }
 
         StartCoroutine(SpawnMonstersRoutine());
@@ -59,8 +59,9 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
 
             while (attempts < 5)
             {
-                int randomIndex = Random.Range(0, monsterPools.Count);
-                monster = monsterPools[randomIndex].Get();
+                // 랜덤 인덱스로 풀을 선택하고 몬스터를 얻음
+                GameObject randomPrefab = monsterPrefabs[Random.Range(0, monsterPrefabs.Length)];
+                monster = monsterPools[randomPrefab].Get();
 
                 if (monster != null && !activeMonsters.Contains(monster))
                 {
@@ -132,7 +133,8 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
             Debug.Log($"[Return] 활성화된 몬스터 수: {activeMonsters.Count}");
         }
 
-        foreach (var pool in monsterPools)
+        // 풀을 찾기 위해 키를 사용
+        foreach (var pool in monsterPools.Values)
         {
             monster.OnDisableEvent -= DeactivateMonster;
             pool.Release(monster);
@@ -142,7 +144,7 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
 
     public Monster GetRandomMonster()
     {
-        int randomIndex = Random.Range(0, monsterPools.Count);
-        return monsterPools[randomIndex].Get();
+        GameObject randomPrefab = monsterPrefabs[Random.Range(0, monsterPrefabs.Length)];
+        return monsterPools[randomPrefab].Get();
     }
 }
