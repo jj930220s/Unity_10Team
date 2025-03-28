@@ -1,24 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+using UnityEngine.AI; // NavMesh 사용
 
 public class EnemyAI : MonoBehaviour
 {
     public Transform player;
-    private NavMeshAgent agent; //네브매쉬 컴포넌트
+    private NavMeshAgent agent; //네브매쉬 사용
 
-    private void Start()
+    void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        if (agent == null)
+        {
+            Debug.LogError("NevMesh 없음");
+            return;
+        }
+
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        }
     }
 
-    private void Update()
+    void Update()
     {
-        if(player != null)
+        if (agent != null && player != null)
         {
-            agent.SetDestination(player.position); //플레이어한테 이동
+            agent.SetDestination(player.position);
         }
     }
 }
