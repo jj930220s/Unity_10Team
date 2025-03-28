@@ -9,6 +9,8 @@ public class PlayerAttackState : PlayerBaseState
     {
     }
 
+    private Coroutine CshotCoroutine;
+
     float horizontal = 0f;
     float vertical = 0f;
 
@@ -89,12 +91,22 @@ public class PlayerAttackState : PlayerBaseState
     protected override void OnAttackPerformed(InputAction.CallbackContext context)
     {
         base.OnAttackPerformed(context);
-        stateMachine.ChangeState(stateMachine.shotState);
+        if (CshotCoroutine == null)
+        {
+            CshotCoroutine = stateMachine.player.StartCoroutine(RepeatedShot());
+        }
     }
 
     protected override void OnAttackCanceled(InputAction.CallbackContext context)
     {
         base.OnAttackCanceled(context);
+
+        if (CshotCoroutine != null)
+        {
+            stateMachine.player.StopCoroutine(CshotCoroutine);
+            CshotCoroutine = null;
+        }
+
         if (stateMachine.movementInput == Vector2.zero)
         {
             stateMachine.ChangeState(stateMachine.idleState);
@@ -102,6 +114,16 @@ public class PlayerAttackState : PlayerBaseState
         else
         {
             stateMachine.ChangeState(stateMachine.moveState);
+        }
+    }
+
+    private IEnumerator RepeatedShot()
+    {
+        while (true)
+        {
+            stateMachine.player.animator.SetTrigger("Shot");
+
+            yield return new WaitForSeconds(1.0f); // 나중에 플레이어 공속 스탯 등과 연동해서 수정필요
         }
     }
 }
