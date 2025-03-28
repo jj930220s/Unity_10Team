@@ -14,7 +14,7 @@ public class UpgradePannel : MonoBehaviour
     [SerializeField] Color costDisabled;
     Upgrade upgrade;
     int idx;
-    public Action<int> pannelclickAction;
+    Action<int> pannelclickAction;
 
     public UpgradePannel Init(Upgrade upgrade, Action<int> action, int idx = 0)
     {

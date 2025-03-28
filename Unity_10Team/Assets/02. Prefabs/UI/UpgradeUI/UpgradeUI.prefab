@@ -145,7 +145,7 @@ MonoBehaviour:
     icon: {fileID: 0}
   StatusPrefeb: {fileID: 3732377387198227936, guid: fe264d93f18254946be3888835ca2e32, type: 3}
   content: {fileID: 5612426934621726073}
-  PannelPrefeb: {fileID: 1425345672322985075, guid: 02f6d3ce72255f2429f14d4e18a66d6c, type: 3}
+  pannelPrefeb: {fileID: 1425345672322985075, guid: 02f6d3ce72255f2429f14d4e18a66d6c, type: 3}
   upgrades:
   - data: {fileID: 11400000, guid: 9128c612e8c38bd409e9ac4fc0c91c9a, type: 2}
     upgraded: 0

@@ -21,7 +21,7 @@ public class UpgradeUI : BaseUI
 
     [Header("Upgrade")]
     [SerializeField] RectTransform content;
-    [SerializeField] UpgradePannel PannelPrefeb;
+    [SerializeField] UpgradePannel pannelPrefeb;
     [SerializeField] Upgrade[] upgrades;
     List<UpgradePannel> upgradePannels = new();
 
@@ -44,7 +44,7 @@ public class UpgradeUI : BaseUI
             statInfoUIs[info.statType] = Instantiate(StatusPrefeb, playerStat).Init(info);
 
         foreach (var upgrade in upgrades)
-            upgradePannels.Add(Instantiate(PannelPrefeb, content).Init(upgrade, UpgradeSelected, upgradePannels.Count));
+            upgradePannels.Add(Instantiate(pannelPrefeb, content).Init(upgrade, UpgradeSelected, upgradePannels.Count));
 
         UpdateUI();
     }
