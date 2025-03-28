@@ -59,16 +59,23 @@ public class Monster : MonoBehaviour
         {
             Debug.LogError(" monsterData가 설정되지 않았습니다");
         }
+        SetStats(attackDamage, attackRange, attackCooldown, health, moveSpeed);
     }
 
-    public void SetStats(int damage, int range, int cooldown, int hp, int speed)
+    public void SetStats(float damage, float range, float cooldown, float hp, float speed)
     {
         attackDamage = damage;
         attackRange = range;
         attackCooldown = cooldown;
         health = hp;
         moveSpeed = speed;
-        
+
+        Debug.Log($"SetStats 호출: Damage={attackDamage}, Range={attackRange}, Cooldown={attackCooldown}, Health={health}, Speed={moveSpeed}");
+    }
+
+    public float GetMoveSpeed()
+    {
+        return moveSpeed;
     }
 
     private void OnDisable()

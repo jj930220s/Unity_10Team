@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MonsterPattern : MonoBehaviour
 {
@@ -104,6 +105,12 @@ public class MonsterPattern : MonoBehaviour
 
         eliteMonster.SetStats(10, 5, 5, 1000, 5);
         eliteMonster.transform.localScale = new Vector3(3f, 3f, 3f);
+
+        NavMeshAgent agent = eliteMonster.GetComponent<NavMeshAgent>();
+        if (agent != null)
+        {
+            agent.speed = eliteMonster.GetMoveSpeed(); // 몬스터의 이동 속도를 NavMeshAgent에 반영
+        }
 
         eliteMonster.OnDeathEvent += OnEliteMonsterDefeated;
     }
