@@ -24,11 +24,10 @@ public class Player : MonoBehaviour
         inputController = GetComponent<PlayerController>();
         characterController = GetComponent<CharacterController>();
 
-        stateMachine = new PlayerStateMachine(this);
-
         pStat = new PlayerStatus(this);
         pStat.Init();
 
+        stateMachine = new PlayerStateMachine(this);
         stateMachine.ChangeState(stateMachine.idleState);
     }
 
