@@ -34,7 +34,6 @@ public class UpgradeUI : BaseUI
 
     public override void Init()
     {
-        base.Init();
         UiType = UITYPE.UPGRADE;
 
         foreach (var info in wealthInfos)
@@ -46,11 +45,13 @@ public class UpgradeUI : BaseUI
         foreach (var upgrade in upgrades)
             upgradePannels.Add(Instantiate(pannelPrefeb, content).Init(upgrade, UpgradeSelected, upgradePannels.Count));
 
-        UpdateUI();
+        base.Init();
     }
 
-    void UpdateUI()
+    protected override void UpdateUI()
     {
+        base.UpdateUI();
+
         foreach (var info in wealthInfoUIs)
             if (GameManager.Instance.wealth.wealths.ContainsKey(info.Key))
                 info.Value.UpdateInfo(GameManager.Instance.wealth.wealths[info.Key]);
