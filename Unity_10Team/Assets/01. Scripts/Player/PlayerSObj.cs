@@ -30,6 +30,6 @@ public class PlayerAttackData
 [CreateAssetMenu(fileName = "Player")]
 public class PlayerSObj : ScriptableObject
 {
-    [field: SerializeField] public PlayerDefaultData defaultData { get; private set; }
+    [field: SerializeField] public PlayerDefaultData defaultData { get; set; }
     [field: SerializeField] public PlayerAttackData attackData { get; private set; }
 }

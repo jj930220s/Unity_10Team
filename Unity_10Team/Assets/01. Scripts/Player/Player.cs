@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     public Transform mainCameraTransform { get; set; }
     [field: SerializeField]public PlayerStatus pStat { get; private set; }
 
+    private GameDataManager dataManager; //게임데이터매니저
+
     private void Awake()
     {
         animationData.Initialize();
@@ -29,6 +31,10 @@ public class Player : MonoBehaviour
 
         stateMachine = new PlayerStateMachine(this);
         stateMachine.ChangeState(stateMachine.idleState);
+
+        dataManager = FindObjectOfType<GameDataManager>();
+        LoadPlayerData(); //저장된 데이터 불러오기
+
     }
 
     private void Start()
@@ -45,5 +51,37 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         stateMachine.StatePhysicsUpdate();
+    }
+
+    private void OnApplicationQuit()
+    {
+        SavePlayerData(); //종료 시 데이터 자동저장
+    }
+
+    public void SavePlayerData()
+    {
+        if ( dataManager != null)
+        {
+            dataManager.SavePlayerData(data);
+        }
+    }
+
+    public void LoadPlayerData()
+    {
+        if ( dataManager != null)
+        {
+
+            PlayerSaveData saveData = dataManager.LoadPlayerData();
+            if ( saveData != null )
+            {
+                //data.defaultData = new PlayerDefaultData()
+                {
+                    //베이스 데이터들
+                }
+
+                
+            }
+           
+        }
     }
 }
