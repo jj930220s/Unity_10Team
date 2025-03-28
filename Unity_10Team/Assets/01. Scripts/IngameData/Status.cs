@@ -8,7 +8,9 @@ public enum STATTYPE
     HP,
     ATK,
     DEF,
-    HPGEN
+    HPGEN,
+    SPEED,
+    ATKDELAY
 }
 
 [Serializable]
