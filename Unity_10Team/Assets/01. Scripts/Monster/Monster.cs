@@ -25,10 +25,10 @@ public class Monster : MonoBehaviour
     public delegate void OnDeathDelegate(Monster monster);
     public event OnDeathDelegate OnDeathEvent;
 
+    private bool isInitialized = false;
+
     private void Start()
     {
-        Initialize();
-
         if (animator == null)
         {
             animator = GetComponent<Animator>();
@@ -44,6 +44,8 @@ public class Monster : MonoBehaviour
 
     public void Initialize()
     {
+        if (isInitialized) return;
+
         if (monsterData != null)
         {
             monsterName = monsterData.monsterName;
@@ -59,7 +61,8 @@ public class Monster : MonoBehaviour
         {
             Debug.LogError(" monsterData가 설정되지 않았습니다");
         }
-        SetStats(attackDamage, attackRange, attackCooldown, health, moveSpeed);
+
+        isInitialized = true;
     }
 
     public void SetStats(float damage, float range, float cooldown, float hp, float speed)
