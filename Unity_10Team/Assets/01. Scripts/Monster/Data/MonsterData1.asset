@@ -17,6 +17,7 @@ MonoBehaviour:
   attackType: 0
   attackDamage: 3
   attackRange: 1
-  attackCooldown: 2
+  attackCooldown: 3
   health: 100
-  moveSpeed: 3
+  moveSpeed: 2
+  projectilePrefab: {fileID: 0}

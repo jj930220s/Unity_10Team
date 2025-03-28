@@ -14,7 +14,6 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
 
     private List<ObjectPool<Monster>> monsterPools = new List<ObjectPool<Monster>>();
     private List<Monster> activeMonsters = new List<Monster>();
-    private List<string> monsterTypes = new List<string>();
 
     void Start()
     {
@@ -24,12 +23,12 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
             return;
         }
 
+        // 각 몬스터 프리팹에 대해 풀을 설정
         foreach (var prefab in monsterPrefabs)
         {
             Monster monster = prefab.GetComponent<Monster>();
             ObjectPool<Monster> pool = new ObjectPool<Monster>(monster, initialPoolSize, transform);
             monsterPools.Add(pool);
-            monsterTypes.Add(monster.monsterData.monsterType.ToString());
         }
 
         StartCoroutine(SpawnMonstersRoutine());
@@ -123,19 +122,21 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
     {
         if (monsterPools == null || monsterPools.Count == 0)
         {
-            Debug.Log("ReturnMonster: monsterPools가 비어있거나 null입니다!");
+            Debug.Log("monsterPools가 비어있거나 null입니다");
             return;
         }
 
-        string monsterType = monster.monsterData.monsterType.ToString();
-        int poolIndex = monsterTypes.IndexOf(monsterType);
+        if (activeMonsters.Contains(monster))
+        {
+            activeMonsters.Remove(monster);
+            Debug.Log($"[Return] 활성화된 몬스터 수: {activeMonsters.Count}");
+        }
 
-        if (poolIndex != -1)
+        foreach (var pool in monsterPools)
         {
             monster.OnDisableEvent -= DeactivateMonster;
-            monster.gameObject.SetActive(false);
-
-            monsterPools[poolIndex].Release(monster);
+            pool.Release(monster);
+            break;
         }
     }
 

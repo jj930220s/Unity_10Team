@@ -15,8 +15,9 @@ MonoBehaviour:
   monsterName: "\uBAAC\uC2A4\uD1304"
   monsterType: 0
   attackType: 0
-  attackDamage: 5
+  attackDamage: 2
   attackRange: 2
   attackCooldown: 2
   health: 100
   moveSpeed: 3
+  projectilePrefab: {fileID: 0}
