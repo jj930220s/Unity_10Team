@@ -21,4 +21,9 @@ public class PlayerWealth
         foreach (var stat in baseWealths)
             wealths[stat.type] = stat.amount;
     }
+
+    public void PerChase(WEALTHTYPE type, int amount)
+    {
+        wealths[type] -= amount;
+    }
 }
