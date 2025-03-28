@@ -11,7 +11,6 @@ public class MonsterPattern : MonoBehaviour
     [SerializeField] private int spawnCount = 5;
     [SerializeField] private float spawnRadius = 10f;
     [SerializeField] private float safeRadius = 1f;
-    [SerializeField] private float patternDuration = 10f;
 
     private List<Obstacle> activeObstacles = new List<Obstacle>();
     private Monster eliteMonster;

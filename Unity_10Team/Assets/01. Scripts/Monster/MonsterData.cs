@@ -25,4 +25,5 @@ public class MonsterData : ScriptableObject
     public float attackCooldown;
     public float health;
     public float moveSpeed;
+    public GameObject projectilePrefab;
 }

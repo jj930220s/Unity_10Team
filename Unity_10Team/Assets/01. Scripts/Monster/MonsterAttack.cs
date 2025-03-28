@@ -26,7 +26,8 @@ public class MonsterAttack : MonoBehaviour
                 if (enemy.CompareTag("Player"))
                 {
                     monster.SetAttacking(true);
-                    StartCoroutine(PerformMeleeAttackAfterDelay(1.2f));
+                    float attackAnimationLength = monster.animator.GetCurrentAnimatorStateInfo(0).length;
+                    StartCoroutine(PerformMeleeAttackAfterDelay(attackAnimationLength));
                     lastMeleeAttackTime = Time.time;
                 }
             }
@@ -35,12 +36,24 @@ public class MonsterAttack : MonoBehaviour
 
     private void PerformRangedAttack()
     {
-        //if (monster.attackType == AttackType.Ranged)
-        //{
-        //    GameObject projectile = GameObject.Instantiate(monster.monsterData.projectilePrefab, monster.transform.position, Quaternion.identity);
-        //    Vector3 direction = (GetTargetPosition() - monster.transform.position).normalized;
-        //    projectile.GetComponent<Projectile>().Launch(direction, monster.attackDamage);  // Projectile 클래스에서 공격 처리
-        //}
+        if (Time.time - lastRangedAttackTime >= monster.attackCooldown)
+        {
+            Collider[] hitEnemies = Physics.OverlapSphere(monster.transform.position, monster.attackRange);
+            foreach (var enemy in hitEnemies)
+            {
+                if (enemy.CompareTag("Player"))
+                {
+                    Vector3 spawnPosition = monster.transform.position + Vector3.up * 1.5f; // 살짝 위에서 발사
+
+                    GameObject projectile = Instantiate(monster.monsterData.projectilePrefab, spawnPosition, Quaternion.identity);
+
+                    Vector3 direction = (monster.target.position - spawnPosition).normalized;
+
+                    projectile.GetComponent<MonsterProjectile>().Launch(direction, monster.attackDamage);
+                    lastRangedAttackTime = Time.time;
+                }
+            }
+        }  
     }
 
     public void PerformAttack()
@@ -57,11 +70,6 @@ public class MonsterAttack : MonoBehaviour
             }
         }
     }
-
-    //private Vector3 GetTargetPosition()
-    //{
-    //    return Player.Instance.transform.position;
-    //}
 
     private IEnumerator PerformMeleeAttackAfterDelay(float delay)
     {

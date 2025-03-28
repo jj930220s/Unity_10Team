@@ -19,6 +19,7 @@ public class Monster : MonoBehaviour
     public float attackCooldown;
     public float health;
     public float moveSpeed;
+    public GameObject projectilePrefab;
 
     public delegate void OnDisableDelegate(Monster monster);
     public event OnDisableDelegate OnDisableEvent;
@@ -56,7 +57,8 @@ public class Monster : MonoBehaviour
             attackRange = monsterData.attackRange;
             attackCooldown = monsterData.attackCooldown;
             health = monsterData.health;
-            moveSpeed = monsterData.moveSpeed; 
+            moveSpeed = monsterData.moveSpeed;
+            projectilePrefab = monsterData.projectilePrefab;
         }
         else
         {
