@@ -20,6 +20,7 @@ public class OptionUIData
 
 public class SettingUI : BaseUI
 {
+    [SerializeField] RectTransform optionArea;
     [SerializeField] SettingOptionUI optionPrefeb;
     [SerializeField] OptionUIData[] datas;
 
@@ -29,6 +30,6 @@ public class SettingUI : BaseUI
         UiType = UITYPE.SETTING;
 
         foreach (var data in datas)
-            data.Init(Instantiate(optionPrefeb, transform));
+            data.Init(Instantiate(optionPrefeb, optionArea));
     }
 }
