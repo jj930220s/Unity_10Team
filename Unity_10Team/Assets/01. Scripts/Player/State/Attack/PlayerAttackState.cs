@@ -27,6 +27,7 @@ public class PlayerAttackState : PlayerBaseState
     {
         base.StateUpdate();
 
+        Deadcheck();
         AttackMoveAnimationBlend();
         Move();
     }

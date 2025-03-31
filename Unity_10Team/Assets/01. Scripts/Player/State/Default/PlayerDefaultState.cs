@@ -17,8 +17,9 @@ public class PlayerDefaultState : PlayerBaseState
 
     public override void StateUpdate()
     {
-        base.StateUpdate(); 
+        base.StateUpdate();
 
+        Deadcheck();
         Move();
     }
 
