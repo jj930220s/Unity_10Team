@@ -128,10 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wealth: {fileID: 1002180835809062691}
-  wealthInfos:
-  - wealthType: 0
-    icon: {fileID: 0}
-    textColor: {r: 1, g: 0.78431374, b: 0, a: 1}
+  wealthInfos: {fileID: 11400000, guid: adb35f5516ffb284cb30d40be3419a39, type: 2}
   wealthInfoPrefeb: {fileID: 3400064161705983480, guid: 5a79e255c6987504ca4c898255ba5fa4, type: 3}
   playerStat: {fileID: 4213816865555967466}
   statInfos:
