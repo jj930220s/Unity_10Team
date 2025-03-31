@@ -9,7 +9,9 @@ public enum UITYPE
     TITLE,
     UPGRADE,
     BUILD,
-    SETTING
+    SETTING,
+    GATCHA,
+    GAMEOVER
 }
 
 public class BaseUI : MonoBehaviour
