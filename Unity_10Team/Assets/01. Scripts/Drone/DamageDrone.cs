@@ -40,6 +40,7 @@ public class DamageDrone : BaseDroneController
             foreach (var c in col)
             {
                 // 딕셔너리로 파악 후 전체 데미지
+                c.GetComponent<Monster>().TakeDamage(damage);
             }
             await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
         }
