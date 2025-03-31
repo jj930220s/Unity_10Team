@@ -121,7 +121,6 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
         int experienceGained = 0;
         int goldGained = 0;
 
-        // 몬스터 타입에 따라 경험치와 골드 지급
         if (monster.monsterType == MonsterType.Normal)
         {
             experienceGained = Random.Range(1, 4);
@@ -133,11 +132,7 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
             goldGained = Random.Range(15, 31);
         }
 
-        // 플레이어에게 경험치 및 골드 지급
-        //Player.Instance.AddExperience(experienceGained);
-        //Player.Instance.AddGold(goldGained);
-
-        Debug.Log($"{monster.monsterName} 처치! 경험치: {experienceGained}, 골드: {goldGained}");
+        MonsterDropItem.Instance.DropItems(monster, experienceGained, goldGained);
     }
 
     public void ReturnMonster(Monster monster)

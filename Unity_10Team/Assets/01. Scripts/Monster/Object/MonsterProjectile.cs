@@ -45,7 +45,6 @@ public class MonsterProjectile : MonoBehaviour
         if (pool != null)
         {
             pool.Release(this);
-            Debug.Log("리턴풀 실행");
         }
     }
 }

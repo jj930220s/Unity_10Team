@@ -26,6 +26,7 @@ public class Monster : MonoBehaviour
     public event OnDeathDelegate OnDeathEvent;
 
     public bool isInitialized = false;
+    public Vector3 dropOffset;
 
     private void Start()
     {

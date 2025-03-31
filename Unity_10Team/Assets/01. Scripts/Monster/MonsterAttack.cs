@@ -93,7 +93,7 @@ public class MonsterAttack : MonoBehaviour
         yield return new WaitForSeconds(attackAnimationLength);
 
         // 여기서 플레이어 데미지 적용
-        Debug.Log($"{monster.monsterName}가 {monster.attackDamage}의 피해를 입혔습니다!");
+        //Debug.Log($"{monster.monsterName}가 {monster.attackDamage}의 피해를 입혔습니다!");
 
         monster.SetAttacking(false);
         monster.animator.SetBool("isAttack", false);
