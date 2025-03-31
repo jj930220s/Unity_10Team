@@ -31,6 +31,7 @@ public class UpgradeUI : BaseUI
     [SerializeField] UpgradePannel pannelPrefeb;
     [SerializeField] UpgradeList upgrades;
     List<UpgradePannel> upgradePannels = new();
+    string dataSavePath = "upgradeList.json";
 
     [Header("SelectedUpgrade")]
     [SerializeField] Image selectedIcon;
@@ -48,6 +49,10 @@ public class UpgradeUI : BaseUI
 
         foreach (var info in statInfos)
             statInfoUIs[info.statType] = Instantiate(StatusPrefeb, playerStat).Init(info);
+
+        UpgradeList saveData = DataSave<UpgradeList>.LoadData(dataSavePath);
+        if (saveData != default(UpgradeList))
+            upgrades = saveData;
 
         foreach (var upgrade in upgrades.list)
             upgradePannels.Add(Instantiate(pannelPrefeb, content).Init(upgrade, UpgradeSelected, upgradePannels.Count));
@@ -100,7 +105,7 @@ public class UpgradeUI : BaseUI
         GameManager.Instance.wealth.PerChase(WEALTHTYPE.Gold, selectedUpgrade.data.cost);
         selectedUpgrade.ApplyUpgrade(GameManager.Instance.player);
 
-        DataSave<UpgradeList>.SaveData(upgrades, "upgradeList.json");
+        DataSave<UpgradeList>.SaveData(upgrades, dataSavePath);
         UpdateUI();
     }
 }

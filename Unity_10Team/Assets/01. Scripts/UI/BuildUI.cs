@@ -24,13 +24,24 @@ public class BuildUI : BaseUI
     List<DronPannel> dronPannels = new();
 
     public SelectedDrons selectedDrons;
+    string dataSavePath = "selectedDrons.json";
 
     public override void Init()
     {
         UiType = UITYPE.BUILD;
 
+        SelectedDrons saveData = DataSave<SelectedDrons>.LoadData(dataSavePath);
+        if (saveData != default(SelectedDrons))
+            selectedDrons = saveData;
+
         foreach (var data in dronDatas)
             dronPannels.Add(Instantiate(pannelPrefeb, content).Init(data, SetDron, dronPannels.Count));
+
+        foreach(var slot in selectedDrons.list)
+        {
+            if (slot.data != null)
+                dronPannels[slot.idx].isSelected = true;
+        }
 
         base.Init();
     }
@@ -51,7 +62,7 @@ public class BuildUI : BaseUI
             dronPannels[idx].isSelected = true;
         }
 
-        DataSave<SelectedDrons>.SaveData(selectedDrons, "selectedDrons.json");
+        DataSave<SelectedDrons>.SaveData(selectedDrons, dataSavePath);
     }
 
     bool FindEmptySlot(out int idx)
