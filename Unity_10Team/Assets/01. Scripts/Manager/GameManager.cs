@@ -10,6 +10,7 @@ public class GameManager : Singleton<GameManager>
     public PlayerStatus pStat => player.pStat;
 
     public float gameStartTime;
+    public int score;
 
     // Start is called before the first frame update
     void Awake()
@@ -21,5 +22,6 @@ public class GameManager : Singleton<GameManager>
         //player.pStat.Init();
 
         gameStartTime = Time.time;
+        score = 0;
     }
 }

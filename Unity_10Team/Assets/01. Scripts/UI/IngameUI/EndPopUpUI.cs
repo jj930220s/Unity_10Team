@@ -20,7 +20,7 @@ public class EndPopUpUI : BaseUI
         int playTime = (int)(Time.time - GameManager.Instance.gameStartTime);
         string playTimeTxt = $"{playTime / 60:D2}:{playTime % 60:D2}";
 
-        resultTxt.text = playTimeTxt + "\n";
+        resultTxt.text = playTimeTxt + $"\n{GameManager.Instance.score}";
     }
 
     private void OnEnable()
