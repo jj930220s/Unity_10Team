@@ -16,6 +16,3 @@ MonoBehaviour:
   - wealthType: 0
     icon: {fileID: 0}
     textColor: {r: 1, g: 0.78431374, b: 0, a: 1}
-  - wealthType: 1
-    icon: {fileID: 0}
-    textColor: {r: 0.023362402, g: 1, b: 1, a: 1}
