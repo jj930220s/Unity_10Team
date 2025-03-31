@@ -5,12 +5,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [Serializable]
-public class OptionData
+public class OptionUIData
 {
     public string OptionName;
     public Slider.SliderEvent onValueChanged;
 
-    public SettingOption Init(SettingOption option)
+    public SettingOptionUI Init(SettingOptionUI option)
     {
         option.Init(this);
 
@@ -20,8 +20,8 @@ public class OptionData
 
 public class SettingUI : BaseUI
 {
-    [SerializeField] SettingOption optionPrefeb;
-    [SerializeField] OptionData[] datas;
+    [SerializeField] SettingOptionUI optionPrefeb;
+    [SerializeField] OptionUIData[] datas;
 
     public override void Init()
     {
