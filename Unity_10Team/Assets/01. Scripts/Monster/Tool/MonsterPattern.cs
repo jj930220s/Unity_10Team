@@ -83,7 +83,7 @@ public class MonsterPattern : MonoBehaviour
     {
         float angle = (index * Mathf.PI * 2) / spawnCount;
         Vector3 offset = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * radius;
-        return transform.position + offset;
+        return player.position + offset;
     }
 
     void DestroyObstacle()
