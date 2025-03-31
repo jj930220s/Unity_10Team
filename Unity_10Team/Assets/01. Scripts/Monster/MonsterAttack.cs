@@ -30,15 +30,14 @@ public class MonsterAttack : MonoBehaviour
     {
         if (Vector3.Distance(monster.transform.position, monster.target.position) <= ai.agent.stoppingDistance)
         {
-            if (Time.time - lastMeleeAttackTime >= monster.attackCooldown)
+            if (Time.time - lastMeleeAttackTime >= monster.attackCooldown && monster.target != null)
             {
-                if (monster.target != null)
-                {
-                    monster.SetAttacking(true);
-                    lastMeleeAttackTime = Time.time;
+                if (CheckWall()) return;
 
-                    StartCoroutine(HandleAttackAfterAnimation());
-                }
+                monster.SetAttacking(true);
+                lastMeleeAttackTime = Time.time;
+
+                StartCoroutine(HandleAttackAfterAnimation());
             }
         }
     }
@@ -47,26 +46,16 @@ public class MonsterAttack : MonoBehaviour
     {
         if (Vector3.Distance(monster.transform.position, monster.target.position) <= ai.agent.stoppingDistance)
         {
-            if (Time.time - lastRangedAttackTime >= monster.attackCooldown)
+            if (Time.time - lastRangedAttackTime >= monster.attackCooldown && monster.target != null)
             {
-                if (monster.target != null)
-                {
-                    Vector3 spawnPosition = handTransform.position;
+                if (CheckWall()) return;
 
-                    MonsterProjectile projectile = projectilePool.Get();
+                LaunchProjectile();
 
-                    projectile.Initialize(projectilePool);
-                    projectile.transform.position = spawnPosition;
-                    projectile.transform.rotation = Quaternion.identity;
+                monster.SetAttacking(true);
+                lastRangedAttackTime = Time.time;
 
-                    Vector3 direction = (monster.target.position - spawnPosition).normalized;
-                    projectile.Launch(direction, monster.attackDamage);
-
-                    monster.SetAttacking(true);
-                    lastRangedAttackTime = Time.time;
-
-                    StartCoroutine(HandleAttackAfterAnimation());
-                }
+                StartCoroutine(HandleAttackAfterAnimation());
             }
         }
     }
@@ -97,5 +86,35 @@ public class MonsterAttack : MonoBehaviour
 
         monster.SetAttacking(false);
         monster.animator.SetBool("isAttack", false);
+    }
+
+    private void LaunchProjectile()
+    {
+        Vector3 spawnPosition = handTransform.position;
+
+        MonsterProjectile projectile = projectilePool.Get();
+        projectile.Initialize(projectilePool);
+        projectile.transform.position = spawnPosition;
+        projectile.transform.rotation = Quaternion.identity;
+
+        Vector3 direction = (monster.target.position - spawnPosition).normalized;
+
+        projectile.Launch(direction, monster.attackDamage);
+    }
+
+    private bool CheckWall()
+    {
+        Vector3 directionToTarget = monster.target.position - monster.transform.position;
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(monster.transform.position, directionToTarget.normalized, out hit, directionToTarget.magnitude))
+        {
+            if (hit.collider.CompareTag("Wall"))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
