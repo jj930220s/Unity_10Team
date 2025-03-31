@@ -12,7 +12,7 @@ public class Obstacle : MonoBehaviour
     {
         this.pool = pool;
         transform.position = position;
-        transform.rotation = Quaternion.identity;
+        transform.rotation = Quaternion.identity;   
         gameObject.SetActive(true);
     }
 

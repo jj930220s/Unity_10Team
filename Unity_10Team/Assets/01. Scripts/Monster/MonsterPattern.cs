@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class MonsterPattern : MonoBehaviour
 {
     [SerializeField] private GameObject obstaclePrefab;
-    [SerializeField] private GameObject eliteMonsterPrefab;
+    [SerializeField] private GameObject[] eliteMonsterPrefab;
     [SerializeField] private Transform player;
     [SerializeField] private int spawnCount = 5;
     [SerializeField] private float spawnRadius = 10f;
@@ -17,15 +17,23 @@ public class MonsterPattern : MonoBehaviour
     private bool eliteMonsterDefeated = false;
 
     private ObjectPool<Obstacle> obstaclePool;
-    private ObjectPool<Monster> eliteMonsterPool;
+    private Dictionary<GameObject, ObjectPool<Monster>> eliteMonsterPools = new Dictionary<GameObject, ObjectPool<Monster>>();
+
 
     void Start()
     {
         Obstacle obstacles = obstaclePrefab.GetComponent<Obstacle>();
         obstaclePool = new ObjectPool<Obstacle>(obstacles, spawnCount, transform);
 
-        Monster eliteMonsters = eliteMonsterPrefab.GetComponent<Monster>();
-        eliteMonsterPool = new ObjectPool<Monster>(eliteMonsters, 1, transform);
+        //Monster eliteMonsters = eliteMonsterPrefab.GetComponent<Monster>();
+        //eliteMonsterPool = new ObjectPool<Monster>(eliteMonsters, 1, transform);
+
+        foreach (var prefab in eliteMonsterPrefab)
+        {
+            Monster eliteMonsters = prefab.GetComponent<Monster>();
+            ObjectPool<Monster> pool = new ObjectPool<Monster>(eliteMonsters, 1, transform);
+            eliteMonsterPools.Add(prefab, pool);
+        }
 
         StartCoroutine(PatternLoop());
     }
@@ -47,7 +55,7 @@ public class MonsterPattern : MonoBehaviour
                 eliteMonster.isDead = false;
             }
 
-            yield return new WaitForSeconds(180f);
+            yield return new WaitForSeconds(2f);
         }
     }
 
@@ -65,6 +73,7 @@ public class MonsterPattern : MonoBehaviour
         for (int i = 0; i < spawnCount; i++)
         {
             Vector3 spawnPosition = GetCirclePosition(i, spawnRadius);
+            spawnPosition += Vector3.up * 0.5f;
 
             Obstacle obstacle = obstaclePool.Get();
             obstacle.Activate(spawnPosition, obstaclePool);
@@ -97,11 +106,32 @@ public class MonsterPattern : MonoBehaviour
 
         spawnPosition = GetRandomPositionInObstacleRange();
 
-        eliteMonster = eliteMonsterPool.Get();
+        int randomIndex = Random.Range(0, eliteMonsterPrefab.Length);
+        GameObject selectedPrefab = eliteMonsterPrefab[randomIndex];
+
+        eliteMonster = selectedPrefab.GetComponent<Monster>();
+
+        eliteMonster = eliteMonsterPools[selectedPrefab].Get();
         eliteMonster.transform.position = spawnPosition;
         eliteMonster.transform.SetParent(transform);
 
-        eliteMonster.SetStats(10, 5, 5, 1000, 5);
+        eliteMonster.Initialize();
+
+        float baseHealth = eliteMonster.health;
+        float baseAttackDamage = eliteMonster.attackDamage;
+        float baseCooldown = eliteMonster.attackCooldown;
+        float baseRange = eliteMonster.attackRange;
+        float baseSpeed = eliteMonster.moveSpeed;
+
+        if (eliteMonster.attackType == AttackType.Melee)
+        {
+            eliteMonster.SetStats(baseAttackDamage * 3f, baseRange * 2f, baseCooldown * 1f, baseHealth * 10f, baseSpeed * 3f);
+        }
+        else if (eliteMonster.attackType == AttackType.Ranged) 
+        {
+            eliteMonster.SetStats(baseAttackDamage * 2f, baseRange * 1.5f, baseCooldown * 1f, baseHealth * 10f, baseSpeed * 2f);
+        }
+        
         eliteMonster.transform.localScale = new Vector3(3f, 3f, 3f);
 
         eliteMonster.OnDeathEvent -= OnEliteMonsterDefeated;
@@ -114,8 +144,18 @@ public class MonsterPattern : MonoBehaviour
         eliteMonsterDefeated = true;
         eliteMonster.isDead = true;
         Debug.Log($"eliteMonsterDefeated : {eliteMonsterDefeated}");
-        eliteMonsterPool.Release(monster);
-        eliteMonster.OnDeathEvent -= OnEliteMonsterDefeated;
+        //eliteMonsterPools[monster.gameObject].Release(monster);
+        //eliteMonster.OnDeathEvent -= OnEliteMonsterDefeated;
+
+        foreach (var pool in eliteMonsterPools.Values)
+        {
+            if (monster.gameObject.activeSelf)
+            {
+                pool.Release(monster);
+                monster.OnDeathEvent -= OnEliteMonsterDefeated;
+            }
+            break;
+        }
     }
 
     Vector3 GetRandomPositionInObstacleRange()

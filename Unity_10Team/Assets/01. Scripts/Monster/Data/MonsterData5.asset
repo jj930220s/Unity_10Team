@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65811933d51e27446846e03216ed605a, type: 3}
-  m_Name: MonsterData1
+  m_Name: MonsterData5
   m_EditorClassIdentifier: 
-  monsterName: "\uBAAC\uC2A4\uD1301"
+  monsterName: "\uBAAC\uC2A4\uD1304"
   monsterType: 0
-  attackType: 0
-  attackDamage: 3
-  attackRange: 1.5
-  attackCooldown: 3
-  health: 100
+  attackType: 1
+  attackDamage: 4
+  attackRange: 5
+  attackCooldown: 2
+  health: 50
   moveSpeed: 2
   isDead: 0
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 560055856979309104, guid: 9a96397d82a50fb44bbdee350150c34d, type: 3}

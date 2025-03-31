@@ -22,7 +22,7 @@ public class MonsterAttack : MonoBehaviour
         if(monster.attackType == AttackType.Ranged)
         {
             MonsterProjectile projectiles = monster.projectilePrefab.GetComponent<MonsterProjectile>();
-            projectilePool = new ObjectPool<MonsterProjectile>(projectiles, 1, transform);
+            projectilePool = new ObjectPool<MonsterProjectile>(projectiles, 5, transform);
         }
     }
 
@@ -51,12 +51,14 @@ public class MonsterAttack : MonoBehaviour
             {
                 if (monster.target != null)
                 {
-                    Vector3 spawnPosition = handTransform.position;
+                    Vector3 spawnPosition = monster.transform.TransformPoint(handTransform.localPosition);
 
                     MonsterProjectile projectile = projectilePool.Get();
+
                     projectile.Initialize(projectilePool);
                     projectile.transform.position = spawnPosition;
                     projectile.transform.rotation = Quaternion.identity;
+
                     Vector3 direction = (monster.target.position - spawnPosition).normalized;
                     projectile.Launch(direction, monster.attackDamage);
 

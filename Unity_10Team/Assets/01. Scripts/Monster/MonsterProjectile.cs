@@ -6,25 +6,25 @@ public class MonsterProjectile : MonoBehaviour
 {
     private Vector3 direction;
     public float damage;
-    public float speed = 2f;
-    public float lifeTime = 5f;
+    public float speed = 1f;
+    public float lifeTime = 2f;
 
     private ObjectPool<MonsterProjectile> pool;
-
-    private void Start()
-    {
-        Invoke(nameof(ReturnToPool), lifeTime);
-    }
 
     public void Initialize(ObjectPool<MonsterProjectile> pool)
     {
         this.pool = pool;
+        direction = Vector3.zero;
+        CancelInvoke();
     }
 
     public void Launch(Vector3 dir, float dmg)
     {
+        transform.SetParent(null);
         direction = dir.normalized;
         damage = dmg;
+
+        Invoke("ReturnToPool", lifeTime);
     }
 
     private void Update()
@@ -45,6 +45,7 @@ public class MonsterProjectile : MonoBehaviour
         if (pool != null)
         {
             pool.Release(this);
+            Debug.Log("리턴풀 실행");
         }
     }
 }

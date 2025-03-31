@@ -182,6 +182,7 @@ MonoBehaviour:
   moveSpeed: 0
   isDead: 0
   projectilePrefab: {fileID: 560055856979309104, guid: 9a96397d82a50fb44bbdee350150c34d, type: 3}
+  isInitialized: 0
 --- !u!114 &-148038010124867661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,8 +209,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  speed: 2
-  lifeTime: 5
+  speed: 0.5
+  lifeTime: 2
 --- !u!114 &-7339528428363561117
 MonoBehaviour:
   m_ObjectHideFlags: 0

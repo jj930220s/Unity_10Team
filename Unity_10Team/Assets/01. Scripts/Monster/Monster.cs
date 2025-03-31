@@ -83,11 +83,16 @@ public class Monster : MonoBehaviour
 
     public void SetStats(float damage, float range, float cooldown, float hp, float speed)
     {
+        monsterName = monsterData.monsterName;
+        monsterType = monsterData.monsterType;
+        attackType = monsterData.attackType;
         attackDamage = damage;
         attackRange = range;
         attackCooldown = cooldown;
         health = hp;
         moveSpeed = speed;
+        isDead = false;
+        projectilePrefab = monsterData.projectilePrefab;
 
         Debug.Log($"SetStats 호출: Damage={attackDamage}, Range={attackRange}, Cooldown={attackCooldown}, Health={health}, Speed={moveSpeed}");
     }
@@ -129,7 +134,7 @@ public class Monster : MonoBehaviour
 
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
-        OnDeathEvent?.Invoke(this);
+        OnDeathEvent?.Invoke(this); // <이걸로 경험치도 획득하게 하면 될듯?
         Debug.Log($"{monsterName}가 사망했습니다");
     }
 }
