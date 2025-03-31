@@ -119,17 +119,16 @@ public class MonsterPattern : MonoBehaviour
 
         float baseHealth = eliteMonster.health;
         float baseAttackDamage = eliteMonster.attackDamage;
-        float baseCooldown = eliteMonster.attackCooldown;
         float baseRange = eliteMonster.attackRange;
         float baseSpeed = eliteMonster.moveSpeed;
 
         if (eliteMonster.attackType == AttackType.Melee)
         {
-            eliteMonster.SetStats(baseAttackDamage * 3f, baseRange * 2f, baseCooldown * 1f, baseHealth * 10f, baseSpeed * 3f);
+            eliteMonster.SetStats(baseAttackDamage * 3f, baseRange * 2f, MonsterType.Boss, baseHealth * 10f, baseSpeed * 3f);
         }
         else if (eliteMonster.attackType == AttackType.Ranged) 
         {
-            eliteMonster.SetStats(baseAttackDamage * 2f, baseRange * 1.5f, baseCooldown * 1f, baseHealth * 10f, baseSpeed * 2f);
+            eliteMonster.SetStats(baseAttackDamage * 2f, baseRange * 1.5f, MonsterType.Boss, baseHealth * 10f, baseSpeed * 2f);
         }
         
         eliteMonster.transform.localScale = new Vector3(3f, 3f, 3f);
@@ -143,10 +142,10 @@ public class MonsterPattern : MonoBehaviour
         Debug.Log("Elite Monster Defeated!");
         eliteMonsterDefeated = true;
         eliteMonster.isDead = true;
-        Debug.Log($"eliteMonsterDefeated : {eliteMonsterDefeated}");
-        //eliteMonsterPools[monster.gameObject].Release(monster);
-        //eliteMonster.OnDeathEvent -= OnEliteMonsterDefeated;
 
+        MonsterSpawner.Instance.HandleMonsterDeath(monster);
+
+        Debug.Log($"eliteMonsterDefeated : {eliteMonsterDefeated}");
         foreach (var pool in eliteMonsterPools.Values)
         {
             if (monster.gameObject.activeSelf)
@@ -190,24 +189,5 @@ public class MonsterPattern : MonoBehaviour
             }
         }
         return false;
-
-        // 나중에 임시큐브 말고 다른걸로 바꾸면 이거 쓸듯
-
-        //foreach (Obstacle obstacle in activeObstacles)
-        //{
-        //    MeshCollider collider = obstacle.GetComponent<MeshCollider>();
-        //    if (collider != null)
-        //    {
-        //
-        //        Bounds bounds = collider.bounds;
-
-        //
-        //        if (bounds.Contains(position))
-        //        {
-        //            return true;
-        //        }
-        //    }
-        //}
-        //return false;
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters;
@@ -81,20 +80,18 @@ public class Monster : MonoBehaviour
         isInitialized = true;
     }
 
-    public void SetStats(float damage, float range, float cooldown, float hp, float speed)
+    public void SetStats(float damage, float range, MonsterType type, float hp, float speed)
     {
         monsterName = monsterData.monsterName;
-        monsterType = monsterData.monsterType;
+        monsterType = type;
         attackType = monsterData.attackType;
         attackDamage = damage;
         attackRange = range;
-        attackCooldown = cooldown;
+        attackCooldown = monsterData.attackCooldown;
         health = hp;
         moveSpeed = speed;
         isDead = false;
         projectilePrefab = monsterData.projectilePrefab;
-
-        Debug.Log($"SetStats »£√‚: Damage={attackDamage}, Range={attackRange}, Cooldown={attackCooldown}, Health={health}, Speed={moveSpeed}");
     }
 
     public float GetMoveSpeed()

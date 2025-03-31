@@ -111,8 +111,33 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
         {
             Debug.Log($"[Deactivate] 활성화된 몬스터 수: {activeMonsters.Count}");
             monster.isDead = false;
+            HandleMonsterDeath(monster);
             ReturnMonster(monster);
         }
+    }
+
+    public void HandleMonsterDeath(Monster monster)
+    {
+        int experienceGained = 0;
+        int goldGained = 0;
+
+        // 몬스터 타입에 따라 경험치와 골드 지급
+        if (monster.monsterType == MonsterType.Normal)
+        {
+            experienceGained = Random.Range(1, 4);
+            goldGained = Random.Range(2, 6);
+        }
+        else if (monster.monsterType == MonsterType.Boss)
+        {
+            experienceGained = Random.Range(10, 21);
+            goldGained = Random.Range(15, 31);
+        }
+
+        // 플레이어에게 경험치 및 골드 지급
+        //Player.Instance.AddExperience(experienceGained);
+        //Player.Instance.AddGold(goldGained);
+
+        Debug.Log($"{monster.monsterName} 처치! 경험치: {experienceGained}, 골드: {goldGained}");
     }
 
     public void ReturnMonster(Monster monster)
