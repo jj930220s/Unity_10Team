@@ -25,5 +25,9 @@ public class PlayerWealth
     public void PerChase(WEALTHTYPE type, int amount)
     {
         wealths[type] -= amount;
+
+        foreach (var baseWealth in baseWealths)
+            baseWealth.amount = wealths[baseWealth.type];
+        DataSave<PlayerWealth>.SaveData(this, "wealthData.json");
     }
 }
