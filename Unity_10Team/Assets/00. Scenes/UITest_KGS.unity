@@ -248,7 +248,7 @@ MonoBehaviour:
     shotParameterName: Shot
     verticalParameterName: Vertical
     horizontalParameterName: Horizontal
-  <bulletPrefab>k__BackingField: {fileID: 0}
+  <bulletPrefab>k__BackingField: {fileID: 2443315521590755626, guid: aa3b91631fcbfe94481d0b2ee14fcba7, type: 3}
 --- !u!4 &781493260
 Transform:
   m_ObjectHideFlags: 0
@@ -1393,6 +1393,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -170
       objectReference: {fileID: 0}
+    - target: {fileID: 7178426794850203407, guid: 4d7b1f02a6b397041aa926bd2fe07878, type: 3}
+      propertyPath: selectedDrons.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178426794850203407, guid: 4d7b1f02a6b397041aa926bd2fe07878, type: 3}
+      propertyPath: selectedDrons.list.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1651,6 +1659,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: UpgradeUI
       objectReference: {fileID: 0}
+    - target: {fileID: 4229536323560673375, guid: d40950c3b9b1e174b9b6ea7b465b938d, type: 3}
+      propertyPath: upgrades.list.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4229536323560673375, guid: d40950c3b9b1e174b9b6ea7b465b938d, type: 3}
+      propertyPath: upgrades.list.Array.data[0].data
+      value: 
+      objectReference: {fileID: 11400000, guid: 9128c612e8c38bd409e9ac4fc0c91c9a, type: 2}
+    - target: {fileID: 4229536323560673375, guid: d40950c3b9b1e174b9b6ea7b465b938d, type: 3}
+      propertyPath: upgrades.list.Array.data[1].data
+      value: 
+      objectReference: {fileID: 11400000, guid: 12f887527e8e37b43b7ad0a4f18c9e9e, type: 2}
+    - target: {fileID: 4229536323560673375, guid: d40950c3b9b1e174b9b6ea7b465b938d, type: 3}
+      propertyPath: upgrades.Array.data[0].<data>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 9128c612e8c38bd409e9ac4fc0c91c9a, type: 2}
+    - target: {fileID: 4229536323560673375, guid: d40950c3b9b1e174b9b6ea7b465b938d, type: 3}
+      propertyPath: upgrades.Array.data[1].<data>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 12f887527e8e37b43b7ad0a4f18c9e9e, type: 2}
     - target: {fileID: 5612426934621726073, guid: d40950c3b9b1e174b9b6ea7b465b938d, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0

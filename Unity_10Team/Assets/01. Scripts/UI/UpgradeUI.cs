@@ -1,9 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+
+[Serializable]
+public class UpgradeList
+{
+    public Upgrade[] list;
+}
 
 public class UpgradeUI : BaseUI
 {
@@ -22,7 +29,7 @@ public class UpgradeUI : BaseUI
     [Header("Upgrade")]
     [SerializeField] RectTransform content;
     [SerializeField] UpgradePannel pannelPrefeb;
-    [SerializeField] Upgrade[] upgrades;
+    [SerializeField] UpgradeList upgrades;
     List<UpgradePannel> upgradePannels = new();
 
     [Header("SelectedUpgrade")]
@@ -42,7 +49,7 @@ public class UpgradeUI : BaseUI
         foreach (var info in statInfos)
             statInfoUIs[info.statType] = Instantiate(StatusPrefeb, playerStat).Init(info);
 
-        foreach (var upgrade in upgrades)
+        foreach (var upgrade in upgrades.list)
             upgradePannels.Add(Instantiate(pannelPrefeb, content).Init(upgrade, UpgradeSelected, upgradePannels.Count));
 
         base.Init();
@@ -71,7 +78,7 @@ public class UpgradeUI : BaseUI
     public void UpgradeSelected(int idx)
     {
         UpdateUI();
-        selectedUpgrade = upgrades[idx];
+        selectedUpgrade = upgrades.list[idx];
 
         if (selectedUpgrade == null || selectedUpgrade.upgraded) return;
 
@@ -93,6 +100,7 @@ public class UpgradeUI : BaseUI
         GameManager.Instance.wealth.PerChase(WEALTHTYPE.Gold, selectedUpgrade.data.cost);
         selectedUpgrade.ApplyUpgrade(GameManager.Instance.player);
 
+        DataSave<UpgradeList>.SaveData(upgrades, "upgradeList.json");
         UpdateUI();
     }
 }
