@@ -21,13 +21,18 @@ public class PlayerLevel
         if (this.exp >= maxExp)
         {
             this.exp -= maxExp;
-            level++;
-            SetMaxExp();
+            LevelUp();
         }
     }
 
     private void SetMaxExp()
     {
         maxExp = level * 10;
+    }
+
+    public void LevelUp()
+    {
+        level++;
+        SetMaxExp();
     }
 }

@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [field:SerializeField] public PlayerSObj data { get; private set; }
+    [field: SerializeField] public PlayerSObj data { get; private set; }
+    [field: SerializeField] public EnforceData enforceData { get; private set; }
+
+    public List<IEnforce> enforceList { get; private set; } = new List<IEnforce>();
 
     [field:Header("Animations")]
     [field:SerializeField] public PlayerAnimationData animationData { get; private set; }
@@ -26,6 +29,11 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        foreach (IEnforce enforce in enforceData.EnforceStatusList)
+        {
+            enforceList.Add(enforce);
+        }
+
         shotPoint = transform.Find("Character/ShotPoint");
 
         animationData.Initialize();
