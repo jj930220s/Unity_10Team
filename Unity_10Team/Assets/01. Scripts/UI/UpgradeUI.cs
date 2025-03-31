@@ -58,7 +58,7 @@ public class UpgradeUI : BaseUI
 
         foreach (var info in statInfoUIs)
             if (GameManager.Instance.player.pStat.status.ContainsKey(info.Key))
-                info.Value.UpdateInfo(GameManager.Instance.player.pStat.status[info.Key]);
+                info.Value.UpdateInfo((int)GameManager.Instance.pStat.status[info.Key]);
 
         foreach (var pannel in upgradePannels)
             pannel.UpdateInfo();

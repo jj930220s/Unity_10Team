@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 [Serializable]
@@ -14,6 +15,13 @@ public class Upgrade
         data.ApplyUpgrade(player);
         upgraded = true;
     }
+}
+
+[Serializable]
+public class Status
+{
+    public STATTYPE type;
+    public int value;
 }
 
 [CreateAssetMenu(fileName = "Upgrade", menuName = "Data/Upgrade")]
