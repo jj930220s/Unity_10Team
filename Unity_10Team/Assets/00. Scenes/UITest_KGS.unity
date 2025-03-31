@@ -1848,6 +1848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7908ab5a47ef3fd41992237885c35a95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeTxt: {fileID: 2056121363}
   hpBar: {fileID: 52575198}
   expBar: {fileID: 155630241}
   level: {fileID: 1591981129}
@@ -1890,6 +1891,7 @@ MonoBehaviour:
       amount: 100
     - type: 1
       amount: 10
+  gameStartTime: 0
 --- !u!4 &1112631956
 Transform:
   m_ObjectHideFlags: 0
