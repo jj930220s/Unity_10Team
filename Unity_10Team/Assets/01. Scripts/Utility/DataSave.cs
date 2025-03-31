@@ -10,6 +10,7 @@ public class DataSave<T>
         string filePath = Path.Combine(Application.persistentDataPath, path);
 
         string jsonData = JsonUtility.ToJson(data);
+        Debug.Log(jsonData);
         File.WriteAllText(filePath, jsonData);
 
         Debug.Log("file saved in " + filePath);

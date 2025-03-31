@@ -18,6 +18,11 @@ public class BaseUI : MonoBehaviour
 
     public virtual void Init()
     {
+        UpdateUI();
+    }
+
+    protected virtual void UpdateUI()
+    {
 
     }
 }
