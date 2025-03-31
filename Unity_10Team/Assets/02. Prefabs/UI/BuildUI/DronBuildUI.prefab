@@ -132,10 +132,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 06e4612cacb720c4b951a2dd16c93b88, type: 2}
   - {fileID: 11400000, guid: 6d4926b7618558e4eafa8b056548253a, type: 2}
   selectedDrons:
-  - data: {fileID: 0}
-  - data: {fileID: 0}
-  - data: {fileID: 0}
-  - data: {fileID: 0}
+    list:
+    - idx: 0
+      data: {fileID: 0}
+    - idx: 0
+      data: {fileID: 0}
 --- !u!1 &3691354190065663946
 GameObject:
   m_ObjectHideFlags: 0
