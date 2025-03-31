@@ -6,9 +6,9 @@ using UnityEngine;
 public enum STATTYPE
 {
     HP,
+    CHP,
     ATK,
     DEF,
-    HPGEN,
     SPEED,
     ATKDELAY
 }
@@ -28,10 +28,19 @@ public class PlayerStatus
     public void Init()
     {
         status.Add(STATTYPE.HP, player.data.defaultData.baseHP);
+        status.Add(STATTYPE.CHP, status[STATTYPE.HP]);
         status.Add(STATTYPE.ATK, player.data.defaultData.baseAttack);
         status.Add(STATTYPE.DEF, player.data.defaultData.baseDefence);
-        status.Add(STATTYPE.HPGEN, 0f); // 나중에 구현
         status.Add(STATTYPE.SPEED, player.data.defaultData.baseSpeed);
         status.Add(STATTYPE.ATKDELAY, player.data.defaultData.baseAttackDelay);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        status[STATTYPE.CHP] -= damage;
+        if (status[STATTYPE.CHP] <= 0)
+        {
+            status[STATTYPE.CHP] = 0;
+        }
     }
 }
