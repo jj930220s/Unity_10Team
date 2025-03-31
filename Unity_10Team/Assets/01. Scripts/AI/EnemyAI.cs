@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI; // NavMesh 사용
+using System.Collections;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -32,30 +33,36 @@ public class EnemyAI : MonoBehaviour
             monster.target = player;
         }
 
-        animator = GetComponent<Animator>(); 
+        animator = GetComponent<Animator>();
 
         if (animator == null)
         {
             Debug.LogError("Animator 없음");
         }
 
+        StartCoroutine(UpdateAI());
     }
 
-    void Update()
+    IEnumerator UpdateAI()
     {
-        if (agent != null && player != null && !monster.isDead)
+        while (!monster.isDead)
         {
-            agent.SetDestination(player.position);
-
-            Vector3 direction = (player.position - transform.position).normalized;
-            if (direction != Vector3.zero)
+            if (agent != null && player != null && monster.target != null)
             {
-                Quaternion toRotation = Quaternion.LookRotation(direction);
-                transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.deltaTime * 5f);
+                agent.SetDestination(monster.target.position);
+
+                Vector3 direction = (monster.target.position - transform.position).normalized;
+                if (direction != Vector3.zero)
+                {
+                    Quaternion toRotation = Quaternion.LookRotation(direction);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.deltaTime * 5f);
+                }
+
+                bool isMoving = agent.velocity.magnitude > 0.1f;
+                animator.SetBool("isMoving", isMoving);
             }
 
-            bool isMoving = agent.velocity.magnitude > 0.1f;
-            animator.SetBool("isMoving", isMoving);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }
