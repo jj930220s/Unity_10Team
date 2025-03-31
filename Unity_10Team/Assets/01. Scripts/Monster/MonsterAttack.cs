@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MonsterAttack : MonoBehaviour
@@ -11,10 +12,18 @@ public class MonsterAttack : MonoBehaviour
     private float lastMeleeAttackTime;
     private float lastRangedAttackTime;
 
+    public ObjectPool<MonsterProjectile> projectilePool;
+
     private void Start()
     {
         monster = GetComponent<Monster>();
         ai = GetComponent<EnemyAI>();
+
+        if(monster.attackType == AttackType.Ranged)
+        {
+            MonsterProjectile projectiles = monster.projectilePrefab.GetComponent<MonsterProjectile>();
+            projectilePool = new ObjectPool<MonsterProjectile>(projectiles, 1, transform);
+        }
     }
 
     private void PerformMeleeAttack()
@@ -44,11 +53,12 @@ public class MonsterAttack : MonoBehaviour
                 {
                     Vector3 spawnPosition = handTransform.position;
 
-                    GameObject projectile = Instantiate(monster.monsterData.projectilePrefab, spawnPosition, Quaternion.identity);
-
+                    MonsterProjectile projectile = projectilePool.Get();
+                    projectile.Initialize(projectilePool);
+                    projectile.transform.position = spawnPosition;
+                    projectile.transform.rotation = Quaternion.identity;
                     Vector3 direction = (monster.target.position - spawnPosition).normalized;
-
-                    projectile.GetComponent<MonsterProjectile>().Launch(direction, monster.attackDamage);
+                    projectile.Launch(direction, monster.attackDamage);
 
                     monster.SetAttacking(true);
                     lastRangedAttackTime = Time.time;

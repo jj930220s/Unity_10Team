@@ -67,7 +67,7 @@ public class MonsterPattern : MonoBehaviour
             Vector3 spawnPosition = GetCirclePosition(i, spawnRadius);
 
             Obstacle obstacle = obstaclePool.Get();
-            obstacle.Initialize(spawnPosition);
+            obstacle.Activate(spawnPosition, obstaclePool);
             obstacle.transform.SetParent(transform);
 
             activeObstacles.Add(obstacle);
@@ -84,12 +84,11 @@ public class MonsterPattern : MonoBehaviour
     void DestroyObstacle()
     {
         Debug.Log("Àå¾Ö¹° ÆÄ±«");
-        foreach (Obstacle obstacle in activeObstacles)
+        for (int i = activeObstacles.Count - 1; i >= 0; i--)
         {
-            obstaclePool.Release(obstacle);
+            activeObstacles[i].ReturnToPool();
+            activeObstacles.RemoveAt(i);
         }
-
-        activeObstacles.Clear();
     }
 
     void SpawnEliteMonster()
@@ -105,6 +104,7 @@ public class MonsterPattern : MonoBehaviour
         eliteMonster.SetStats(10, 5, 5, 1000, 5);
         eliteMonster.transform.localScale = new Vector3(3f, 3f, 3f);
 
+        eliteMonster.OnDeathEvent -= OnEliteMonsterDefeated;
         eliteMonster.OnDeathEvent += OnEliteMonsterDefeated;
     }
 

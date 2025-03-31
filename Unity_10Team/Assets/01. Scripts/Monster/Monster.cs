@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters;
 using System.Threading;
 using UnityEngine;
 
@@ -25,7 +26,7 @@ public class Monster : MonoBehaviour
     public delegate void OnDeathDelegate(Monster monster);
     public event OnDeathDelegate OnDeathEvent;
 
-    private bool isInitialized = false;
+    public bool isInitialized = false;
 
     private void Start()
     {

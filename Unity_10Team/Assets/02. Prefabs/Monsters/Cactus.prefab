@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: 6096312193273766057}
   - component: {fileID: 1846364810128499433}
   - component: {fileID: -148038010124867661}
+  - component: {fileID: -7643873189863231661}
   - component: {fileID: -7339528428363561117}
   - component: {fileID: -2457302405919948840}
   m_Layer: 0
@@ -194,6 +195,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handTransform: {fileID: 5000040911161189537}
+--- !u!114 &-7643873189863231661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662468794185850985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ddcda3e3796d6744b3fc278f67396c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  speed: 2
+  lifeTime: 5
 --- !u!114 &-7339528428363561117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,6 +224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   monster: {fileID: 0}
+  agent: {fileID: 0}
 --- !u!195 &-2457302405919948840
 NavMeshAgent:
   m_ObjectHideFlags: 0

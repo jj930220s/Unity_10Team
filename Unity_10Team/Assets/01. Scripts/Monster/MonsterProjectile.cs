@@ -9,11 +9,16 @@ public class MonsterProjectile : MonoBehaviour
     public float speed = 2f;
     public float lifeTime = 5f;
 
+    private ObjectPool<MonsterProjectile> pool;
 
-    //이거 오브젝트풀로 변경
     private void Start()
     {
-        Destroy(gameObject, lifeTime);
+        Invoke(nameof(ReturnToPool), lifeTime);
+    }
+
+    public void Initialize(ObjectPool<MonsterProjectile> pool)
+    {
+        this.pool = pool;
     }
 
     public void Launch(Vector3 dir, float dmg)
@@ -29,13 +34,17 @@ public class MonsterProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || !other.isTrigger) // < 나중에 장애물, 벽 이런거 태그 걸어서 여기에 사용하면 될듯
         {
-            Destroy(gameObject);
+            ReturnToPool();
         }
-        else if (!other.isTrigger)
+    }
+
+    private void ReturnToPool()
+    {
+        if (pool != null)
         {
-            Destroy(gameObject);
+            pool.Release(this);
         }
     }
 }
