@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     public CharacterController characterController { get; private set; }
     private PlayerStateMachine stateMachine;
     public Transform mainCameraTransform { get; set; }
+
+    [field: SerializeField] public PlayerLevel pLevel { get; private set; }
     [field: SerializeField] public PlayerStatus pStat { get; private set; }
 
     [field: SerializeField] public Bullet bulletPrefab { get; private set; }
@@ -32,6 +34,7 @@ public class Player : MonoBehaviour
         inputController = GetComponent<PlayerController>();
         characterController = GetComponent<CharacterController>();
 
+        pLevel = new PlayerLevel(1);
         pStat = new PlayerStatus(this);
         pStat.Init();
 
