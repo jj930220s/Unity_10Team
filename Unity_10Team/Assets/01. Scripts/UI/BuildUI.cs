@@ -1,6 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+[Serializable]
+public class BuildSlot
+{
+    public int? idx;
+    public DronData data;
+}
 
 public class BuildUI : BaseUI
 {
@@ -9,7 +17,7 @@ public class BuildUI : BaseUI
     [SerializeField] DronData[] dronDatas;
     List<DronPannel> dronPannels = new();
 
-    public DronData[] selectedDrons;
+    public BuildSlot[] selectedDrons;
 
     public override void Init()
     {
@@ -25,12 +33,15 @@ public class BuildUI : BaseUI
     {
         if (dronPannels[idx].isSelected)
         {
-            selectedDrons[FindSelectedSlot(idx)] = null;
+            int i = FindSelectedSlot(idx);
+            selectedDrons[i].data = null;
+            selectedDrons[i].idx = null;
             dronPannels[idx].isSelected = false;
         }
         else if (FindEmptySlot(out int i))
         {
-            selectedDrons[i] = dronDatas[idx];
+            selectedDrons[i].data = dronDatas[idx];
+            selectedDrons[i].idx = idx;
             dronPannels[idx].isSelected = true;
         }
     }
@@ -38,7 +49,7 @@ public class BuildUI : BaseUI
     bool FindEmptySlot(out int idx)
     {
         for (int i = 0; i < selectedDrons.Length; i++)
-            if (selectedDrons[i] == null)
+            if (selectedDrons[i].data == null)
             {
                 idx = i;
                 return true;
@@ -52,7 +63,7 @@ public class BuildUI : BaseUI
     int FindSelectedSlot(int idx)
     {
         for (int i = 0; i < selectedDrons.Length; i++)
-            if (selectedDrons[i] == dronDatas[idx])
+            if (selectedDrons[i].idx == idx)
                 return i;
         return -1;
     }
