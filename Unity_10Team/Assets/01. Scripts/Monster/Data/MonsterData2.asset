@@ -16,7 +16,7 @@ MonoBehaviour:
   monsterType: 0
   attackType: 0
   attackDamage: 1
-  attackRange: 1.5
+  attackRange: 2
   attackCooldown: 2
   health: 200
   moveSpeed: 1

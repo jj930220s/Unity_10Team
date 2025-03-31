@@ -17,7 +17,7 @@ MonoBehaviour:
   attackType: 1
   attackDamage: 2
   attackRange: 5
-  attackCooldown: 1
+  attackCooldown: 2
   health: 50
   moveSpeed: 2
   isDead: 0

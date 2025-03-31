@@ -15,10 +15,10 @@ MonoBehaviour:
   monsterName: "\uBAAC\uC2A4\uD1304"
   monsterType: 0
   attackType: 1
-  attackDamage: 4
-  attackRange: 5
-  attackCooldown: 2
+  attackDamage: 5
+  attackRange: 7
+  attackCooldown: 3
   health: 50
-  moveSpeed: 2
+  moveSpeed: 1
   isDead: 0
   projectilePrefab: {fileID: 560055856979309104, guid: 9a96397d82a50fb44bbdee350150c34d, type: 3}
