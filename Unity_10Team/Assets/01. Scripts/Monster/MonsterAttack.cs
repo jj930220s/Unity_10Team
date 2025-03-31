@@ -5,6 +5,7 @@ using UnityEngine;
 public class MonsterAttack : MonoBehaviour
 {
     private Monster monster;
+    private EnemyAI ai;
     public Transform handTransform;
 
     private float lastMeleeAttackTime;
@@ -13,18 +14,16 @@ public class MonsterAttack : MonoBehaviour
     private void Start()
     {
         monster = GetComponent<Monster>();
+        ai = GetComponent<EnemyAI>();
     }
 
-    // 근접 공격 메서드
     private void PerformMeleeAttack()
-    { 
-        if (Time.time - lastMeleeAttackTime >= monster.attackCooldown)
+    {
+        if (Vector3.Distance(monster.transform.position, monster.target.position) <= ai.agent.stoppingDistance)
         {
-            Collider[] hitEnemies = Physics.OverlapSphere(monster.transform.position, monster.attackRange);
-
-            foreach (var enemy in hitEnemies)
+            if (Time.time - lastMeleeAttackTime >= monster.attackCooldown)
             {
-                if (enemy.CompareTag("Player"))
+                if (monster.target != null)
                 {
                     monster.SetAttacking(true);
                     lastMeleeAttackTime = Time.time;
@@ -37,12 +36,11 @@ public class MonsterAttack : MonoBehaviour
 
     private void PerformRangedAttack()
     {
-        if (Time.time - lastRangedAttackTime >= monster.attackCooldown)
+        if (Vector3.Distance(monster.transform.position, monster.target.position) <= ai.agent.stoppingDistance)
         {
-            Collider[] hitEnemies = Physics.OverlapSphere(monster.transform.position, monster.attackRange);
-            foreach (var enemy in hitEnemies)
+            if (Time.time - lastRangedAttackTime >= monster.attackCooldown)
             {
-                if (enemy.CompareTag("Player"))
+                if (monster.target != null)
                 {
                     Vector3 spawnPosition = handTransform.position;
 
@@ -58,7 +56,7 @@ public class MonsterAttack : MonoBehaviour
                     StartCoroutine(HandleAttackAfterAnimation());
                 }
             }
-        }  
+        }
     }
 
     public void PerformAttack()
@@ -78,20 +76,12 @@ public class MonsterAttack : MonoBehaviour
 
     private IEnumerator HandleAttackAfterAnimation()
     {
- 
         float attackAnimationLength = monster.animator.GetCurrentAnimatorStateInfo(0).length;
 
         yield return new WaitForSeconds(attackAnimationLength);
 
-        Collider[] hitEnemies = Physics.OverlapSphere(monster.transform.position, monster.attackRange);
-        foreach (var enemy in hitEnemies)
-        {
-            if (enemy.CompareTag("Player"))
-            {
-                // 여기에 플레이어 데미지 적용
-               Debug.Log($"{monster.monsterName}가 {monster.attackDamage}의 피해를 입혔습니다!");
-            }
-        }
+        // 여기서 플레이어 데미지 적용
+        Debug.Log($"{monster.monsterName}가 {monster.attackDamage}의 피해를 입혔습니다!");
 
         monster.SetAttacking(false);
         monster.animator.SetBool("isAttack", false);

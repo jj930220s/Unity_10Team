@@ -44,6 +44,7 @@ public class MonsterPattern : MonoBehaviour
             {
                 DestroyObstacle();
                 eliteMonsterDefeated = false;
+                eliteMonster.isDead = false;
             }
 
             yield return new WaitForSeconds(180f);
@@ -65,7 +66,7 @@ public class MonsterPattern : MonoBehaviour
         {
             Vector3 spawnPosition = GetCirclePosition(i, spawnRadius);
 
-            Obstacle obstacle = obstaclePool.Get(); // 풀에서 가져옴
+            Obstacle obstacle = obstaclePool.Get();
             obstacle.Initialize(spawnPosition);
             obstacle.transform.SetParent(transform);
 
@@ -104,12 +105,6 @@ public class MonsterPattern : MonoBehaviour
         eliteMonster.SetStats(10, 5, 5, 1000, 5);
         eliteMonster.transform.localScale = new Vector3(3f, 3f, 3f);
 
-        NavMeshAgent agent = eliteMonster.GetComponent<NavMeshAgent>();
-        if (agent != null)
-        {
-            agent.speed = eliteMonster.GetMoveSpeed(); // 몬스터의 이동 속도를 NavMeshAgent에 반영
-        }
-
         eliteMonster.OnDeathEvent += OnEliteMonsterDefeated;
     }
 
@@ -117,8 +112,10 @@ public class MonsterPattern : MonoBehaviour
     {
         Debug.Log("Elite Monster Defeated!");
         eliteMonsterDefeated = true;
+        eliteMonster.isDead = true;
         Debug.Log($"eliteMonsterDefeated : {eliteMonsterDefeated}");
         eliteMonsterPool.Release(monster);
+        eliteMonster.OnDeathEvent -= OnEliteMonsterDefeated;
     }
 
     Vector3 GetRandomPositionInObstacleRange()

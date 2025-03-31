@@ -9,6 +9,8 @@ public class MonsterProjectile : MonoBehaviour
     public float speed = 2f;
     public float lifeTime = 5f;
 
+
+    //이거 오브젝트풀로 변경
     private void Start()
     {
         Destroy(gameObject, lifeTime);

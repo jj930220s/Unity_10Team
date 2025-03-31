@@ -6,6 +6,7 @@ public class Obstacle : MonoBehaviour
 {
     public float radius = 1f;
 
+    //이거 오브젝트풀로 변경
     public void Initialize(Vector3 position)
     {
         transform.position = position;
