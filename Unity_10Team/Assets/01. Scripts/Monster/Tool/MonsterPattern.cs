@@ -19,14 +19,10 @@ public class MonsterPattern : MonoBehaviour
     private ObjectPool<Obstacle> obstaclePool;
     private Dictionary<GameObject, ObjectPool<Monster>> eliteMonsterPools = new Dictionary<GameObject, ObjectPool<Monster>>();
 
-
     void Start()
     {
         Obstacle obstacles = obstaclePrefab.GetComponent<Obstacle>();
         obstaclePool = new ObjectPool<Obstacle>(obstacles, spawnCount, transform);
-
-        //Monster eliteMonsters = eliteMonsterPrefab.GetComponent<Monster>();
-        //eliteMonsterPool = new ObjectPool<Monster>(eliteMonsters, 1, transform);
 
         foreach (var prefab in eliteMonsterPrefab)
         {
@@ -92,7 +88,6 @@ public class MonsterPattern : MonoBehaviour
 
     void DestroyObstacle()
     {
-        Debug.Log("장애물 파괴");
         for (int i = activeObstacles.Count - 1; i >= 0; i--)
         {
             activeObstacles[i].ReturnToPool();
@@ -118,11 +113,9 @@ public class MonsterPattern : MonoBehaviour
             ObjectPool<Monster> pool = eliteMonsterPools[selectedPrefab];
             spawnedMonster = pool.Get();
 
-            if (spawnedMonster != null)
-                break;
+            if (spawnedMonster != null) break;
 
             attempt++;
-            Debug.Log($"Retrying SpawnEliteMonster... Attempt {attempt}");
         }
 
         if (spawnedMonster == null)
@@ -153,24 +146,24 @@ public class MonsterPattern : MonoBehaviour
         
         eliteMonster.transform.localScale = new Vector3(3f, 3f, 3f);
 
-        eliteMonster.OnDeathEvent -= OnEliteMonsterDefeated;
+        if (eliteMonster != null)
+        {
+            eliteMonster.OnDeathEvent -= OnEliteMonsterDefeated;
+        }
         eliteMonster.OnDeathEvent += OnEliteMonsterDefeated;
     }
 
     void OnEliteMonsterDefeated(Monster monster)
     {
-        Debug.Log("Elite Monster Defeated!");
         eliteMonsterDefeated = true;
         eliteMonster.isDead = true;
 
         MonsterSpawner.Instance.HandleMonsterDeath(monster);
 
-        Debug.Log($"eliteMonsterDefeated : {eliteMonsterDefeated}");
         foreach (var pool in eliteMonsterPools.Values)
         {
             if (monster.gameObject.activeSelf)
             {
-                Debug.Log("엘리트몬스터 릴리즈");
                 pool.Release(monster);
                 monster.OnDeathEvent -= OnEliteMonsterDefeated;
             }

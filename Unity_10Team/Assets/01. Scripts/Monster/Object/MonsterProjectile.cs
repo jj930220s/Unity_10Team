@@ -34,7 +34,7 @@ public class MonsterProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") || !other.isTrigger) // < 나중에 장애물, 벽 이런거 태그 걸어서 여기에 사용하면 될듯
+        if (other.CompareTag("Player") || other.CompareTag("Wall"))
         {
             ReturnToPool();
         }

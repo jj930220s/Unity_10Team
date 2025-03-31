@@ -651,6 +651,7 @@ MonoBehaviour:
   isDead: 0
   projectilePrefab: {fileID: 560055856979309104, guid: 9a96397d82a50fb44bbdee350150c34d, type: 3}
   isInitialized: 0
+  dropOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &3513421607308723446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -663,7 +664,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c68e496048a060b4586a98e60a3cea61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handTransform: {fileID: 960033841533228208}
+  handTransform: {fileID: 71058274474046244}
 --- !u!114 &8551064180759563330
 MonoBehaviour:
   m_ObjectHideFlags: 0

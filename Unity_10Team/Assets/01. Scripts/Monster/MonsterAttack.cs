@@ -51,7 +51,7 @@ public class MonsterAttack : MonoBehaviour
             {
                 if (monster.target != null)
                 {
-                    Vector3 spawnPosition = monster.transform.TransformPoint(handTransform.localPosition);
+                    Vector3 spawnPosition = handTransform.position;
 
                     MonsterProjectile projectile = projectilePool.Get();
 
