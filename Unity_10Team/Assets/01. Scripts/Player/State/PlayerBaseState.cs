@@ -8,12 +8,15 @@ public class PlayerBaseState : IState
     protected PlayerStateMachine stateMachine;
     protected readonly PlayerDefaultData defaultData;
     protected readonly PlayerAttackData attackData;
+    protected readonly PlayerStatus playerStatus;
 
     public PlayerBaseState(PlayerStateMachine stateMachine)
     {
         this.stateMachine = stateMachine;
         defaultData = this.stateMachine.player.data.defaultData;
         attackData = this.stateMachine.player.data.attackData;
+        
+        playerStatus = this.stateMachine.player.pStat;
     }
 
     public virtual void StateEnter()

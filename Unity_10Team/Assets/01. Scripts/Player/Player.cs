@@ -14,18 +14,36 @@ public class Player : MonoBehaviour
     public CharacterController characterController { get; private set; }
     private PlayerStateMachine stateMachine;
     public Transform mainCameraTransform { get; set; }
+    [field: SerializeField] public PlayerStatus pStat { get; private set; }
 
-    [field: SerializeField]public PlayerStatus pStat { get; private set; }
+    [field: SerializeField] public Bullet bulletPrefab { get; private set; }
+    public ObjectPool<Bullet> bulletPool { get; private set; }
+    public Transform shotPoint { get; private set; }
+
+    private GameDataManager dataManager; //게임데이터매니저
 
     private void Awake()
     {
+        shotPoint = transform.Find("Character/ShotPoint");
+
         animationData.Initialize();
         animator = GetComponentInChildren<Animator>();
+
         inputController = GetComponent<PlayerController>();
         characterController = GetComponent<CharacterController>();
+
+        pStat = new PlayerStatus(this);
+        pStat.Init();
+
         stateMachine = new PlayerStateMachine(this);
 
+        bulletPool = new ObjectPool<Bullet>(bulletPrefab, 100, transform);
+
         stateMachine.ChangeState(stateMachine.idleState);
+
+        dataManager = FindObjectOfType<GameDataManager>();
+        LoadPlayerData(); //저장된 데이터 불러오기
+
     }
 
     private void Start()
@@ -42,5 +60,37 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         stateMachine.StatePhysicsUpdate();
+    }
+
+    private void OnApplicationQuit()
+    {
+        SavePlayerData(); //종료 시 데이터 자동저장
+    }
+
+    public void SavePlayerData()
+    {
+        if ( dataManager != null)
+        {
+            dataManager.SavePlayerData(data);
+        }
+    }
+
+    public void LoadPlayerData()
+    {
+        if ( dataManager != null)
+        {
+
+            PlayerSaveData saveData = dataManager.LoadPlayerData();
+            if ( saveData != null )
+            {
+                //data.defaultData = new PlayerDefaultData()
+                {
+                    //베이스 데이터들
+                }
+
+                
+            }
+           
+        }
     }
 }

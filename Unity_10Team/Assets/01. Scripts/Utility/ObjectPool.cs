@@ -31,8 +31,7 @@ public class ObjectPool<T> where T : MonoBehaviour
         }
         else
         {
-            T obj = Object.Instantiate(prefab, parent);
-            return obj;
+            return null;
         }
     }
 
@@ -42,5 +41,13 @@ public class ObjectPool<T> where T : MonoBehaviour
         pool.Enqueue(obj);
     }
 
-
+    public void ReleaseAllObject()
+    {
+        foreach(T obj in pool)
+        {
+            obj.gameObject.SetActive(false);
+            pool.Enqueue((T)obj);
+        }
+        pool.Clear();
+    }
 }
