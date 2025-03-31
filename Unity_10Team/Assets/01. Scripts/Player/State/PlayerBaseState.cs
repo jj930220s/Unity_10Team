@@ -103,6 +103,14 @@ public class PlayerBaseState : IState
         }
     }
 
+    public void Deadcheck()
+    {
+        if (playerStatus.status[STATTYPE.CHP] <= 0)
+        {
+            stateMachine.ChangeState(stateMachine.deadState);
+        }
+    }
+
     protected virtual void AddInputActionsCallbacks()
     {
         PlayerController input = stateMachine.player.inputController;
