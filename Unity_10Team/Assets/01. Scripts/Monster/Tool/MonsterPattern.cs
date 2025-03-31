@@ -102,16 +102,36 @@ public class MonsterPattern : MonoBehaviour
 
     void SpawnEliteMonster()
     {
-        Vector3 spawnPosition;
+        Vector3 spawnPosition = GetRandomPositionInObstacleRange();
 
-        spawnPosition = GetRandomPositionInObstacleRange();
+        Monster spawnedMonster = null;
+        GameObject selectedPrefab = null;
 
-        int randomIndex = Random.Range(0, eliteMonsterPrefab.Length);
-        GameObject selectedPrefab = eliteMonsterPrefab[randomIndex];
+        int attempt = 0;
+        int maxAttempts = 10;
 
-        eliteMonster = selectedPrefab.GetComponent<Monster>();
+        while (attempt < maxAttempts)
+        {
+            int randomIndex = Random.Range(0, eliteMonsterPrefab.Length);
+            selectedPrefab = eliteMonsterPrefab[randomIndex];
 
-        eliteMonster = eliteMonsterPools[selectedPrefab].Get();
+            ObjectPool<Monster> pool = eliteMonsterPools[selectedPrefab];
+            spawnedMonster = pool.Get();
+
+            if (spawnedMonster != null)
+                break;
+
+            attempt++;
+            Debug.Log($"Retrying SpawnEliteMonster... Attempt {attempt}");
+        }
+
+        if (spawnedMonster == null)
+        {
+            Debug.LogError("모든 몬스터 풀에서 가져올 수 있는 몬스터가 없습니다!");
+            return;
+        }
+
+        eliteMonster = spawnedMonster;
         eliteMonster.transform.position = spawnPosition;
         eliteMonster.transform.SetParent(transform);
 
@@ -150,6 +170,7 @@ public class MonsterPattern : MonoBehaviour
         {
             if (monster.gameObject.activeSelf)
             {
+                Debug.Log("엘리트몬스터 릴리즈");
                 pool.Release(monster);
                 monster.OnDeathEvent -= OnEliteMonsterDefeated;
             }

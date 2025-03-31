@@ -34,7 +34,7 @@ public class Item : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("CompareTag ½ÇÇà");
-            Character player = other.GetComponent<Character>();
+            Player player = other.GetComponent<Player>();
             if (player != null)
             {
                 Debug.Log("OnPickUp ½ÇÇà");
@@ -43,15 +43,15 @@ public class Item : MonoBehaviour
         }
     }
 
-    public void OnPickUp(Character player)
+    public void OnPickUp(Player player)
     {
         if (itemType == ItemType.Experience)
         {
-            player.AddExperience(experienceValue);
+            //player.AddExperience(experienceValue);
         }
         else if (itemType == ItemType.Gold)
         {
-            player.AddGold(goldValue);
+            //player.AddGold(goldValue);
         }
         Debug.Log($"{experienceValue} °æÇèÄ¡ È¹µæ    {goldValue} °ñµå È¹µæ");
         MonsterDropItem.Instance.ReturnItem(this);
