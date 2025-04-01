@@ -14,8 +14,8 @@ public class MonsterDropItem : Singleton<MonsterDropItem>
 
     void Awake()
     {
-        experienceItemPool = new ObjectPool<Item>(experienceItemPrefab, 10, transform);
-        goldItemPool = new ObjectPool<Item>(goldItemPrefab, 10, transform);
+        experienceItemPool = new ObjectPool<Item>(experienceItemPrefab, 50, transform);
+        goldItemPool = new ObjectPool<Item>(goldItemPrefab, 50, transform);
     }
 
     public Item GetExperienceItem()
