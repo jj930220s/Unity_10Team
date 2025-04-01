@@ -39,7 +39,6 @@ public class DamageDrone : BaseDroneController
             Collider[] col = Physics.OverlapSphere(player.transform.position, 5);
             foreach (var c in col)
             {
-                // 딕셔너리로 파악 후 전체 데미지
                 c.GetComponent<Monster>().TakeDamage(damage);
             }
             await UniTask.Delay(TimeSpan.FromSeconds(delayTime));

@@ -10,11 +10,6 @@ public class PlayerBaseState : IState
     protected readonly PlayerAttackData attackData;
     protected readonly PlayerStatus playerStatus;
 
-    [Header("적 탐색 설정")]
-    protected float searchRadius = 10f; //탐지반경
-    protected LayerMask enemyLayer; //적레이어
-    protected LayerMask obstacleLayer; //장애물레이어
-    protected GameObject currentTarget; //현재타겟
 
     public PlayerBaseState(PlayerStateMachine stateMachine)
     {
@@ -23,9 +18,6 @@ public class PlayerBaseState : IState
         attackData = this.stateMachine.player.data.attackData;
         playerStatus = this.stateMachine.player.pStat;
 
-        //적레이어설정
-        enemyLayer = LayerMask.GetMask("Enemy");
-        obstacleLayer = LayerMask.GetMask("Obstacle");
     }
 
     public virtual void StateEnter()
@@ -35,7 +27,7 @@ public class PlayerBaseState : IState
 
     public virtual void StateUpdate()
     {
-        FindTarget();
+
     }
 
     public virtual void StateExit()
@@ -158,55 +150,5 @@ public class PlayerBaseState : IState
     {
     }
 
-    //적을 찾아서 현재타겟
-    protected void FindTarget()
-    {
-        GameObject nearestEnemy = FindNearestVisibleEnemy();
 
-        if (nearestEnemy != null)
-        {
-            currentTarget = nearestEnemy;
-            Debug.Log("적 탐지: " + currentTarget.name);
-        }
-        else
-        {
-            currentTarget = null;
-        }
-    }
-
-    
-    //가장 가까운 적을 찾으면서 사이에 장애물이 있으면 새롭게 탐색
-    protected GameObject FindNearestVisibleEnemy()
-    {
-        Collider[] colliders = Physics.OverlapSphere(stateMachine.player.transform.position, searchRadius, enemyLayer);
-        List<GameObject> visibleEnemies = new List<GameObject>();
-        float minDistance = Mathf.Infinity;
-        GameObject closest = null;
-        Vector3 currentPosition = stateMachine.player.transform.position;
-
-        foreach (Collider collider in colliders)
-        {
-            Vector3 direction = (collider.transform.position - currentPosition).normalized;
-            float distance = Vector3.Distance(currentPosition, collider.transform.position);
-
-            // 장애물 체크
-            if (!Physics.Raycast(currentPosition, direction, distance, obstacleLayer))
-            {
-                visibleEnemies.Add(collider.gameObject);
-            }
-        }
-
-        //가장 가까운 적 찾기
-        foreach (GameObject enemy in visibleEnemies)
-        {
-            float distance = Vector3.Distance(currentPosition, enemy.transform.position);
-            if (distance < minDistance)
-            {
-                minDistance = distance;
-                closest = enemy;
-            }
-        }
-
-        return closest;
-    }
 }

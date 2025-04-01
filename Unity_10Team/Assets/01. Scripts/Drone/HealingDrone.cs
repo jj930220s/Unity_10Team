@@ -30,7 +30,7 @@ public class HealingDrone : BaseDroneController
     private void Healing()
     {
         // 플레이어 체력 회복
-        //player
+        GameManager.Instance.pStat.Heal(heal);
 
     }
 }
