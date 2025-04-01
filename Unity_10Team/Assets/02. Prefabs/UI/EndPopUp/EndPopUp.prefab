@@ -612,6 +612,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ReplayBtn
       objectReference: {fileID: 0}
+    - target: {fileID: 4417163046477613669, guid: b32196e8ec4fd2241927a20f784819cd, type: 3}
+      propertyPath: m_text
+      value: Replay
+      objectReference: {fileID: 0}
     - target: {fileID: 7830699967445261946, guid: b32196e8ec4fd2241927a20f784819cd, type: 3}
       propertyPath: m_Pivot.x
       value: 0
