@@ -62,4 +62,15 @@ public class PlayerStatus
     {
         status[type] += value;
     }
+
+    public void SaveStatus()
+    {
+        player.data.defaultData.baseHP = status[STATTYPE.HP];
+        player.data.defaultData.baseAttack = status[STATTYPE.ATK];
+        player.data.defaultData.baseDefence = status[STATTYPE.DEF];
+        player.data.defaultData.baseSpeed = status[STATTYPE.SPEED];
+        player.data.defaultData.baseAttackDelay = status[STATTYPE.ATKDELAY];
+
+        DataSave<PlayerSObj>.SaveData(player.data, "playerSObj.json");
+    }
 }

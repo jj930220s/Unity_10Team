@@ -105,6 +105,7 @@ public class UpgradeUI : BaseUI
         GameManager.Instance.wealth.PerChase(WEALTHTYPE.Gold, selectedUpgrade.data.cost);
         selectedUpgrade.ApplyUpgrade(GameManager.Instance.player);
 
+        GameManager.Instance.pStat.SaveStatus();
         DataSave<UpgradeList>.SaveData(upgrades, dataSavePath);
         UpdateUI();
     }

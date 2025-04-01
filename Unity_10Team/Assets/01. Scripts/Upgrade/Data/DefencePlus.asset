@@ -17,5 +17,5 @@ MonoBehaviour:
   description: upgrade def.
   cost: 100
   upgradeStat:
-  - type: 2
+  - type: 3
     value: 5
