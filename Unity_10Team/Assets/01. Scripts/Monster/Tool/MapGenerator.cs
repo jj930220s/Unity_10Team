@@ -6,81 +6,68 @@ using Unity.AI.Navigation;
 public class MapGenerator : MonoBehaviour
 {
     public GameObject tilePrefab;
-    public int poolSize = 6;
     public Transform player;
     public float tileSize = 5f;
-    public int maxTiles = 10;
-    public int extraTiles = 2;
+    public int mapWidth = 20;
+    public int mapHeight = 20;
+    public float viewDistance = 20f;
 
-    private ObjectPool<Tile> tilePool;
-    private Dictionary<Vector2, Tile> activeTiles = new Dictionary<Vector2, Tile>();
-    private Vector2 lastPlayerPos;
-
+    private Dictionary<Vector2, Tile> tiles = new Dictionary<Vector2, Tile>();
     public NavMeshSurface navMeshSurface;
+    private Camera mainCamera;
 
-    void Awake()
+    void Start()
     {
-        Tile tileTemplate = tilePrefab.GetComponent<Tile>();
-        tilePool = new ObjectPool<Tile>(tileTemplate, poolSize, transform);
-        lastPlayerPos = new Vector2(player.position.x, player.position.z);
-        UpdateMap();
+        mainCamera = Camera.main;
+        GenerateMap();
+        UpdateTileVisibility();
         UpdateNavMesh();
     }
 
     void Update()
     {
-        Vector2 playerPos = new Vector2(player.position.x, player.position.z);
-        if (Vector2.Distance(playerPos, lastPlayerPos) > tileSize / 2)
+        UpdateTileVisibility();
+    }
+
+    void GenerateMap()
+    {
+        for (int x = -mapWidth / 2; x <= mapWidth / 2; x++)
         {
-            lastPlayerPos = playerPos;
-            UpdateMap();
+            for (int y = -mapHeight / 2; y <= mapHeight / 2; y++)
+            {
+                Vector2 tilePos = new Vector2(x, y);
+                Vector3 worldPos = new Vector3(x * tileSize, 0, y * tileSize);
+
+                Tile tile = Instantiate(tilePrefab, worldPos, Quaternion.Euler(90, 0, 0), transform).GetComponent<Tile>();
+                tile.gameObject.SetActive(false);
+                tiles[tilePos] = tile;
+            }
         }
     }
 
-    void UpdateMap()
+    void UpdateTileVisibility()
     {
-        HashSet<Vector2> neededTiles = new HashSet<Vector2>();
+        bool navMeshNeedsUpdate = false;
 
-        int halfSize = (int)(Mathf.Sqrt(poolSize) / 2) + extraTiles;
-        Vector2 playerTilePos = new Vector2(
-            Mathf.Round(player.position.x / tileSize),
-            Mathf.Round(player.position.z / tileSize)
-        );
-
-        for (int x = -halfSize; x <= halfSize; x++)
+        foreach (var tileEntry in tiles)
         {
-            for (int y = -halfSize; y <= halfSize; y++)
+            Tile tile = tileEntry.Value;
+            Vector3 tileWorldPos = tile.transform.position;
+
+            bool isVisible = (Mathf.Abs(tileWorldPos.x - player.position.x) <= viewDistance &&
+                              Mathf.Abs(tileWorldPos.z - player.position.z) <= viewDistance);
+
+            if (tile.gameObject.activeSelf != isVisible)
             {
-                Vector2 tilePos = playerTilePos + new Vector2(x, y);
-                neededTiles.Add(tilePos);
-
-                if (!activeTiles.ContainsKey(tilePos) && activeTiles.Count < maxTiles)
-                {
-                    Tile tile = tilePool.Get();
-                    if (tile == null) tile = Instantiate(tilePrefab, transform).GetComponent<Tile>();
-
-                    tile.Activate(new Vector3(tilePos.x * tileSize, 0, tilePos.y * tileSize), transform);
-                    activeTiles[tilePos] = tile;
-                }
+                tile.gameObject.SetActive(isVisible);
+                navMeshNeedsUpdate = true;
             }
         }
 
-        List<Vector2> tilesToRemove = new List<Vector2>();
-        foreach (var tile in activeTiles)
+        if (navMeshNeedsUpdate)
         {
-            if (!neededTiles.Contains(tile.Key))
-            {
-                tilePool.Release(tile.Value);
-                tilesToRemove.Add(tile.Key);
-            }
+            UpdateNavMesh();
         }
-
-        foreach (var pos in tilesToRemove)
-        {
-            activeTiles.Remove(pos);
-        }
-
-        UpdateNavMesh();
     }
 
     void UpdateNavMesh()
@@ -91,7 +78,6 @@ public class MapGenerator : MonoBehaviour
             return;
         }
 
-        navMeshSurface.layerMask = LayerMask.GetMask("Ground");
         navMeshSurface.collectObjects = CollectObjects.Children;
         navMeshSurface.BuildNavMesh();
     }

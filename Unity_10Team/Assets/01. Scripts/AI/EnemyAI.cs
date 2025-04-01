@@ -50,12 +50,13 @@ public class EnemyAI : MonoBehaviour
             if (agent != null && player != null && monster.target != null)
             {
                 agent.SetDestination(monster.target.position);
+                if (monster.isDead) break;
 
                 Vector3 direction = (monster.target.position - transform.position).normalized;
                 if (direction != Vector3.zero)
                 {
                     Quaternion toRotation = Quaternion.LookRotation(direction);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.deltaTime * 5f);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.deltaTime * monster.moveSpeed);
                 }
 
                 bool isMoving = agent.velocity.magnitude > 0.1f;
