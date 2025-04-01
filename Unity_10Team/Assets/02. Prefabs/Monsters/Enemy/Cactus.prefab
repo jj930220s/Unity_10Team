@@ -199,6 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handTransform: {fileID: 5000040911161189537}
   player: {fileID: 1488505038094802863, guid: f17a32be80ef01b49a40f0ac4c073fde, type: 3}
+  projectileParent: {fileID: 3096850922158643665, guid: 8be44419420e7b74a940caa87cfc4391, type: 3}
 --- !u!114 &-7643873189863231661
 MonoBehaviour:
   m_ObjectHideFlags: 0

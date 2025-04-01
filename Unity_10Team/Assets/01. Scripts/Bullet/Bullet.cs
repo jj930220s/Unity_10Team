@@ -26,12 +26,16 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
         if (other.CompareTag("Monster"))
         {
-            other.GetComponent<Monster>().TakeDamage(player.pStat.PlayerDamage());
+            Monster monster = other.GetComponent<Monster>();
 
-            player.bulletPool.Release(this);
+            if (!monster.isDead)
+            {
+                monster.TakeDamage(player.pStat.PlayerDamage());
+
+                player.bulletPool.Release(this);
+            }
         }
     }
 

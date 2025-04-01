@@ -166,7 +166,7 @@ public class PlayerBaseState : IState
         if (nearestEnemy != null)
         {
             currentTarget = nearestEnemy;
-            Debug.Log("Àû Å½Áö: " + currentTarget.name);
+            //Debug.Log("Àû Å½Áö: " + currentTarget.name);
         }
         else
         {
