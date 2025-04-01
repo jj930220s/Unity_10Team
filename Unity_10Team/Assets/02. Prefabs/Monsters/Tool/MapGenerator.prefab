@@ -45,12 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 978360ff7e8974c47952477e33b72702, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilePrefab: {fileID: 6032216042338942782, guid: 1240661bb9ba2b744ad53f7b3e4a1136, type: 3}
-  poolSize: 2
+  tilePrefab: {fileID: 6333842999236656429, guid: 85fd3fd262b8cef4dbab98e4d560eac8, type: 3}
   player: {fileID: 0}
-  tileSize: 10
-  maxTiles: 10
-  extraTiles: 0
+  tileSize: 50
+  mapWidth: 50
+  mapHeight: 50
+  viewDistance: 50
   navMeshSurface: {fileID: 8707837561498251821}
 --- !u!114 &8707837561498251821
 MonoBehaviour:

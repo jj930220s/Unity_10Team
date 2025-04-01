@@ -184,11 +184,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c9d3f62dcec0cc47960e3f8d6d36a81, type: 3}
---- !u!20 &272428567 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 4439948846720401850, guid: bd354d09955ad914ba74127ad9922bdb, type: 3}
-  m_PrefabInstance: {fileID: 318271174}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &318271174
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -602,34 +597,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1464467982}
-    - target: {fileID: 1001476109120037173, guid: 51c4bd7560020cf4389bb0dd48958cfd, type: 3}
-      propertyPath: mapWidth
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 1001476109120037173, guid: 51c4bd7560020cf4389bb0dd48958cfd, type: 3}
-      propertyPath: tileSize
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 1001476109120037173, guid: 51c4bd7560020cf4389bb0dd48958cfd, type: 3}
-      propertyPath: mapHeight
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 1001476109120037173, guid: 51c4bd7560020cf4389bb0dd48958cfd, type: 3}
-      propertyPath: extraTiles
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1001476109120037173, guid: 51c4bd7560020cf4389bb0dd48958cfd, type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 272428567}
-    - target: {fileID: 1001476109120037173, guid: 51c4bd7560020cf4389bb0dd48958cfd, type: 3}
-      propertyPath: tilePrefab
-      value: 
-      objectReference: {fileID: 6333842999236656429, guid: 85fd3fd262b8cef4dbab98e4d560eac8, type: 3}
-    - target: {fileID: 1001476109120037173, guid: 51c4bd7560020cf4389bb0dd48958cfd, type: 3}
-      propertyPath: viewDistance
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 1697596965836087233, guid: 51c4bd7560020cf4389bb0dd48958cfd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
