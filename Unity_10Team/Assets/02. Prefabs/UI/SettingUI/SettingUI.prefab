@@ -53,14 +53,9 @@ MonoBehaviour:
   optionArea: {fileID: 5361651216182534757}
   optionPrefeb: {fileID: 5911179301900724016, guid: 6e5e60dd9ae70b64fa7de1b288db9c8f, type: 3}
   datas:
-  - OptionName: Volume
-    onValueChanged:
-      m_PersistentCalls:
-        m_Calls: []
-  - OptionName: Sensitivity
-    onValueChanged:
-      m_PersistentCalls:
-        m_Calls: []
+  - {fileID: 11400000, guid: 86ec4e8048e748a4aac8509bbba2c67b, type: 2}
+  - {fileID: 11400000, guid: 0ec810edd7ab1a848b78dab37284f8c0, type: 2}
+  - {fileID: 11400000, guid: bcc0d4f3e0eeb6b4caef99d6bd645d4b, type: 2}
 --- !u!1 &4440521944333719996
 GameObject:
   m_ObjectHideFlags: 0

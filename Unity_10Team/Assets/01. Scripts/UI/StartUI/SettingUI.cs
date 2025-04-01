@@ -4,18 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[Serializable]
-public class OptionUIData
+public class OptionUIData : ScriptableObject
 {
     public string OptionName;
     public Slider.SliderEvent onValueChanged;
-
-    public SettingOptionUI Init(SettingOptionUI option)
-    {
-        option.Init(this);
-
-        return option;
-    }
+    public virtual float initValue { get; }
 }
 
 public class SettingUI : BaseUI
@@ -23,13 +16,15 @@ public class SettingUI : BaseUI
     [SerializeField] RectTransform optionArea;
     [SerializeField] SettingOptionUI optionPrefeb;
     [SerializeField] OptionUIData[] datas;
+    Dictionary<OptionUIData, SettingOptionUI> optionUIs = new();
 
     public override void Init()
     {
-        base.Init();
         UiType = UITYPE.SETTING;
 
         foreach (var data in datas)
-            data.Init(Instantiate(optionPrefeb, optionArea));
+            optionUIs[data] = Instantiate(optionPrefeb, optionArea).Init(data);
+
+        base.Init();
     }
 }
