@@ -15,6 +15,8 @@ public class PlayerAnimationData
     [SerializeField] private string verticalParameterName = "Vertical";
     [SerializeField] private string horizontalParameterName = "Horizontal";
 
+    [SerializeField] private string deadParameterName = "Dead";
+
     public int defaultParameterHash { get; private set; }
     public int idleParameterHash { get; private set; }
     public int moveParameterHash { get; private set; }
@@ -23,6 +25,8 @@ public class PlayerAnimationData
     public int shotParameterHash { get; private set; }
     public int verticalParameterHash { get; private set; }
     public int horizontalParameterHash { get; private set; }
+
+    public int deadParameterHash { get; private set; }
 
     public void Initialize()
     {
@@ -34,5 +38,7 @@ public class PlayerAnimationData
         shotParameterHash = Animator.StringToHash(shotParameterName);
         verticalParameterHash = Animator.StringToHash(verticalParameterName);
         horizontalParameterHash = Animator.StringToHash(horizontalParameterName);
+
+        deadParameterHash = Animator.StringToHash(deadParameterName);
     }
 }
