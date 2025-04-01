@@ -13,9 +13,9 @@ public class GameDataManager : MonoBehaviour
     //데이터 저장
     public void SavePlayerData(PlayerSObj playerSObj)
     {
-        PlayerSaveData data = new PlayerSaveData(playerSObj);
-        string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(savePath, json);
+        //PlayerSaveData data = new PlayerSaveData(playerSObj);
+        //string json = JsonUtility.ToJson(data, true);
+        //File.WriteAllText(savePath, json);
         Debug.Log("데이터 저장 완료! 경로: " + savePath);
     }
 

@@ -11,16 +11,12 @@ public class PlayerSaveData
     public float moveSpeedModifier;
     public float attackMoveSpeedModifier;
 
-    public PlayerSaveData(PlayerSObj playerSObj)
+    public PlayerSaveData(PlayerStatus status)
     {
-        hp = playerSObj.defaultData.baseHP;
-        attack = playerSObj.defaultData.baseAttack;
-        defence = playerSObj.defaultData.baseDefence;
-        attackDelay = playerSObj.defaultData.baseAttackDelay;
-        speed = playerSObj.defaultData.baseSpeed;
-        rotationDamping = playerSObj.defaultData.baseRotationDamping;
-
-        moveSpeedModifier = playerSObj.defaultData.moveSpeedModifier;
-        attackMoveSpeedModifier = playerSObj.attackData.attackMoveSpeedModifier;
+        hp = status.status[STATTYPE.HP];
+        attack = status.status[STATTYPE.ATK];
+        defence = status.status[STATTYPE.DEF];
+        attackDelay = status.status[STATTYPE.ATKDELAY];
+        speed = status.status[STATTYPE.SPEED];
     }
 }
