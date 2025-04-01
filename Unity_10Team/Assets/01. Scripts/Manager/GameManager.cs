@@ -24,4 +24,9 @@ public class GameManager : Singleton<GameManager>
         gameStartTime = Time.time;
         score = 0;
     }
+
+    public void AddScore(int add)
+    {
+        score += add;
+    }
 }

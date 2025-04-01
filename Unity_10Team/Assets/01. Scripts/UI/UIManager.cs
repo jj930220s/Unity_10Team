@@ -11,6 +11,10 @@ public class UIManager : Singleton<UIManager>
     private void Awake()
     {
         UIList = GetComponentsInChildren<BaseUI>();
+    }
+
+    private void Start()
+    {
         foreach (var ui in UIList)
             ui.Init();
         OnUI(startUI);
@@ -36,8 +40,18 @@ public class UIManager : Singleton<UIManager>
         OnUI(onUI.UiType);
     }
 
-    public void PopUpIU(BaseUI popupUI)
+    public void PopUpUI(BaseUI popupUI)
     {
         popupUI.gameObject.SetActive(!popupUI.gameObject.activeSelf);
+    }
+
+    public void PopUpUI(UITYPE type)
+    {
+        foreach (var ui in UIList)
+            if (ui.UiType == type)
+            {
+                PopUpUI(ui);
+                return;
+            }
     }
 }

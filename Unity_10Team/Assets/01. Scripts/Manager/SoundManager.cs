@@ -35,17 +35,12 @@ public class SoundManager : Singleton<SoundManager>
 
     [SerializeField] AudioClip[] sfxList;
 
-    protected override void Init()
+    private void Awake()
     {
-        base.Init();
         if (_instance != null && _instance != this)
             Destroy(gameObject);
         else
             _instance = this;
-    }
-
-    private void Awake()
-    {
         DontDestroyOnLoad(gameObject);
 
         baseVolumes = DataSave<Volumes>.LoadOrBase(baseVolumes, volumeSavePath);
