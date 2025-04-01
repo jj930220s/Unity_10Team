@@ -117,10 +117,14 @@ public class Player : MonoBehaviour
             loadDrone.LoadDrone();
             droneData = loadDrone.GetSelectedDrons();
 
-            for(int i=0;i<droneData.list.Count();i++)
+            // 선택한 드론 없을떄
+            if (droneData != null)
             {
-                GameObject drone= Instantiate(droneData.list[i].data.dronPrefeb, dronePoint[i]).gameObject;
-                drone.transform.localPosition = Vector3.zero;
+                for (int i = 0; i < droneData.list.Count(); i++)
+                {
+                    GameObject drone = Instantiate(droneData.list[i].data.dronPrefeb, dronePoint[i]).gameObject;
+                    drone.transform.localPosition = Vector3.zero;
+                }
             }
         }
     }
