@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildUI : BaseUI
+public class GatchaUI : BaseUI
 {
     public override void Init()
     {
+        UiType = UITYPE.GATCHA;
         base.Init();
-        UiType = UITYPE.BUILD;
-        //
     }
 }

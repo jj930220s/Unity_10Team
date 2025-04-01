@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [field:SerializeField] public PlayerSObj data { get; private set; }
+    [field: SerializeField] public PlayerSObj data { get; private set; }
+    [field: SerializeField] public EnforceData enforceData { get; private set; }
+
+    public List<IEnforce> enforceList { get; private set; } = new List<IEnforce>();
 
     [field:Header("Animations")]
     [field:SerializeField] public PlayerAnimationData animationData { get; private set; }
@@ -14,6 +17,8 @@ public class Player : MonoBehaviour
     public CharacterController characterController { get; private set; }
     private PlayerStateMachine stateMachine;
     public Transform mainCameraTransform { get; set; }
+
+    [field: SerializeField] public PlayerLevel pLevel { get; private set; }
     [field: SerializeField] public PlayerStatus pStat { get; private set; }
 
     [field: SerializeField] public Bullet bulletPrefab { get; private set; }
@@ -24,6 +29,11 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        foreach (IEnforce enforce in enforceData.EnforceStatusList)
+        {
+            enforceList.Add(enforce);
+        }
+
         shotPoint = transform.Find("Character/ShotPoint");
 
         animationData.Initialize();
@@ -32,12 +42,13 @@ public class Player : MonoBehaviour
         inputController = GetComponent<PlayerController>();
         characterController = GetComponent<CharacterController>();
 
+        pLevel = new PlayerLevel(1);
         pStat = new PlayerStatus(this);
         pStat.Init();
 
         stateMachine = new PlayerStateMachine(this);
 
-        bulletPool = new ObjectPool<Bullet>(bulletPrefab, 100, transform);
+        bulletPool = new ObjectPool<Bullet>(bulletPrefab, 100);
 
         stateMachine.ChangeState(stateMachine.idleState);
 
@@ -55,6 +66,12 @@ public class Player : MonoBehaviour
     {
         stateMachine.StateHandleInput();
         stateMachine.StateUpdate();
+
+        // 테스트용
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            pStat.TakeDamage(100);
+        }
     }
 
     private void FixedUpdate()

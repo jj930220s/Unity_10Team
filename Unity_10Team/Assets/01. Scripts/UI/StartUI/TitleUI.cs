@@ -37,16 +37,12 @@ public class TitleUI : BaseUI
 
     public override void Init()
     {
-        base.Init();
         UiType = UITYPE.TITLE;
 
         foreach (var info in buttonsInfo)
             info.InitButton(Instantiate(titleButtonPrepeb, Buttons));
-    }
 
-    public void OnStartGame()
-    {
-        SceneManager.LoadScene(gameSceneName);
+        base.Init();
     }
 
     public void OnExitGame()

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public enum UITYPE
@@ -9,7 +10,9 @@ public enum UITYPE
     TITLE,
     UPGRADE,
     BUILD,
-    SETTING
+    SETTING,
+    GATCHA,
+    GAMEOVER
 }
 
 public class BaseUI : MonoBehaviour
@@ -18,6 +21,21 @@ public class BaseUI : MonoBehaviour
 
     public virtual void Init()
     {
+        UpdateUI();
+    }
 
+    protected virtual void UpdateUI()
+    {
+
+    }
+
+    public void OnStartGame()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void OnGameTitle()
+    {
+        SceneManager.LoadScene(0);
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
 {
+    [SerializeField] BaseUI startUI;
     [SerializeField] private RectTransform menuUI;
     [field: SerializeField] public BaseUI[] UIList { get; private set; }
 
@@ -12,7 +13,7 @@ public class UIManager : Singleton<UIManager>
         UIList = GetComponentsInChildren<BaseUI>();
         foreach (var ui in UIList)
             ui.Init();
-        OnUI(UITYPE.TITLE);
+        OnUI(startUI);
     }
 
     protected override void Init()
@@ -26,11 +27,17 @@ public class UIManager : Singleton<UIManager>
         foreach (var ui in UIList)
             ui.gameObject.SetActive(ui.UiType == type);
 
-        menuUI.gameObject.SetActive(type != UITYPE.TITLE);
+        if (menuUI != null)
+            menuUI.gameObject.SetActive(type != UITYPE.TITLE);
     }
 
     public void OnUI(BaseUI onUI)
     {
         OnUI(onUI.UiType);
+    }
+
+    public void PopUpIU(BaseUI popupUI)
+    {
+        popupUI.gameObject.SetActive(!popupUI.gameObject.activeSelf);
     }
 }

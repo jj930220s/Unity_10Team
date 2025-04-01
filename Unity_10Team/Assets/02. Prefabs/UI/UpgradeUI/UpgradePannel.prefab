@@ -108,10 +108,10 @@ RectTransform:
   m_Father: {fileID: 3919120226532697013}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 50}
-  m_Pivot: {x: 0.5, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3256419605386077093
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -332,7 +332,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7015751765284714650}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1425345672322985075}
+        m_TargetAssemblyTypeName: UpgradePannel, Assembly-CSharp
+        m_MethodName: OnClickPannel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1425345672322985075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,6 +360,8 @@ MonoBehaviour:
   icon: {fileID: 5153914722207989366}
   cost: {fileID: 5112087868609399735}
   saledMask: {fileID: 6009888299160186492}
+  costEnabled: {r: 0, g: 0, b: 0, a: 1}
+  costDisabled: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &7586385848085892999
 GameObject:
   m_ObjectHideFlags: 0
