@@ -14,8 +14,6 @@ public class Item : MonoBehaviour
     public int experienceValue;
     public int goldValue;
 
-    public Player player;
-
     public void Initialize(ItemType type, int value)
     {
         itemType = type;

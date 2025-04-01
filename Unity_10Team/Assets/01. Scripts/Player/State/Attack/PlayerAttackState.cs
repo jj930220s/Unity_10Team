@@ -135,7 +135,7 @@ public class PlayerAttackState : PlayerBaseState
 
             bullet.transform.position = stateMachine.player.shotPoint.position;
             Vector3 dir = (GetAttackPoint() - stateMachine.player.shotPoint.position).normalized;
-            dir.y = 0f;
+            //dir.y = 0f;
             bullet.transform.rotation = Quaternion.LookRotation(dir);
         }
     }

@@ -33,7 +33,7 @@ public class MonsterDropItem : Singleton<MonsterDropItem>
         if (Random.value <= 0.5f)
         {
             Item droppedExperience = GetExperienceItem();
-            Vector3 experienceDropPosition = monster.transform.position + new Vector3(-1, 0, 0);
+            Vector3 experienceDropPosition = monster.transform.position + new Vector3(-1, 1, 0);
             droppedExperience.transform.position = experienceDropPosition;
             droppedExperience.gameObject.SetActive(true);
             droppedExperience.Initialize(ItemType.Experience, experienceGained);
@@ -42,7 +42,7 @@ public class MonsterDropItem : Singleton<MonsterDropItem>
         if (Random.value <= 0.5f)
         {
             Item droppedGold = GetGoldItem();
-            Vector3 goldDropPosition = monster.transform.position + new Vector3(1, 0, 0);
+            Vector3 goldDropPosition = monster.transform.position + new Vector3(1, 1, 0);
             droppedGold.transform.position = goldDropPosition;
             droppedGold.gameObject.SetActive(true);
             droppedGold.Initialize(ItemType.Gold, goldGained);
