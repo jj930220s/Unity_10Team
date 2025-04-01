@@ -161,6 +161,7 @@ public class MonsterPattern : MonoBehaviour
         eliteMonsterDefeated = true;
         eliteMonster.isDead = true;
 
+        MonsterSpawner.Instance.IncreaseSpawnCount(5);
         MonsterSpawner.Instance.HandleMonsterDeath(monster);
 
         monster.ResetStats();

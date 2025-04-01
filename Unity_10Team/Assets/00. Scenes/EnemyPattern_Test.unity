@@ -418,6 +418,14 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1106162307}
+    - target: {fileID: 249011064322987487, guid: 94731ad5fcf264842a6c74ff16fd56cf, type: 3}
+      propertyPath: safeRadius
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 249011064322987487, guid: 94731ad5fcf264842a6c74ff16fd56cf, type: 3}
+      propertyPath: initialPoolSize
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2604086443301443525, guid: 94731ad5fcf264842a6c74ff16fd56cf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
