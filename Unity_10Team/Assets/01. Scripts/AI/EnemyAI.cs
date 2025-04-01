@@ -6,7 +6,7 @@ public class EnemyAI : MonoBehaviour
 {
     public Transform player;
     public Monster monster;
-    private NavMeshAgent agent; //네브매쉬 사용
+    public NavMeshAgent agent; //네브매쉬 사용
     private Animator animator;
 
     void Start()
@@ -50,16 +50,21 @@ public class EnemyAI : MonoBehaviour
             if (agent != null && player != null && monster.target != null)
             {
                 agent.SetDestination(monster.target.position);
+                if (monster.isDead) break;
 
                 Vector3 direction = (monster.target.position - transform.position).normalized;
                 if (direction != Vector3.zero)
                 {
                     Quaternion toRotation = Quaternion.LookRotation(direction);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.deltaTime * 5f);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.deltaTime * monster.moveSpeed);
                 }
 
                 bool isMoving = agent.velocity.magnitude > 0.1f;
                 animator.SetBool("isMoving", isMoving);
+            }
+            else
+            {
+                animator.SetBool("isMoving", false);
             }
 
             yield return new WaitForSeconds(0.1f);

@@ -66,8 +66,9 @@ public class PlayerAttackState : PlayerBaseState
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
+
         Vector3 groundPoint;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Water")))// 임시 레이어 마스크
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Ground")))// 임시 레이어 마스크
         {
             groundPoint = hit.point;
         }
@@ -134,7 +135,7 @@ public class PlayerAttackState : PlayerBaseState
 
             bullet.transform.position = stateMachine.player.shotPoint.position;
             Vector3 dir = (GetAttackPoint() - stateMachine.player.shotPoint.position).normalized;
-            dir.y = 0f;
+            //dir.y = 0f;
             bullet.transform.rotation = Quaternion.LookRotation(dir);
         }
     }

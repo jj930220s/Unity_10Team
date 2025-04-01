@@ -29,7 +29,7 @@ public class Bullet : MonoBehaviour
         
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            collision.gameObject.GetComponent<Monster>().TakeDamage(1);
+            collision.gameObject.GetComponent<Monster>().TakeDamage(10);
 
             player.bulletPool.Release(this);
         }

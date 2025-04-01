@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65811933d51e27446846e03216ed605a, type: 3}
   m_Name: MonsterData4
   m_EditorClassIdentifier: 
-  monsterName: "\uBAAC\uC2A4\uD1304"
+  monsterName: Mushroom
   monsterType: 0
   attackType: 0
-  attackDamage: 2
+  attackDamage: 4
   attackRange: 2
-  attackCooldown: 2
-  health: 100
+  attackCooldown: 1
+  health: 70
   moveSpeed: 3
+  isDead: 0
   projectilePrefab: {fileID: 0}

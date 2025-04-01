@@ -1,64 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MonsterAttack : MonoBehaviour
 {
     private Monster monster;
+    private EnemyAI ai;
     public Transform handTransform;
+    public Player player;
 
     private float lastMeleeAttackTime;
     private float lastRangedAttackTime;
 
+    public ObjectPool<MonsterProjectile> projectilePool;
+
     private void Start()
     {
         monster = GetComponent<Monster>();
+        ai = GetComponent<EnemyAI>();
+
+        if(monster.attackType == AttackType.Ranged)
+        {
+            MonsterProjectile projectiles = monster.projectilePrefab.GetComponent<MonsterProjectile>();
+            projectilePool = new ObjectPool<MonsterProjectile>(projectiles, 5, transform);
+        }
+
+        player = FindObjectOfType<Player>();
     }
 
-    // 근접 공격 메서드
     private void PerformMeleeAttack()
-    { 
-        if (Time.time - lastMeleeAttackTime >= monster.attackCooldown)
+    {
+        if (Vector3.Distance(monster.transform.position, monster.target.position) <= ai.agent.stoppingDistance)
         {
-            Collider[] hitEnemies = Physics.OverlapSphere(monster.transform.position, monster.attackRange);
-
-            foreach (var enemy in hitEnemies)
+            if (Time.time - lastMeleeAttackTime >= monster.attackCooldown && monster.target != null)
             {
-                if (enemy.CompareTag("Player"))
-                {
-                    monster.SetAttacking(true);
-                    lastMeleeAttackTime = Time.time;
+                if (CheckWall()) return;
 
-                    StartCoroutine(HandleAttackAfterAnimation());
-                }
+                monster.SetAttacking(true);
+                lastMeleeAttackTime = Time.time;
+
+                StartCoroutine(HandleAttackAfterAnimation());
             }
         }
     }
 
     private void PerformRangedAttack()
     {
-        if (Time.time - lastRangedAttackTime >= monster.attackCooldown)
+        if (Vector3.Distance(monster.transform.position, monster.target.position) <= ai.agent.stoppingDistance)
         {
-            Collider[] hitEnemies = Physics.OverlapSphere(monster.transform.position, monster.attackRange);
-            foreach (var enemy in hitEnemies)
+            if (Time.time - lastRangedAttackTime >= monster.attackCooldown && monster.target != null)
             {
-                if (enemy.CompareTag("Player"))
-                {
-                    Vector3 spawnPosition = handTransform.position;
+                if (CheckWall()) return;
 
-                    GameObject projectile = Instantiate(monster.monsterData.projectilePrefab, spawnPosition, Quaternion.identity);
+                LaunchProjectile();
 
-                    Vector3 direction = (monster.target.position - spawnPosition).normalized;
+                monster.SetAttacking(true);
+                lastRangedAttackTime = Time.time;
 
-                    projectile.GetComponent<MonsterProjectile>().Launch(direction, monster.attackDamage);
-
-                    monster.SetAttacking(true);
-                    lastRangedAttackTime = Time.time;
-
-                    StartCoroutine(HandleAttackAfterAnimation());
-                }
+                StartCoroutine(HandleAttackAfterAnimation());
             }
-        }  
+        }
     }
 
     public void PerformAttack()
@@ -78,22 +80,45 @@ public class MonsterAttack : MonoBehaviour
 
     private IEnumerator HandleAttackAfterAnimation()
     {
- 
         float attackAnimationLength = monster.animator.GetCurrentAnimatorStateInfo(0).length;
 
         yield return new WaitForSeconds(attackAnimationLength);
 
-        Collider[] hitEnemies = Physics.OverlapSphere(monster.transform.position, monster.attackRange);
-        foreach (var enemy in hitEnemies)
-        {
-            if (enemy.CompareTag("Player"))
-            {
-                // 여기에 플레이어 데미지 적용
-               Debug.Log($"{monster.monsterName}가 {monster.attackDamage}의 피해를 입혔습니다!");
-            }
-        }
+        // 여기서 플레이어 데미지 적용
+        //Debug.Log($"{monster.monsterName}가 {monster.attackDamage}의 피해를 입혔습니다!");
+        player.pStat.TakeDamage(monster.attackDamage);
 
         monster.SetAttacking(false);
         monster.animator.SetBool("isAttack", false);
+    }
+
+    private void LaunchProjectile()
+    {
+        Vector3 spawnPosition = handTransform.position;
+
+        MonsterProjectile projectile = projectilePool.Get();
+        projectile.Initialize(projectilePool);
+        projectile.transform.position = spawnPosition;
+        projectile.transform.rotation = Quaternion.identity;
+
+        Vector3 direction = (monster.target.position - spawnPosition).normalized;
+
+        projectile.Launch(direction, monster.attackDamage);
+    }
+
+    private bool CheckWall()
+    {
+        Vector3 directionToTarget = monster.target.position - monster.transform.position;
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(monster.transform.position, directionToTarget.normalized, out hit, directionToTarget.magnitude))
+        {
+            if (hit.collider.CompareTag("Wall"))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

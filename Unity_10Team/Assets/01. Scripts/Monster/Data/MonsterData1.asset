@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65811933d51e27446846e03216ed605a, type: 3}
   m_Name: MonsterData1
   m_EditorClassIdentifier: 
-  monsterName: "\uBAAC\uC2A4\uD1301"
+  monsterName: Slime
   monsterType: 0
   attackType: 0
   attackDamage: 3
-  attackRange: 1
+  attackRange: 2
   attackCooldown: 3
   health: 100
   moveSpeed: 2
+  isDead: 0
   projectilePrefab: {fileID: 0}

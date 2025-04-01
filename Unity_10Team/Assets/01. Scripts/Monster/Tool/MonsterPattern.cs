@@ -6,33 +6,38 @@ using UnityEngine.AI;
 public class MonsterPattern : MonoBehaviour
 {
     [SerializeField] private GameObject obstaclePrefab;
-    [SerializeField] private GameObject eliteMonsterPrefab;
+    [SerializeField] private GameObject[] eliteMonsterPrefab;
     [SerializeField] private Transform player;
     [SerializeField] private int spawnCount = 5;
     [SerializeField] private float spawnRadius = 10f;
     [SerializeField] private float safeRadius = 1f;
+    [SerializeField] private float patternTime = 0f;
 
     private List<Obstacle> activeObstacles = new List<Obstacle>();
     private Monster eliteMonster;
     private bool eliteMonsterDefeated = false;
 
     private ObjectPool<Obstacle> obstaclePool;
-    private ObjectPool<Monster> eliteMonsterPool;
+    private Dictionary<GameObject, ObjectPool<Monster>> eliteMonsterPools = new Dictionary<GameObject, ObjectPool<Monster>>();
 
     void Start()
     {
         Obstacle obstacles = obstaclePrefab.GetComponent<Obstacle>();
         obstaclePool = new ObjectPool<Obstacle>(obstacles, spawnCount, transform);
 
-        Monster eliteMonsters = eliteMonsterPrefab.GetComponent<Monster>();
-        eliteMonsterPool = new ObjectPool<Monster>(eliteMonsters, 1, transform);
+        foreach (var prefab in eliteMonsterPrefab)
+        {
+            Monster eliteMonsters = prefab.GetComponent<Monster>();
+            ObjectPool<Monster> pool = new ObjectPool<Monster>(eliteMonsters, 1, transform);
+            eliteMonsterPools.Add(prefab, pool);
+        }
 
         StartCoroutine(PatternLoop());
     }
 
     IEnumerator PatternLoop()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(patternTime);
 
         while (true)
         {
@@ -44,9 +49,10 @@ public class MonsterPattern : MonoBehaviour
             {
                 DestroyObstacle();
                 eliteMonsterDefeated = false;
+                eliteMonster.isDead = false;
             }
 
-            yield return new WaitForSeconds(180f);
+            yield return new WaitForSeconds(patternTime);
         }
     }
 
@@ -64,9 +70,10 @@ public class MonsterPattern : MonoBehaviour
         for (int i = 0; i < spawnCount; i++)
         {
             Vector3 spawnPosition = GetCirclePosition(i, spawnRadius);
+            spawnPosition += Vector3.up * 0.5f;
 
-            Obstacle obstacle = obstaclePool.Get(); // 풀에서 가져옴
-            obstacle.Initialize(spawnPosition);
+            Obstacle obstacle = obstaclePool.Get();
+            obstacle.Activate(spawnPosition, obstaclePool);
             obstacle.transform.SetParent(transform);
 
             activeObstacles.Add(obstacle);
@@ -77,48 +84,94 @@ public class MonsterPattern : MonoBehaviour
     {
         float angle = (index * Mathf.PI * 2) / spawnCount;
         Vector3 offset = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * radius;
-        return transform.position + offset;
+        return player.position + offset;
     }
 
     void DestroyObstacle()
     {
-        Debug.Log("장애물 파괴");
-        foreach (Obstacle obstacle in activeObstacles)
+        for (int i = activeObstacles.Count - 1; i >= 0; i--)
         {
-            obstaclePool.Release(obstacle);
+            activeObstacles[i].ReturnToPool();
+            activeObstacles.RemoveAt(i);
         }
-
-        activeObstacles.Clear();
     }
 
     void SpawnEliteMonster()
     {
-        Vector3 spawnPosition;
+        Vector3 spawnPosition = GetRandomPositionInObstacleRange();
 
-        spawnPosition = GetRandomPositionInObstacleRange();
+        Monster spawnedMonster = null;
+        GameObject selectedPrefab = null;
 
-        eliteMonster = eliteMonsterPool.Get();
+        int attempt = 0;
+        int maxAttempts = 10;
+
+        while (attempt < maxAttempts)
+        {
+            int randomIndex = Random.Range(0, eliteMonsterPrefab.Length);
+            selectedPrefab = eliteMonsterPrefab[randomIndex];
+
+            ObjectPool<Monster> pool = eliteMonsterPools[selectedPrefab];
+            spawnedMonster = pool.Get();
+
+            if (spawnedMonster != null) break;
+
+            attempt++;
+        }
+
+        if (spawnedMonster == null)
+        {
+            Debug.LogError("모든 몬스터 풀에서 가져올 수 있는 몬스터가 없습니다!");
+            return;
+        }
+
+        eliteMonster = spawnedMonster;
         eliteMonster.transform.position = spawnPosition;
         eliteMonster.transform.SetParent(transform);
 
-        eliteMonster.SetStats(10, 5, 5, 1000, 5);
+        eliteMonster.Initialize();
+
+        float baseHealth = eliteMonster.health;
+        float baseAttackDamage = eliteMonster.attackDamage;
+        float baseRange = eliteMonster.attackRange;
+        float baseSpeed = eliteMonster.moveSpeed;
+        AttackType baseType = eliteMonster.attackType;
+
+        if (baseType == AttackType.Melee)
+        {
+            eliteMonster.SetStats(baseAttackDamage * 3f, baseRange * 1f, MonsterType.Boss, baseHealth * 10f, baseSpeed * 2f);
+            eliteMonster.projectilePrefab = null;
+        }
+        else if (baseType == AttackType.Ranged) 
+        {
+            eliteMonster.SetStats(baseAttackDamage * 2f, baseRange * 1.5f, MonsterType.Boss, baseHealth * 10f, baseSpeed * 1.5f);
+        }
+        
         eliteMonster.transform.localScale = new Vector3(3f, 3f, 3f);
 
-        NavMeshAgent agent = eliteMonster.GetComponent<NavMeshAgent>();
-        if (agent != null)
+        if (eliteMonster != null)
         {
-            agent.speed = eliteMonster.GetMoveSpeed(); // 몬스터의 이동 속도를 NavMeshAgent에 반영
+            eliteMonster.OnDeathEvent -= OnEliteMonsterDefeated;
         }
-
         eliteMonster.OnDeathEvent += OnEliteMonsterDefeated;
     }
 
     void OnEliteMonsterDefeated(Monster monster)
     {
-        Debug.Log("Elite Monster Defeated!");
         eliteMonsterDefeated = true;
-        Debug.Log($"eliteMonsterDefeated : {eliteMonsterDefeated}");
-        eliteMonsterPool.Release(monster);
+        eliteMonster.isDead = true;
+
+        MonsterSpawner.Instance.HandleMonsterDeath(monster);
+
+        foreach (var pool in eliteMonsterPools.Values)
+        {
+            if (monster.gameObject.activeSelf)
+            {
+                pool.Release(monster);
+                monster.OnDeathEvent -= OnEliteMonsterDefeated;
+            }
+            break;
+        }
     }
 
     Vector3 GetRandomPositionInObstacleRange()
@@ -153,24 +206,5 @@ public class MonsterPattern : MonoBehaviour
             }
         }
         return false;
-
-        // 나중에 임시큐브 말고 다른걸로 바꾸면 이거 쓸듯
-
-        //foreach (Obstacle obstacle in activeObstacles)
-        //{
-        //    MeshCollider collider = obstacle.GetComponent<MeshCollider>();
-        //    if (collider != null)
-        //    {
-        //
-        //        Bounds bounds = collider.bounds;
-
-        //
-        //        if (bounds.Contains(position))
-        //        {
-        //            return true;
-        //        }
-        //    }
-        //}
-        //return false;
     }
 }

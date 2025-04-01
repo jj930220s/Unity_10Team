@@ -12,7 +12,7 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
     [SerializeField] private int spawnCount = 5;
     [SerializeField] private float safeRadius = 3f;
 
-    private Dictionary<GameObject, ObjectPool<Monster>> monsterPools = new Dictionary<GameObject, ObjectPool<Monster>>();
+    public Dictionary<GameObject, ObjectPool<Monster>> monsterPools = new Dictionary<GameObject, ObjectPool<Monster>>();
     private HashSet<Monster> activeMonsters = new HashSet<Monster>();
 
     void Start()
@@ -47,8 +47,6 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
 
     void SpawnMonsters()
     {
-        if (activeMonsters.Count >= maxMonsterCount) return;
-
         for (int i = 0; i < spawnCount; i++)
         {
             if (activeMonsters.Count >= maxMonsterCount) return;
@@ -58,7 +56,6 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
 
             while (attempts < 5)
             {
-                // 랜덤 인덱스로 풀을 선택하고 몬스터를 얻음
                 GameObject randomPrefab = monsterPrefabs[Random.Range(0, monsterPrefabs.Length)];
                 monster = monsterPools[randomPrefab].Get();
 
@@ -87,13 +84,14 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
 
                 activeMonsters.Add(monster);
                 Debug.Log($"[SpawnMonsters] 활성화된 몬스터 수(생성 후): {activeMonsters.Count} {monster.name}");
-                monster.OnDisableEvent += DeactivateMonster;
+                monster.OnDeathEvent += DeactivateMonster;
             }
         }
     }
 
     public Vector3 GetRandomPosition()
     {
+        // 맵 구조적 장애물 등 예외 처리 추가하기
         float radius = 0f;
 
         while (radius < safeRadius)
@@ -109,13 +107,32 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
 
     public void DeactivateMonster(Monster monster)
     {
-        if (activeMonsters.Contains(monster))
+        if (activeMonsters.Remove(monster))
         {
-            activeMonsters.Remove(monster);
             Debug.Log($"[Deactivate] 활성화된 몬스터 수: {activeMonsters.Count}");
+            monster.isDead = false;
+            HandleMonsterDeath(monster);
+            ReturnMonster(monster);
+        }
+    }
+
+    public void HandleMonsterDeath(Monster monster)
+    {
+        int experienceGained = 0;
+        int goldGained = 0;
+
+        if (monster.monsterType == MonsterType.Normal)
+        {
+            experienceGained = Random.Range(1, 4);
+            goldGained = Random.Range(2, 6);
+        }
+        else if (monster.monsterType == MonsterType.Boss)
+        {
+            experienceGained = Random.Range(10, 21);
+            goldGained = Random.Range(15, 31);
         }
 
-        ReturnMonster(monster);
+        MonsterDropItem.Instance.DropItems(monster, experienceGained, goldGained);
     }
 
     public void ReturnMonster(Monster monster)
@@ -132,11 +149,13 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
             Debug.Log($"[Return] 활성화된 몬스터 수: {activeMonsters.Count}");
         }
 
-        // 풀을 찾기 위해 키를 사용
         foreach (var pool in monsterPools.Values)
         {
-            monster.OnDisableEvent -= DeactivateMonster;
-            pool.Release(monster);
+            if (monster.gameObject.activeSelf)
+            {
+                pool.Release(monster);
+                monster.OnDeathEvent -= DeactivateMonster;
+            }
             break;
         }
     }
