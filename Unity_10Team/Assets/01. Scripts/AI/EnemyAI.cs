@@ -9,9 +9,10 @@ public class EnemyAI : MonoBehaviour
     public NavMeshAgent agent; //네브매쉬 사용
     private Animator animator;
 
-    void Start()
+    void OnEnable()
     {
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
 
         if (agent == null)
         {
@@ -19,26 +20,33 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
+        if (animator == null)
+        {
+            Debug.LogError("Animator 없음");
+        }
+
         if (player == null)
         {
             player = GameObject.FindGameObjectWithTag("Player")?.transform;
         }
 
+        StartCoroutine(DelayedInitialize());
+    }
+    IEnumerator DelayedInitialize()
+    {
+        yield return null;
+
         monster = GetComponent<Monster>();
 
-        if (monster != null)
+        if (monster == null)
         {
-            agent.speed = monster.moveSpeed;            // 이동속도
-            agent.stoppingDistance = monster.attackRange; // 사정거리
-            monster.target = player;
+            Debug.LogError("[EnemyAI] Monster 컴포넌트를 찾을 수 없음", gameObject);
+            yield break;
         }
 
-        animator = GetComponent<Animator>();
-
-        if (animator == null)
-        {
-            Debug.LogError("Animator 없음");
-        }
+        agent.speed = monster.moveSpeed;
+        agent.stoppingDistance = monster.attackRange;
+        monster.target = player;
 
         StartCoroutine(UpdateAI());
     }

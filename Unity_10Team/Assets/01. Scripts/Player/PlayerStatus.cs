@@ -52,4 +52,9 @@ public class PlayerStatus
             status[STATTYPE.CHP] = status[STATTYPE.HP];
         }
     }
+
+    public float PlayerDamage()
+    {
+        return status[STATTYPE.ATK];
+    }
 }
