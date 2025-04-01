@@ -299,14 +299,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1202538061}
-    - target: {fileID: 249011064322987487, guid: 94731ad5fcf264842a6c74ff16fd56cf, type: 3}
-      propertyPath: monsterPrefabs.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 249011064322987487, guid: 94731ad5fcf264842a6c74ff16fd56cf, type: 3}
-      propertyPath: monsterPrefabs.Array.data[4]
-      value: 
-      objectReference: {fileID: 3763740891234241738, guid: e007df8f9fb1b7a4d983c039bda53b7c, type: 3}
     - target: {fileID: 2604086443301443525, guid: 94731ad5fcf264842a6c74ff16fd56cf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -425,34 +417,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1202538061}
-    - target: {fileID: 707737155922085260, guid: 708cfb3012e93b34a974826e796d62a9, type: 3}
-      propertyPath: obstaclePrefab
-      value: 
-      objectReference: {fileID: 1065398836730543544, guid: fcc4ebde5feaf50459e54eec01814394, type: 3}
-    - target: {fileID: 707737155922085260, guid: 708cfb3012e93b34a974826e796d62a9, type: 3}
-      propertyPath: eliteMonsterPrefab.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 707737155922085260, guid: 708cfb3012e93b34a974826e796d62a9, type: 3}
-      propertyPath: eliteMonsterPrefab.Array.data[0]
-      value: 
-      objectReference: {fileID: 1931298151966786, guid: 58adb8ade9d2cd647af117dacc1d5813, type: 3}
-    - target: {fileID: 707737155922085260, guid: 708cfb3012e93b34a974826e796d62a9, type: 3}
-      propertyPath: eliteMonsterPrefab.Array.data[1]
-      value: 
-      objectReference: {fileID: 1524411113276028, guid: a003a51694676b547bd8d5dfb1ed43ee, type: 3}
-    - target: {fileID: 707737155922085260, guid: 708cfb3012e93b34a974826e796d62a9, type: 3}
-      propertyPath: eliteMonsterPrefab.Array.data[2]
-      value: 
-      objectReference: {fileID: 662468794185850985, guid: 4c3714f5736191e469189e389a49c46f, type: 3}
-    - target: {fileID: 707737155922085260, guid: 708cfb3012e93b34a974826e796d62a9, type: 3}
-      propertyPath: eliteMonsterPrefab.Array.data[3]
-      value: 
-      objectReference: {fileID: 875073071404757921, guid: 621bf3e2b55090647952b6276b279777, type: 3}
-    - target: {fileID: 707737155922085260, guid: 708cfb3012e93b34a974826e796d62a9, type: 3}
-      propertyPath: eliteMonsterPrefab.Array.data[4]
-      value: 
-      objectReference: {fileID: 3763740891234241738, guid: e007df8f9fb1b7a4d983c039bda53b7c, type: 3}
     - target: {fileID: 3805757248689268243, guid: 708cfb3012e93b34a974826e796d62a9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -8,6 +8,7 @@ public class MonsterAttack : MonoBehaviour
     private Monster monster;
     private EnemyAI ai;
     public Transform handTransform;
+    //public Player player;
 
     private float lastMeleeAttackTime;
     private float lastRangedAttackTime;
@@ -16,7 +17,7 @@ public class MonsterAttack : MonoBehaviour
 
     private void Start()
     {
-        monster = GetComponent<Monster>();
+        monster = Monster.Instance;
         ai = GetComponent<EnemyAI>();
 
         if(monster.attackType == AttackType.Ranged)
@@ -83,6 +84,7 @@ public class MonsterAttack : MonoBehaviour
 
         // 여기서 플레이어 데미지 적용
         //Debug.Log($"{monster.monsterName}가 {monster.attackDamage}의 피해를 입혔습니다!");
+        //player.pStat.TakeDamage(monster.attackDamage);
 
         monster.SetAttacking(false);
         monster.animator.SetBool("isAttack", false);

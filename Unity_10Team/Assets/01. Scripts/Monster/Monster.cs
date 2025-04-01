@@ -4,7 +4,7 @@ using System.Runtime.Serialization.Formatters;
 using System.Threading;
 using UnityEngine;
 
-public class Monster : MonoBehaviour
+public class Monster : Singleton<Monster>
 {
     public Animator animator;
     public MonsterData monsterData;
