@@ -15,6 +15,7 @@ public class PlayerDeadState : PlayerBaseState
 
         base.StateEnter();
         StartAnimation(stateMachine.player.animationData.deadParameterHash);
+        UIManager.Instance.PopUpUI(UITYPE.GAMEOVER);
     }
 
     public override void StateUpdate()
