@@ -11,9 +11,13 @@ public class UIManager : Singleton<UIManager>
     private void Awake()
     {
         UIList = GetComponentsInChildren<BaseUI>();
+    }
+
+    private void Start()
+    {
         foreach (var ui in UIList)
             ui.Init();
-        OnUI(startUI);
+        OnUI(startUI);        
     }
 
     protected override void Init()

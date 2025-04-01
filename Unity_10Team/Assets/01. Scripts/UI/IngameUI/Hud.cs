@@ -37,9 +37,9 @@ public class Hud : BaseUI
     {
         base.UpdateUI();
 
-        //hpBar.value = player.pStat.status[STATTYPE.CHP] / player.pStat.status[STATTYPE.HP];
-        //expBar.value = ;
-        //level.text = ;
+        hpBar.value = player.pStat.status[STATTYPE.CHP] / player.pStat.status[STATTYPE.HP];
+        expBar.value = (float)player.pLevel.exp / player.pLevel.maxExp;
+        level.text = player.pLevel.level.ToString();
 
         int playTime = (int)(Time.time - GameManager.Instance.gameStartTime);
         timeTxt.text = $"{playTime / 60:D2}:{playTime % 60:D2}";
