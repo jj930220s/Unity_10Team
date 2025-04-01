@@ -52,7 +52,7 @@ MonoBehaviour:
   - {fileID: 3763740891234241738, guid: e007df8f9fb1b7a4d983c039bda53b7c, type: 3}
   initialPoolSize: 5
   maxMonsterCount: 10
-  player: {fileID: 0}
+  player: {fileID: 6550412536768224311, guid: f17a32be80ef01b49a40f0ac4c073fde, type: 3}
   spawnRadius: 20
   spawnCount: 1
   safeRadius: 3

@@ -55,3 +55,4 @@ MonoBehaviour:
   spawnCount: 60
   spawnRadius: 15
   safeRadius: 3
+  patternTime: 100

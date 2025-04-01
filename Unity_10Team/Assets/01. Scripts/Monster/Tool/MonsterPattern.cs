@@ -11,6 +11,7 @@ public class MonsterPattern : MonoBehaviour
     [SerializeField] private int spawnCount = 5;
     [SerializeField] private float spawnRadius = 10f;
     [SerializeField] private float safeRadius = 1f;
+    [SerializeField] private float patternTime = 0f;
 
     private List<Obstacle> activeObstacles = new List<Obstacle>();
     private Monster eliteMonster;
@@ -36,7 +37,7 @@ public class MonsterPattern : MonoBehaviour
 
     IEnumerator PatternLoop()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(patternTime);
 
         while (true)
         {
@@ -51,7 +52,7 @@ public class MonsterPattern : MonoBehaviour
                 eliteMonster.isDead = false;
             }
 
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(patternTime);
         }
     }
 
@@ -134,14 +135,16 @@ public class MonsterPattern : MonoBehaviour
         float baseAttackDamage = eliteMonster.attackDamage;
         float baseRange = eliteMonster.attackRange;
         float baseSpeed = eliteMonster.moveSpeed;
+        AttackType baseType = eliteMonster.attackType;
 
-        if (eliteMonster.attackType == AttackType.Melee)
+        if (baseType == AttackType.Melee)
         {
-            eliteMonster.SetStats(baseAttackDamage * 3f, baseRange * 2f, MonsterType.Boss, baseHealth * 10f, baseSpeed * 3f);
+            eliteMonster.SetStats(baseAttackDamage * 3f, baseRange * 1f, MonsterType.Boss, baseHealth * 10f, baseSpeed * 2f);
+            eliteMonster.projectilePrefab = null;
         }
-        else if (eliteMonster.attackType == AttackType.Ranged) 
+        else if (baseType == AttackType.Ranged) 
         {
-            eliteMonster.SetStats(baseAttackDamage * 2f, baseRange * 1.5f, MonsterType.Boss, baseHealth * 10f, baseSpeed * 2f);
+            eliteMonster.SetStats(baseAttackDamage * 2f, baseRange * 1.5f, MonsterType.Boss, baseHealth * 10f, baseSpeed * 1.5f);
         }
         
         eliteMonster.transform.localScale = new Vector3(3f, 3f, 3f);

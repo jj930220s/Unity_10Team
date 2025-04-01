@@ -123,3 +123,4 @@ MonoBehaviour:
   itemType: 1
   experienceValue: 0
   goldValue: 0
+  player: {fileID: 1488505038094802863, guid: f17a32be80ef01b49a40f0ac4c073fde, type: 3}

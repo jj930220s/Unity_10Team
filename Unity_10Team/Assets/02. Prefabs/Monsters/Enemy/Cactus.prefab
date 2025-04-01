@@ -197,6 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handTransform: {fileID: 5000040911161189537}
+  player: {fileID: 1488505038094802863, guid: f17a32be80ef01b49a40f0ac4c073fde, type: 3}
 --- !u!114 &-7643873189863231661
 MonoBehaviour:
   m_ObjectHideFlags: 0
