@@ -66,6 +66,12 @@ public class Player : MonoBehaviour
     {
         stateMachine.StateHandleInput();
         stateMachine.StateUpdate();
+
+        // 테스트용
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            pStat.TakeDamage(100);
+        }
     }
 
     private void FixedUpdate()

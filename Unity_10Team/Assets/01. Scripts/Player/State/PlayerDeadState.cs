@@ -14,7 +14,7 @@ public class PlayerDeadState : PlayerBaseState
         stateMachine.movementSpeedModifier = 0f;
 
         base.StateEnter();
-        //StartAnimation(stateMachine.player.animationData.defaultParameterHash);
+        StartAnimation(stateMachine.player.animationData.deadParameterHash);
     }
 
     public override void StateUpdate()
@@ -25,7 +25,7 @@ public class PlayerDeadState : PlayerBaseState
     public override void StateExit()
     {
         base.StateExit();
-        //StopAnimation(stateMachine.player.animationData.defaultParameterHash);
+        StopAnimation(stateMachine.player.animationData.deadParameterHash);
     }
 
     public override void StateHandleInput()
