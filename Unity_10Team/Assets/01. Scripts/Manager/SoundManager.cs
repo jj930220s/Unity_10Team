@@ -30,7 +30,7 @@ public class SoundManager : Singleton<SoundManager>
 
     [SerializeField] string volumeSavePath = "volumes.json";
 
-    AudioSource audioSource;
+    AudioSource bgmSource, sfxSource;
     [SerializeField] AudioClip bgm;
 
     [SerializeField] AudioClip[] sfxList;
@@ -53,8 +53,9 @@ public class SoundManager : Singleton<SoundManager>
         foreach (var baseVol in baseVolumes.list)
             volumes[baseVol.type] = baseVol.arrange;
 
-        if (!TryGetComponent<AudioSource>(out audioSource))
-            audioSource = gameObject.AddComponent<AudioSource>();
+        if (!TryGetComponent<AudioSource>(out bgmSource))
+            bgmSource = gameObject.AddComponent<AudioSource>();
+        sfxSource = gameObject.AddComponent<AudioSource>();
 
         PlayBgm();
     }
@@ -71,14 +72,14 @@ public class SoundManager : Singleton<SoundManager>
     {
         if (bgm != null)
             this.bgm = bgm;
-        audioSource.clip = this.bgm;
+        bgmSource.clip = this.bgm;
 
-        audioSource.Play();
+        bgmSource.Play();
     }
 
     public void PlaySFX(AudioClip sfx)
     {
-        audioSource.PlayOneShot(sfx, volumes[VOLTYPE.MASTER] * volumes[VOLTYPE.SFX]);
+        sfxSource.PlayOneShot(sfx, volumes[VOLTYPE.MASTER] * volumes[VOLTYPE.SFX]);
     }
 
     public void Playsfx(string sfxName)
@@ -98,6 +99,6 @@ public class SoundManager : Singleton<SoundManager>
     public void ChangeSound(VOLTYPE voltype, float amount)
     {
         volumes[voltype] = amount;
-        audioSource.volume = volumes[VOLTYPE.MASTER] * volumes[VOLTYPE.BGM];
+        bgmSource.volume = volumes[VOLTYPE.MASTER] * volumes[VOLTYPE.BGM];
     }
 }
