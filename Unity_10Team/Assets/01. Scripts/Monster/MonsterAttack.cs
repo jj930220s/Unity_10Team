@@ -84,10 +84,6 @@ public class MonsterAttack : MonoBehaviour
 
         yield return new WaitForSeconds(attackAnimationLength);
 
-        // 여기서 플레이어 데미지 적용
-        //Debug.Log($"{monster.monsterName}가 {monster.attackDamage}의 피해를 입혔습니다!");
-        player.pStat.TakeDamage(monster.attackDamage);
-
         monster.SetAttacking(false);
         monster.animator.SetBool("isAttack", false);
     }
@@ -101,7 +97,8 @@ public class MonsterAttack : MonoBehaviour
         projectile.transform.position = spawnPosition;
         projectile.transform.rotation = Quaternion.identity;
 
-        Vector3 direction = (monster.target.position - spawnPosition).normalized;
+        Vector3 targetPosition = new Vector3(player.transform.position.x, player.transform.position.y + 1f, player.transform.position.z);
+        Vector3 direction = (targetPosition - spawnPosition).normalized;
 
         projectile.Launch(direction, monster.attackDamage);
     }
@@ -120,5 +117,13 @@ public class MonsterAttack : MonoBehaviour
             }
         }
         return false;
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && monster.attackType == AttackType.Melee)
+        {
+            GameManager.Instance.player.pStat.TakeDamage(monster.attackDamage);
+        }
     }
 }

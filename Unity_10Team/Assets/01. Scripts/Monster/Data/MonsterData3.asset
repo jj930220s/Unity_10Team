@@ -18,7 +18,7 @@ MonoBehaviour:
   attackDamage: 2
   attackRange: 5
   attackCooldown: 2
-  health: 50
+  health: 30
   moveSpeed: 2
   isDead: 0
   projectilePrefab: {fileID: 560055856979309104, guid: 9a96397d82a50fb44bbdee350150c34d, type: 3}
