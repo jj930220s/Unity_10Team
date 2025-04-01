@@ -11,20 +11,23 @@ public class SettingOptionUI : MonoBehaviour
     [SerializeField] Slider slider;
     [SerializeField] TextMeshProUGUI value;
 
-    public void SetValue(int value = 100)
-    {
-        value = Mathf.Clamp(value, 0, 100);
-        slider.value = value / 100f;
-        slider.onValueChanged.Invoke(slider.value);
-    }
 
-    public void Init(OptionUIData data)
+    public SettingOptionUI Init(OptionUIData data)
     {
         slider.onValueChanged = data.onValueChanged;
         slider.onValueChanged.AddListener(OnValueChange);
 
         optionName.text = data.OptionName;
-        SetValue();
+        SetValue(data.initValue);
+
+        return this;
+    }
+
+    public void SetValue(float value = 100)
+    {
+        value = Mathf.Clamp(value, 0, 100);
+        slider.value = value / 100f;
+        slider.onValueChanged.Invoke(slider.value);
     }
 
     public void OnValueChange(float changed)
