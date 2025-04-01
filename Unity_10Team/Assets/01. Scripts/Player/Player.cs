@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -27,6 +28,9 @@ public class Player : MonoBehaviour
 
     private GameDataManager dataManager; //게임데이터매니저
 
+    private SelectedDrons droneData;
+
+    public Transform[] dronePoint;
     private void Awake()
     {
         foreach (IEnforce enforce in enforceData.EnforceStatusList)
@@ -107,7 +111,17 @@ public class Player : MonoBehaviour
 
                 
             }
-           
+
+            // 드론 세팅
+            LoadDroneData loadDrone = new LoadDroneData();
+
+            droneData= loadDrone.GetSelectedDrons();
+            int i = 0;
+            foreach (var drone in droneData.list)
+            {
+                BaseDroneController a= Instantiate(drone.data.dronPrefeb, dronePoint[i++]);
+            }
+
         }
     }
 }
