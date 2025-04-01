@@ -114,14 +114,14 @@ public class Player : MonoBehaviour
 
             // 드론 세팅
             LoadDroneData loadDrone = new LoadDroneData();
+            loadDrone.LoadDrone();
+            droneData = loadDrone.GetSelectedDrons();
 
-            droneData= loadDrone.GetSelectedDrons();
-            int i = 0;
-            foreach (var drone in droneData.list)
+            for(int i=0;i<droneData.list.Count();i++)
             {
-                BaseDroneController a= Instantiate(drone.data.dronPrefeb, dronePoint[i++]);
+                GameObject drone= Instantiate(droneData.list[i].data.dronPrefeb, dronePoint[i]).gameObject;
+                drone.transform.localPosition = Vector3.zero;
             }
-
         }
     }
 }

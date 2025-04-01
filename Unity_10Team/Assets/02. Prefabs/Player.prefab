@@ -804,7 +804,7 @@ Transform:
   m_GameObject: {fileID: 2583395638747083884}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.35, y: 2, z: -0.45}
+  m_LocalPosition: {x: -0.8, y: 1, z: -0.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1517,7 +1517,7 @@ Transform:
   m_GameObject: {fileID: 5407244814662674506}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.35, y: 2, z: -0.45}
+  m_LocalPosition: {x: 0.8, y: 1, z: -0.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2110,6 +2110,7 @@ MonoBehaviour:
     horizontalParameterName: Horizontal
     deadParameterName: Dead
   <bulletPrefab>k__BackingField: {fileID: 2443315521590755626, guid: aa3b91631fcbfe94481d0b2ee14fcba7, type: 3}
+  dronePoint: []
 --- !u!114 &3014778391274671418
 MonoBehaviour:
   m_ObjectHideFlags: 0
