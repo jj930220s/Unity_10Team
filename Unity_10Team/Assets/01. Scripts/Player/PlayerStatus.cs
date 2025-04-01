@@ -27,12 +27,12 @@ public class PlayerStatus
 
     public void Init()
     {
-        status.Add(STATTYPE.HP, player.data.defaultData.baseHP);
-        status.Add(STATTYPE.CHP, status[STATTYPE.HP]);
-        status.Add(STATTYPE.ATK, player.data.defaultData.baseAttack);
-        status.Add(STATTYPE.DEF, player.data.defaultData.baseDefence);
-        status.Add(STATTYPE.SPEED, player.data.defaultData.baseSpeed);
-        status.Add(STATTYPE.ATKDELAY, player.data.defaultData.baseAttackDelay);
+        status[STATTYPE.HP] = player.data.defaultData.baseHP;
+        status[STATTYPE.CHP] = status[STATTYPE.HP];
+        status[STATTYPE.ATK] = player.data.defaultData.baseAttack;
+        status[STATTYPE.DEF] = player.data.defaultData.baseDefence;
+        status[STATTYPE.SPEED] = player.data.defaultData.baseSpeed;
+        status[STATTYPE.ATKDELAY] = player.data.defaultData.baseAttackDelay;
     }
 
     public void TakeDamage(float damage)
