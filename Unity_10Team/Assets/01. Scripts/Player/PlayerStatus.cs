@@ -57,4 +57,9 @@ public class PlayerStatus
     {
         return status[STATTYPE.ATK];
     }
+
+    public void UpgradStat(STATTYPE type, float value)
+    {
+        status[type] += value;
+    }
 }

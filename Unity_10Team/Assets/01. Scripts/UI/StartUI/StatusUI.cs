@@ -35,7 +35,7 @@ public class StatusUI : MonoBehaviour
         UpdateUpgradeAmount(upgradeAmount);
     }
 
-    public void UpdateUpgradeAmount(int upgradeAmount)
+    public void UpdateUpgradeAmount(float upgradeAmount)
     {
         if (upgradeAmount > 0)
             UpgradeValue.text = "(+ {0})";
