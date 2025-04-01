@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb4f17e70900cbd4fac1df62c40b7a32, type: 3}
+  m_Name: EnforceData
+  m_EditorClassIdentifier: 
+  EnforceStatusList:
+  - enforceStatType: 0
+    enforceValue: 20
+  - enforceStatType: 2
+    enforceValue: 10
+  - enforceStatType: 3
+    enforceValue: 10
+  - enforceStatType: 4
+    enforceValue: 2
+  - enforceStatType: 5
+    enforceValue: -0.25

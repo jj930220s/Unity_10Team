@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <defaultData>k__BackingField:
     <baseHP>k__BackingField: 6
-    <baseAttak>k__BackingField: 6
+    <baseAttack>k__BackingField: 10
     <baseDefence>k__BackingField: 6
     <baseAttackDelay>k__BackingField: 2
     <baseSpeed>k__BackingField: 6
