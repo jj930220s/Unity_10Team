@@ -22,7 +22,6 @@ public class Player : MonoBehaviour
     [field: SerializeField] public PlayerStatus pStat { get; private set; }
 
     [field: SerializeField] public Bullet bulletPrefab { get; private set; }
-    [field: SerializeField] public GameObject bulletPoolParent;
     public ObjectPool<Bullet> bulletPool { get; private set; }
     public Transform shotPoint { get; private set; }
 
@@ -49,6 +48,7 @@ public class Player : MonoBehaviour
 
         stateMachine = new PlayerStateMachine(this);
 
+        GameObject bulletPoolParent = new GameObject("BulletPool");
         bulletPool = new ObjectPool<Bullet>(bulletPrefab, 100, bulletPoolParent.transform);
 
         stateMachine.ChangeState(stateMachine.idleState);
