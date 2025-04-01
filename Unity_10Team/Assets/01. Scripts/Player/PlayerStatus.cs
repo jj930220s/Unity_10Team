@@ -43,4 +43,13 @@ public class PlayerStatus
             status[STATTYPE.CHP] = 0;
         }
     }
+
+    public void Heal(float heal)
+    {
+        status[STATTYPE.CHP] += heal;
+        if (status[STATTYPE.CHP] >= status[STATTYPE.HP])
+        {
+            status[STATTYPE.CHP] = status[STATTYPE.HP];
+        }
+    }
 }
