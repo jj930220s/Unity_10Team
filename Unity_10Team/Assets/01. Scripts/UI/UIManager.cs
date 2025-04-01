@@ -17,7 +17,7 @@ public class UIManager : Singleton<UIManager>
     {
         foreach (var ui in UIList)
             ui.Init();
-        OnUI(startUI);        
+        OnUI(startUI);
     }
 
     protected override void Init()
@@ -40,8 +40,18 @@ public class UIManager : Singleton<UIManager>
         OnUI(onUI.UiType);
     }
 
-    public void PopUpIU(BaseUI popupUI)
+    public void PopUpUI(BaseUI popupUI)
     {
         popupUI.gameObject.SetActive(!popupUI.gameObject.activeSelf);
+    }
+
+    public void PopUpUI(UITYPE type)
+    {
+        foreach (var ui in UIList)
+            if (ui.UiType == type)
+            {
+                PopUpUI(ui);
+                return;
+            }
     }
 }
