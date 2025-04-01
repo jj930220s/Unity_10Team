@@ -30,6 +30,12 @@ public class MonsterDropItem : Singleton<MonsterDropItem>
 
     public void DropItems(Monster monster, int experienceGained, int goldGained)
     {
+        if (monster == null)
+        {
+            Debug.LogError("DropItems 호출 Monster가 null입니다.");
+            return;
+        }
+
         if (Random.value <= 0.5f)
         {
             Item droppedExperience = GetExperienceItem();

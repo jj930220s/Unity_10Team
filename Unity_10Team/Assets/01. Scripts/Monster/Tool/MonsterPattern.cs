@@ -163,6 +163,8 @@ public class MonsterPattern : MonoBehaviour
 
         MonsterSpawner.Instance.HandleMonsterDeath(monster);
 
+        monster.ResetStats();
+
         foreach (var pool in eliteMonsterPools.Values)
         {
             if (monster.gameObject.activeSelf)

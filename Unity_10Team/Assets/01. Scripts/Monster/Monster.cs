@@ -62,16 +62,7 @@ public class Monster : Singleton<Monster>
 
         if (monsterData != null)
         {
-            monsterName = monsterData.monsterName;
-            monsterType = monsterData.monsterType;
-            attackType = monsterData.attackType;
-            attackDamage = monsterData.attackDamage;
-            attackRange = monsterData.attackRange;
-            attackCooldown = monsterData.attackCooldown;
-            health = monsterData.health;
-            moveSpeed = monsterData.moveSpeed;
-            isDead = false;
-            projectilePrefab = monsterData.projectilePrefab;
+            ResetStats();
         }
         else
         {
@@ -91,6 +82,20 @@ public class Monster : Singleton<Monster>
         attackCooldown = monsterData.attackCooldown;
         health = hp;
         moveSpeed = speed;
+        isDead = false;
+        projectilePrefab = monsterData.projectilePrefab;
+    }
+
+    public void ResetStats()
+    {
+        monsterName = monsterData.monsterName;
+        monsterType = monsterData.monsterType;
+        attackType = monsterData.attackType;
+        attackDamage = monsterData.attackDamage;
+        attackRange = monsterData.attackRange;
+        attackCooldown = monsterData.attackCooldown;
+        health = monsterData.health;
+        moveSpeed = monsterData.moveSpeed;
         isDead = false;
         projectilePrefab = monsterData.projectilePrefab;
     }

@@ -110,9 +110,11 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
         if (activeMonsters.Remove(monster))
         {
             Debug.Log($"[Deactivate] 활성화된 몬스터 수: {activeMonsters.Count}");
-            monster.isDead = false;
+            
             HandleMonsterDeath(monster);
             ReturnMonster(monster);
+
+            monster.isDead = false;
         }
     }
 
@@ -148,6 +150,8 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
             activeMonsters.Remove(monster);
             Debug.Log($"[Return] 활성화된 몬스터 수: {activeMonsters.Count}");
         }
+
+        monster.ResetStats();
 
         foreach (var pool in monsterPools.Values)
         {
