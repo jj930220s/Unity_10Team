@@ -14,7 +14,7 @@ public enum VOLTYPE
 public class Volume
 {
     public VOLTYPE type;
-    public float arrange;
+    [Range(0, 1)] public float arrange;
 }
 
 [Serializable]
@@ -30,12 +30,20 @@ public class SoundManager : Singleton<SoundManager>
 
     [SerializeField] string volumeSavePath = "volumes.json";
 
+    AudioSource audioSource;
+    [SerializeField] AudioClip bgm;
+
     private void Awake()
     {
         baseVolumes = DataSave<Volumes>.LoadOrBase(baseVolumes, volumeSavePath);
 
         foreach (var baseVol in baseVolumes.list)
             volumes[baseVol.type] = baseVol.arrange;
+
+        if (!TryGetComponent<AudioSource>(out audioSource))
+            audioSource = gameObject.AddComponent<AudioSource>();
+
+        PlayBgm();
     }
 
     private void OnDestroy()
@@ -44,5 +52,25 @@ public class SoundManager : Singleton<SoundManager>
             baseVol.arrange = volumes[baseVol.type];
 
         DataSave<Volumes>.SaveData(baseVolumes, volumeSavePath);
+    }
+
+    public void PlayBgm(AudioClip bgm = null)
+    {
+        if (bgm != null)
+            this.bgm = bgm;
+        audioSource.clip = this.bgm;
+
+        audioSource.Play();
+    }
+
+    public void PlaySFX(AudioClip sfx)
+    {
+        audioSource.PlayOneShot(sfx, volumes[VOLTYPE.MASTER] * volumes[VOLTYPE.SFX]);
+    }
+
+    public void ChangeSound(VOLTYPE voltype, float amount)
+    {
+        volumes[voltype] = amount;
+        audioSource.volume = volumes[VOLTYPE.MASTER] * volumes[VOLTYPE.BGM];
     }
 }

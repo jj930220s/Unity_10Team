@@ -1189,6 +1189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <data>k__BackingField: {fileID: 11400000, guid: 2f53cb85624248a49ae47c95feaa97d5, type: 2}
+  <enforceData>k__BackingField: {fileID: 0}
   <animationData>k__BackingField:
     defaultParameterName: '@Default'
     idleParameterName: Idle
@@ -1892,6 +1893,7 @@ MonoBehaviour:
     - type: 1
       amount: 10
   gameStartTime: 0
+  score: 0
 --- !u!4 &1112631956
 Transform:
   m_ObjectHideFlags: 0
