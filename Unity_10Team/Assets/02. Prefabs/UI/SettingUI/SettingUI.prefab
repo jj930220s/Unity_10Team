@@ -53,7 +53,15 @@ MonoBehaviour:
   optionArea: {fileID: 5361651216182534757}
   optionPrefeb: {fileID: 5911179301900724016, guid: 6e5e60dd9ae70b64fa7de1b288db9c8f, type: 3}
   datas:
-  - OptionName: Volume
+  - OptionName: MasterVolume
+    onValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
+  - OptionName: BGM
+    onValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
+  - OptionName: SFX
     onValueChanged:
       m_PersistentCalls:
         m_Calls: []

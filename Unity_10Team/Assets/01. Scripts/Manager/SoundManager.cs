@@ -33,6 +33,20 @@ public class SoundManager : Singleton<SoundManager>
     AudioSource audioSource;
     [SerializeField] AudioClip bgm;
 
+    [SerializeField] AudioClip[] sfxList;
+
+    protected override void Init()
+    {
+        base.Init();
+        if (_instance != null && _instance != this)
+            Destroy(gameObject);
+        else
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
     private void Awake()
     {
         baseVolumes = DataSave<Volumes>.LoadOrBase(baseVolumes, volumeSavePath);
@@ -66,6 +80,20 @@ public class SoundManager : Singleton<SoundManager>
     public void PlaySFX(AudioClip sfx)
     {
         audioSource.PlayOneShot(sfx, volumes[VOLTYPE.MASTER] * volumes[VOLTYPE.SFX]);
+    }
+
+    public void Playsfx(string sfxName)
+    {
+        AudioClip sfx = null;
+        foreach (var clip in sfxList)
+            if (clip.name == sfxName)
+            {
+                sfx = clip;
+                break;
+            }
+
+        if (sfx != null)
+            PlaySFX(sfx);
     }
 
     public void ChangeSound(VOLTYPE voltype, float amount)
