@@ -383,6 +383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6ae6b5ce5b5b2409902af6fa8bcaf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startUI: {fileID: 8970445728403976801}
   menuUI: {fileID: 2881715748032552082}
   <UIList>k__BackingField: []
 --- !u!1 &8015796414877334039

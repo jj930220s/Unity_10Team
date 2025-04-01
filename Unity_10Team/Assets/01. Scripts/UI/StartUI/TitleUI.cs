@@ -45,11 +45,6 @@ public class TitleUI : BaseUI
         base.Init();
     }
 
-    public void OnStartGame()
-    {
-        SceneManager.LoadScene(gameSceneName);
-    }
-
     public void OnExitGame()
     {
 #if UNITY_EDITOR
