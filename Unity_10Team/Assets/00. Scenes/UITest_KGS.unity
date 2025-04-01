@@ -1197,6 +1197,7 @@ MonoBehaviour:
       arrange: 0
   volumeSavePath: volumes.json
   bgm: {fileID: 0}
+  sfxList: []
 --- !u!82 &750558706
 AudioSource:
   m_ObjectHideFlags: 0

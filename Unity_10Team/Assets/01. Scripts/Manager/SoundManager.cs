@@ -41,14 +41,13 @@ public class SoundManager : Singleton<SoundManager>
         if (_instance != null && _instance != this)
             Destroy(gameObject);
         else
-        {
             _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
     }
 
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
+
         baseVolumes = DataSave<Volumes>.LoadOrBase(baseVolumes, volumeSavePath);
 
         foreach (var baseVol in baseVolumes.list)
