@@ -66,6 +66,7 @@ public class PlayerAttackState : PlayerBaseState
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
+
         Vector3 groundPoint;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Ground")))// 임시 레이어 마스크
         {
