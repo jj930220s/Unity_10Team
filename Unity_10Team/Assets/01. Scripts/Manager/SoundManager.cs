@@ -14,7 +14,7 @@ public enum VOLTYPE
 public class Volume
 {
     public VOLTYPE type;
-    [Range(0, 1)] public float arrange;
+    [Range(0, 1)] public float arrange = 1;
 }
 
 [Serializable]
@@ -65,6 +65,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public void PlayBgm(AudioClip bgm = null)
     {
+        bgmSource.Stop();
         if (bgm != null)
             this.bgm = bgm;
         bgmSource.clip = this.bgm;

@@ -11,9 +11,9 @@ public class GatchaSlotUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI description;
     //IngameUpgradeData
 
-    public void Init()
+    public GatchaSlotUI Init()
     {
-
+        return this;
     }
 
     public void OnClick()
