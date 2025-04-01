@@ -48,7 +48,8 @@ public class Player : MonoBehaviour
 
         stateMachine = new PlayerStateMachine(this);
 
-        bulletPool = new ObjectPool<Bullet>(bulletPrefab, 100);
+        GameObject bulletPoolParent = new GameObject("BulletPool");
+        bulletPool = new ObjectPool<Bullet>(bulletPrefab, 100, bulletPoolParent.transform);
 
         stateMachine.ChangeState(stateMachine.idleState);
 
