@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
         stateMachine.ChangeState(stateMachine.idleState);
 
         dataManager = FindObjectOfType<GameDataManager>();
-        LoadPlayerData(); //저장된 데이터 불러오기
+        //LoadPlayerData(); //저장된 데이터 불러오기
 
     }
 
@@ -77,37 +77,5 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         stateMachine.StatePhysicsUpdate();
-    }
-
-    private void OnApplicationQuit()
-    {
-        SavePlayerData(); //종료 시 데이터 자동저장
-    }
-
-    public void SavePlayerData()
-    {
-        if ( dataManager != null)
-        {
-            dataManager.SavePlayerData(data);
-        }
-    }
-
-    public void LoadPlayerData()
-    {
-        if ( dataManager != null)
-        {
-
-            PlayerSaveData saveData = dataManager.LoadPlayerData();
-            if ( saveData != null )
-            {
-                //data.defaultData = new PlayerDefaultData()
-                {
-                    //베이스 데이터들
-                }
-
-                
-            }
-           
-        }
     }
 }

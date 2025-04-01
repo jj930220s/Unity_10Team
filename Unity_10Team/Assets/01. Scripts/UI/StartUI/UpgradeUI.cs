@@ -110,7 +110,7 @@ public class UpgradeUI : BaseUI
         UpdateUI();
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         GameManager.Instance.pStat.SaveStatus();
         DataSave<UpgradeList>.SaveData(upgrades, dataSavePath);

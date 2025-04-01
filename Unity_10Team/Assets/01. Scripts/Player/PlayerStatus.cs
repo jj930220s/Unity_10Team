@@ -27,6 +27,19 @@ public class PlayerStatus
 
     public void Init()
     {
+        PlayerSaveData savedata = DataSave<PlayerSaveData>.LoadData("statData.json");
+        if(savedata != null)
+        {
+            status[STATTYPE.HP] = savedata.hp;
+            status[STATTYPE.CHP] = status[STATTYPE.HP];
+            status[STATTYPE.ATK] = savedata.attack;
+            status[STATTYPE.DEF] = savedata.defence;
+            status[STATTYPE.SPEED] = savedata.speed;
+            status[STATTYPE.ATKDELAY] = savedata.attackDelay;
+
+            return;
+        }
+
         status[STATTYPE.HP] = player.data.defaultData.baseHP;
         status[STATTYPE.CHP] = status[STATTYPE.HP];
         status[STATTYPE.ATK] = player.data.defaultData.baseAttack;
@@ -65,12 +78,8 @@ public class PlayerStatus
 
     public void SaveStatus()
     {
-        player.data.defaultData.baseHP = status[STATTYPE.HP];
-        player.data.defaultData.baseAttack = status[STATTYPE.ATK];
-        player.data.defaultData.baseDefence = status[STATTYPE.DEF];
-        player.data.defaultData.baseSpeed = status[STATTYPE.SPEED];
-        player.data.defaultData.baseAttackDelay = status[STATTYPE.ATKDELAY];
+        PlayerSaveData savedata = new PlayerSaveData(this);
 
-        DataSave<PlayerSObj>.SaveData(player.data, "playerSObj.json");
+        DataSave<PlayerSaveData>.SaveData(savedata, "statData.json");
     }
 }
