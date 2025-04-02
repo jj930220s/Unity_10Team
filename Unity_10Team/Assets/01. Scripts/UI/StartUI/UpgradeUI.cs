@@ -21,6 +21,8 @@ public class UpgradeUI : BaseUI
     Dictionary<WEALTHTYPE, WealthUI> wealthInfoUIs = new();
 
     [Header("PlayerStat")]
+    [SerializeField] PlayerSObj baseStat;
+    PlayerStatus pStat;
     [SerializeField] RectTransform playerStat;
     [SerializeField] StatusUIData[] statInfos;
     [SerializeField] StatusUI StatusPrefeb;

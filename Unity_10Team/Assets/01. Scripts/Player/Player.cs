@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
         characterController = GetComponent<CharacterController>();
 
         pLevel = new PlayerLevel(1);
-        pStat = new PlayerStatus(this);
+        pStat = new PlayerStatus(data);
         pStat.Init();
 
         stateMachine = new PlayerStateMachine(this);
