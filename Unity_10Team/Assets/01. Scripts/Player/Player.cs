@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class Player : MonoBehaviour
 {
@@ -26,7 +27,9 @@ public class Player : MonoBehaviour
     public ObjectPool<Bullet> bulletPool { get; private set; }
     public Transform shotPoint { get; private set; }
 
-    private GameDataManager dataManager; //°ÔÀÓµ¥ÀÌÅÍ¸Å´ÏÀú
+    private GameDataManager dataManager; //ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½Í¸Å´ï¿½ï¿½ï¿½
+
+    public PlayableDirector cDDirector;
 
     private SelectedDrons droneData;
 
@@ -58,7 +61,12 @@ public class Player : MonoBehaviour
         stateMachine.ChangeState(stateMachine.idleState);
 
         dataManager = FindObjectOfType<GameDataManager>();
-        LoadDroneData(); //ÀúÀåµÈ µ¥ÀÌÅÍ ºÒ·¯¿À±â
+        LoadDroneData(); //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
+
+        if (cDDirector == null)
+        {
+            cDDirector = GameObject.Find("Clear&Dead Timeline").GetComponent<PlayableDirector>();
+        }
 
     }
 
@@ -72,11 +80,15 @@ public class Player : MonoBehaviour
         stateMachine.StateHandleInput();
         stateMachine.StateUpdate();
 
-        // Å×½ºÆ®¿ë
+        // ï¿½×½ï¿½Æ®ï¿½ï¿½
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            //pStat.TakeDamage(100);
-            pLevel.LevelUp();
+            stateMachine.ChangeState(stateMachine.clearState);
+        }
+        else if (Input.GetKeyDown(KeyCode.F2))
+        {
+            pStat.Heal(10f);
+            stateMachine.ChangeState(stateMachine.idleState);
         }
     }
 
@@ -87,12 +99,12 @@ public class Player : MonoBehaviour
 
     void LoadDroneData()
     {
-        // µå·Ð ¼¼ÆÃ
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         LoadDroneData loadDrone = new LoadDroneData();
         loadDrone.LoadDrone();
         droneData = loadDrone.GetSelectedDrons();
 
-        // ¼±ÅÃÇÑ µå·Ð ¾øÀ»‹š
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (droneData != null)
         {
             for (int i = 0; i < droneData.list.Count(); i++)

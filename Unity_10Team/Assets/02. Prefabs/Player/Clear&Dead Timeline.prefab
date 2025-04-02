@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1932300641474551927
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7082228995447892875}
+  - component: {fileID: 2170835850213001759}
+  m_Layer: 0
+  m_Name: Clear&Dead Timeline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7082228995447892875
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932300641474551927}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.87768865, y: 3.8740435, z: 0.7806792}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &2170835850213001759
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932300641474551927}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: ad81254bbcec701479aad976d63d4049, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 0
+  m_DirectorUpdateMode: 2
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 4691927083924324073, guid: ad81254bbcec701479aad976d63d4049, type: 2}
+    value: {fileID: 619114453355804905, guid: bd354d09955ad914ba74127ad9922bdb, type: 3}
+  - key: {fileID: -246429450501772398, guid: ad81254bbcec701479aad976d63d4049, type: 2}
+    value: {fileID: 6857423254246391290, guid: 9550b37b697a55a47a159502f17800c3, type: 3}
+  m_ExposedReferences:
+    m_References:
+    - 877e304e204a41d438f7e3935fe4f45d: {fileID: 6767066739350552607, guid: 2c9d3f62dcec0cc47960e3f8d6d36a81, type: 3}
+    - f531b527b0f39694c8d738713b1ba58f: {fileID: 0}
+    - 9d07f8e3401bf2247ba991aefb5cc89d: {fileID: 1686790377856205913, guid: 9550b37b697a55a47a159502f17800c3, type: 3}

@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Playables;
+using UnityEngine.Timeline;
 
 public class MonsterPattern : MonoBehaviour
 {
@@ -15,6 +18,7 @@ public class MonsterPattern : MonoBehaviour
 
     private List<Obstacle> activeObstacles = new List<Obstacle>();
     private Monster eliteMonster;
+    private CinemachineBrain cam;
     private bool eliteMonsterDefeated = false;
 
     private ObjectPool<Obstacle> obstaclePool;
@@ -22,6 +26,8 @@ public class MonsterPattern : MonoBehaviour
 
     void Start()
     {
+        cam = Camera.main.GetComponent<CinemachineBrain>();
+
         Obstacle obstacles = obstaclePrefab.GetComponent<Obstacle>();
         obstaclePool = new ObjectPool<Obstacle>(obstacles, spawnCount, transform);
 
@@ -146,7 +152,17 @@ public class MonsterPattern : MonoBehaviour
         {
             eliteMonster.SetStats(baseAttackDamage * 2f, baseRange * 1.5f, MonsterType.Boss, baseHealth * 10f, baseSpeed * 1.5f);
         }
-        
+        TimelineAsset timelineAsset = eliteMonster.timeLine.playableAsset as TimelineAsset;
+
+        foreach (TrackAsset track in timelineAsset.GetOutputTracks())
+        {
+            if (track is CinemachineTrack)
+            {
+                eliteMonster.timeLine.SetGenericBinding(track, cam);
+            }
+        }
+
+        eliteMonster.timeLine.Play();
         eliteMonster.transform.localScale = new Vector3(3f, 3f, 3f);
 
         if (eliteMonster != null)
