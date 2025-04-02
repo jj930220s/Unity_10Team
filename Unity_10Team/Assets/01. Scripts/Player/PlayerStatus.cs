@@ -50,6 +50,8 @@ public class PlayerStatus
 
     public void TakeDamage(float damage)
     {
+        SoundManager.Instance.Playsfx("player_hit");
+
         status[STATTYPE.CHP] -= damage;
         if (status[STATTYPE.CHP] <= 0)
         {

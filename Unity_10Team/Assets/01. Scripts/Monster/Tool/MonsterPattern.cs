@@ -152,6 +152,8 @@ public class MonsterPattern : MonoBehaviour
         {
             eliteMonster.SetStats(baseAttackDamage * 2f, baseRange * 1.5f, MonsterType.Boss, baseHealth * 10f, baseSpeed * 1.5f);
         }
+        eliteMonster.transform.localScale = new Vector3(3f, 3f, 3f);
+
         TimelineAsset timelineAsset = eliteMonster.timeLine.playableAsset as TimelineAsset;
 
         foreach (TrackAsset track in timelineAsset.GetOutputTracks())
@@ -161,9 +163,9 @@ public class MonsterPattern : MonoBehaviour
                 eliteMonster.timeLine.SetGenericBinding(track, cam);
             }
         }
-
+        
         eliteMonster.timeLine.Play();
-        eliteMonster.transform.localScale = new Vector3(3f, 3f, 3f);
+        SoundManager.Instance.Playsfx("eliteSpawn");
 
         if (eliteMonster != null)
         {
