@@ -17,6 +17,7 @@ public class PlayerDeadState : PlayerBaseState
 
         stateMachine.player.cDDirector.Play();
         StartAnimation(stateMachine.player.animationData.deadParameterHash);
+        SoundManager.Instance.Playsfx("death_sound");
         UIManager.Instance.PopUpUI(UITYPE.GAMEOVER);
     }
 
