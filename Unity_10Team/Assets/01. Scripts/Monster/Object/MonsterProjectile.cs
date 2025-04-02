@@ -21,32 +21,57 @@ public class MonsterProjectile : MonoBehaviour
         hasCollided = false;
     }
 
-    public void Launch(Vector3 dir, float dmg)
+    public void Launch(Vector3 dir, float dmg, Transform parent)
     {
-        transform.SetParent(null);
+        transform.SetParent(parent); 
+        transform.position = parent.position;
+        transform.rotation = Quaternion.identity;
+
         direction = dir.normalized;
         damage = dmg;
+
+        StartCoroutine(MoveToBulletContainer());
 
         Invoke("ReturnToPool", lifeTime);
     }
 
     private void Update()
     {
-        transform.position += direction * speed * Time.deltaTime;
+        if (!hasCollided)
+        {
+            transform.position += direction * speed * Time.deltaTime;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (hasCollided) return;
 
+        hasCollided = true;
+
         if (other.CompareTag("Player"))
         {
             GameManager.Instance.player.pStat.TakeDamage(damage);
-            hasCollided = true;
+            
             ReturnToPool();
         }
         else if (other.CompareTag("Wall"))
             ReturnToPool();
+    }
+
+    private IEnumerator MoveToBulletContainer()
+    {
+        yield return null; 
+
+        Transform bulletContainer = GameObject.Find("MonsterProjectilePool")?.transform;
+        if (bulletContainer != null)
+        {
+            transform.SetParent(bulletContainer);
+        }
+        else
+        {
+            transform.SetParent(null);
+        }
     }
 
     private void ReturnToPool()

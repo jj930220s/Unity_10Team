@@ -9,6 +9,7 @@ public class MonsterAttack : MonoBehaviour
     private EnemyAI ai;
     public Transform handTransform;
     public Player player;
+    public Transform projectileContainer;
 
     private float lastMeleeAttackTime;
     private float lastRangedAttackTime;
@@ -80,6 +81,11 @@ public class MonsterAttack : MonoBehaviour
 
     private IEnumerator HandleAttackAfterAnimation()
     {
+        if (monster.attackType == AttackType.Melee)
+        {
+            GameManager.Instance.player.pStat.TakeDamage(monster.attackDamage);
+        }
+
         float attackAnimationLength = monster.animator.GetCurrentAnimatorStateInfo(0).length;
 
         yield return new WaitForSeconds(attackAnimationLength);
@@ -100,7 +106,7 @@ public class MonsterAttack : MonoBehaviour
         Vector3 targetPosition = new Vector3(player.transform.position.x, player.transform.position.y + 1f, player.transform.position.z);
         Vector3 direction = (targetPosition - spawnPosition).normalized;
 
-        projectile.Launch(direction, monster.attackDamage);
+        projectile.Launch(direction, monster.attackDamage, projectileContainer);
     }
 
     private bool CheckWall()
@@ -121,7 +127,7 @@ public class MonsterAttack : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player") && monster.attackType == AttackType.Melee)
+        if (collision.gameObject.CompareTag("Player"))
         {
             GameManager.Instance.player.pStat.TakeDamage(monster.attackDamage);
         }

@@ -782,6 +782,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c93ebf00a8c3f224aa9ede719fe3b3f9, type: 3}
+--- !u!1 &1831464291
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1831464292}
+  m_Layer: 0
+  m_Name: MonsterProjectilePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1831464292
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831464291}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1905512194 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1488505038094802863, guid: f17a32be80ef01b49a40f0ac4c073fde, type: 3}
@@ -1046,13 +1077,14 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 504612367}
+  - {fileID: 179438473}
+  - {fileID: 838865873}
+  - {fileID: 1618697442}
   - {fileID: 318271174}
   - {fileID: 71172948}
   - {fileID: 664884517}
+  - {fileID: 8064575530640797388}
+  - {fileID: 4023639399550954783}
   - {fileID: 2655228396467952456}
   - {fileID: 6525907504853401700}
-  - {fileID: 4023639399550954783}
-  - {fileID: 8064575530640797388}
-  - {fileID: 838865873}
-  - {fileID: 1618697442}
-  - {fileID: 179438473}
+  - {fileID: 1831464292}
