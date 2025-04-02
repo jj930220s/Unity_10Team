@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   <defaultData>k__BackingField:
-    <baseHP>k__BackingField: 1000
-    <baseAttack>k__BackingField: 100
+    <baseHP>k__BackingField: 100
+    <baseAttack>k__BackingField: 10
     <baseDefence>k__BackingField: 6
-    <baseAttackDelay>k__BackingField: 0.25
+    <baseAttackDelay>k__BackingField: 0.5
     <baseSpeed>k__BackingField: 6
     <baseRotationDamping>k__BackingField: 10
     <moveSpeedModifier>k__BackingField: 1
