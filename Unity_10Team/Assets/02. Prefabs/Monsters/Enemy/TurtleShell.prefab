@@ -580,6 +580,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   monsterData: {fileID: 11400000, guid: 4a29427ad4c70ed4bb64cab7a87f2c73, type: 2}
   target: {fileID: 0}
+  ai: {fileID: 0}
   monsterName: 
   monsterType: 0
   attackType: 0
@@ -606,6 +607,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handTransform: {fileID: 0}
   player: {fileID: 1488505038094802863, guid: f17a32be80ef01b49a40f0ac4c073fde, type: 3}
+  projectileContainer: {fileID: 0}
 --- !u!114 &-6870305286912948158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -662,7 +664,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.5, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &1532652994627396
 GameObject:

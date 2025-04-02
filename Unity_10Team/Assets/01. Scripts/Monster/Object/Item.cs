@@ -5,7 +5,8 @@ using UnityEngine;
 public enum ItemType
 {
     Experience,
-    Gold
+    Gold,
+    Heal
 }
 
 public class Item : MonoBehaviour
@@ -13,6 +14,7 @@ public class Item : MonoBehaviour
     public ItemType itemType;
     public int experienceValue;
     public int goldValue;
+    public int healValue;
 
     public void Initialize(ItemType type, int value)
     {
@@ -25,6 +27,9 @@ public class Item : MonoBehaviour
                 break;
             case ItemType.Gold:
                 goldValue = value;
+                break;
+            case ItemType.Heal:
+                healValue = value;
                 break;
         }
     }
@@ -52,6 +57,11 @@ public class Item : MonoBehaviour
         else if (itemType == ItemType.Gold)
         {
             //player.AddGold(goldValue);
+            GameManager.Instance.wealth.AddWealth(WEALTHTYPE.Gold, goldValue);
+        }
+        else if(itemType == ItemType.Heal)
+        {
+            player.pStat.Heal(healValue);
         }
         Debug.Log($"{experienceValue} °æÇèÄ¡ È¹µæ    {goldValue} °ñµå È¹µæ");
         MonsterDropItem.Instance.ReturnItem(this);

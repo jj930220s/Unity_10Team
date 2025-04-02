@@ -68,7 +68,7 @@ public class PlayerAttackState : PlayerBaseState
         RaycastHit hit;
 
         Vector3 groundPoint;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Ground")))// 임시 레이어 마스크
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Ground", "Enemy")))// 임시 레이어 마스크
         {
             groundPoint = hit.point;
         }
@@ -146,6 +146,7 @@ public class PlayerAttackState : PlayerBaseState
         {
             stateMachine.player.animator.SetTrigger("Shot");
 
+            SoundManager.Instance.Playsfx("Gun");
             ShotBullet();
             yield return new WaitForSeconds(playerStatus.status[STATTYPE.ATKDELAY]);
         }

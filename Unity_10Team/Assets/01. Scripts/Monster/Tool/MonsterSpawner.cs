@@ -122,6 +122,7 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
     {
         int experienceGained = 0;
         int goldGained = 0;
+        int healGained = 50;
 
         if (monster.monsterType == MonsterType.Normal)
         {
@@ -134,7 +135,7 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
             goldGained = Random.Range(15, 31);
         }
 
-        MonsterDropItem.Instance.DropItems(monster, experienceGained, goldGained);
+        MonsterDropItem.Instance.DropItems(monster, experienceGained, goldGained, healGained);
     }
 
     public void ReturnMonster(Monster monster)
