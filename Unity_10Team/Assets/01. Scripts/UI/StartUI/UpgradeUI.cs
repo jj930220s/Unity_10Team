@@ -15,12 +15,15 @@ public class UpgradeList
 public class UpgradeUI : BaseUI
 {
     [Header("Wealths")]
+    [SerializeField] PlayerWealth baseWealth;
     [SerializeField] RectTransform wealth;
     [SerializeField] WealthUIInfos wealthInfos;
     [SerializeField] WealthUI wealthInfoPrefeb;
     Dictionary<WEALTHTYPE, WealthUI> wealthInfoUIs = new();
 
     [Header("PlayerStat")]
+    [SerializeField] PlayerSObj baseStat;
+    PlayerStatus pStat;
     [SerializeField] RectTransform playerStat;
     [SerializeField] StatusUIData[] statInfos;
     [SerializeField] StatusUI StatusPrefeb;
@@ -44,9 +47,13 @@ public class UpgradeUI : BaseUI
     {
         UiType = UITYPE.UPGRADE;
 
+        baseWealth = DataSave<PlayerWealth>.LoadOrBase(baseWealth, "wealthData.json");
+        baseWealth.Init();
         foreach (var info in wealthInfos.list)
             wealthInfoUIs[info.wealthType] = Instantiate(wealthInfoPrefeb, wealth).Init(info);
 
+        pStat = new PlayerStatus(baseStat);
+        pStat.Init();
         foreach (var info in statInfos)
             statInfoUIs[info.statType] = Instantiate(StatusPrefeb, playerStat).Init(info);
 
@@ -65,15 +72,15 @@ public class UpgradeUI : BaseUI
         base.UpdateUI();
 
         foreach (var info in wealthInfoUIs)
-            if (GameManager.Instance.wealth.wealths.ContainsKey(info.Key))
-                info.Value.UpdateInfo(GameManager.Instance.wealth.wealths[info.Key]);
+            if (baseWealth.wealths.ContainsKey(info.Key))
+                info.Value.UpdateInfo(baseWealth.wealths[info.Key]);
 
         foreach (var info in statInfoUIs)
-            if (GameManager.Instance.player.pStat.status.ContainsKey(info.Key))
-                info.Value.UpdateInfo((int)GameManager.Instance.pStat.status[info.Key]);
+            if (pStat.status.ContainsKey(info.Key))
+                info.Value.UpdateInfo((int)pStat.status[info.Key]);
 
         foreach (var pannel in upgradePannels)
-            pannel.UpdateInfo();
+            pannel.UpdateInfo(baseWealth);
 
         upgradeName.text = upgradeDesc.text = string.Empty;
         selectedIcon.gameObject.SetActive(false);
@@ -88,7 +95,7 @@ public class UpgradeUI : BaseUI
         if (selectedUpgrade == null || selectedUpgrade.upgraded) return;
 
         selectedIcon.gameObject.SetActive(true);
-        upgradeButton.gameObject.SetActive(selectedUpgrade.data.cost <= GameManager.Instance.wealth.wealths[WEALTHTYPE.Gold]);
+        upgradeButton.gameObject.SetActive(selectedUpgrade.data.cost <= baseWealth.wealths[WEALTHTYPE.Gold]);
 
         selectedIcon.sprite = selectedUpgrade.data.icon;
         upgradeName.text = selectedUpgrade.data.upgradeName;
@@ -102,17 +109,17 @@ public class UpgradeUI : BaseUI
 
     public void OnUpgrade()
     {
-        GameManager.Instance.wealth.PerChase(WEALTHTYPE.Gold, selectedUpgrade.data.cost);
-        selectedUpgrade.ApplyUpgrade(GameManager.Instance.player);
+        baseWealth.PerChase(WEALTHTYPE.Gold, selectedUpgrade.data.cost);
+        selectedUpgrade.ApplyUpgrade(pStat);
 
-        GameManager.Instance.pStat.SaveStatus();
+        pStat.SaveStatus();
         DataSave<UpgradeList>.SaveData(upgrades, dataSavePath);
         UpdateUI();
     }
 
     private void OnDestroy()
     {
-        GameManager.Instance.pStat.SaveStatus();
+        pStat.SaveStatus();
         DataSave<UpgradeList>.SaveData(upgrades, dataSavePath);
     }
 }

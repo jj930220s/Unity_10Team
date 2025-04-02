@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -27,6 +28,9 @@ public class Player : MonoBehaviour
 
     private GameDataManager dataManager; //게임데이터매니저
 
+    private SelectedDrons droneData;
+
+    public Transform[] dronePoint;
     private void Awake()
     {
         foreach (IEnforce enforce in enforceData.EnforceStatusList)
@@ -43,7 +47,7 @@ public class Player : MonoBehaviour
         characterController = GetComponent<CharacterController>();
 
         pLevel = new PlayerLevel(1);
-        pStat = new PlayerStatus(this);
+        pStat = new PlayerStatus(data);
         pStat.Init();
 
         stateMachine = new PlayerStateMachine(this);
@@ -54,7 +58,7 @@ public class Player : MonoBehaviour
         stateMachine.ChangeState(stateMachine.idleState);
 
         dataManager = FindObjectOfType<GameDataManager>();
-        //LoadPlayerData(); //저장된 데이터 불러오기
+        LoadDroneData(); //저장된 데이터 불러오기
 
     }
 
@@ -78,5 +82,23 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         stateMachine.StatePhysicsUpdate();
+    }
+
+    void LoadDroneData()
+    {
+        // 드론 세팅
+        LoadDroneData loadDrone = new LoadDroneData();
+        loadDrone.LoadDrone();
+        droneData = loadDrone.GetSelectedDrons();
+
+        // 선택한 드론 없을떄
+        if (droneData != null)
+        {
+            for (int i = 0; i < droneData.list.Count(); i++)
+            {
+                GameObject drone = Instantiate(droneData.list[i].data.dronPrefeb, dronePoint[i]).gameObject;
+                drone.transform.localPosition = Vector3.zero;
+            }
+        }
     }
 }
