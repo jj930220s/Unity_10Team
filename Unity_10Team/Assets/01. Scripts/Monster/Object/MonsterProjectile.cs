@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class MonsterProjectile : MonoBehaviour
@@ -10,12 +11,14 @@ public class MonsterProjectile : MonoBehaviour
     public float lifeTime = 2f;
 
     private ObjectPool<MonsterProjectile> pool;
+    private bool hasCollided = false;
 
     public void Initialize(ObjectPool<MonsterProjectile> pool)
     {
         this.pool = pool;
         direction = Vector3.zero;
         CancelInvoke();
+        hasCollided = false;
     }
 
     public void Launch(Vector3 dir, float dmg)
@@ -34,10 +37,16 @@ public class MonsterProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Wall"))
+        if (hasCollided) return;
+
+        if (other.CompareTag("Player"))
         {
+            GameManager.Instance.player.pStat.TakeDamage(damage);
+            hasCollided = true;
             ReturnToPool();
         }
+        else if (other.CompareTag("Wall"))
+            ReturnToPool();
     }
 
     private void ReturnToPool()

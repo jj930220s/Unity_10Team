@@ -10,7 +10,7 @@ public class Upgrade
     public UpgradeData data;
     public bool upgraded;
 
-    public void ApplyUpgrade(Player player)
+    public void ApplyUpgrade(PlayerStatus player)
     {
         data.ApplyUpgrade(player);
         upgraded = true;
@@ -21,7 +21,7 @@ public class Upgrade
 public class Status
 {
     public STATTYPE type;
-    public int value;
+    public float value;
 }
 
 [CreateAssetMenu(fileName = "Upgrade", menuName = "Data/Upgrade")]
@@ -33,9 +33,9 @@ public class UpgradeData : ScriptableObject
     public int cost;
     public Status[] upgradeStat;
 
-    public void ApplyUpgrade(Player player)
+    public void ApplyUpgrade(PlayerStatus pStat)
     {
         foreach (var stat in upgradeStat)
-            Debug.Log(player.pStat.status[stat.type] + stat.value);
+            pStat.UpgradStat(stat.type, stat.value);
     }
 }

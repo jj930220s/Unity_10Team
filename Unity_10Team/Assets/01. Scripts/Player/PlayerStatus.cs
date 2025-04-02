@@ -16,23 +16,36 @@ public enum STATTYPE
 [Serializable]
 public class PlayerStatus
 {
-    public PlayerStatus(Player player)
+    public PlayerStatus(PlayerSObj baseStat)
     {
-        this.player = player;
+        this.baseStat = baseStat;
     }
 
-    private Player player;
+    PlayerSObj baseStat;
 
     public Dictionary<STATTYPE, float> status { get; private set; } = new();
 
     public void Init()
     {
-        status.Add(STATTYPE.HP, player.data.defaultData.baseHP);
-        status.Add(STATTYPE.CHP, status[STATTYPE.HP]);
-        status.Add(STATTYPE.ATK, player.data.defaultData.baseAttack);
-        status.Add(STATTYPE.DEF, player.data.defaultData.baseDefence);
-        status.Add(STATTYPE.SPEED, player.data.defaultData.baseSpeed);
-        status.Add(STATTYPE.ATKDELAY, player.data.defaultData.baseAttackDelay);
+        PlayerSaveData savedata = DataSave<PlayerSaveData>.LoadData("statData.json");
+        if(savedata != null)
+        {
+            status[STATTYPE.HP] = savedata.hp;
+            status[STATTYPE.CHP] = status[STATTYPE.HP];
+            status[STATTYPE.ATK] = savedata.attack;
+            status[STATTYPE.DEF] = savedata.defence;
+            status[STATTYPE.SPEED] = savedata.speed;
+            status[STATTYPE.ATKDELAY] = savedata.attackDelay;
+
+            return;
+        }
+
+        status[STATTYPE.HP] = baseStat.defaultData.baseHP;
+        status[STATTYPE.CHP] = status[STATTYPE.HP];
+        status[STATTYPE.ATK] = baseStat.defaultData.baseAttack;
+        status[STATTYPE.DEF] = baseStat.defaultData.baseDefence;
+        status[STATTYPE.SPEED] = baseStat.defaultData.baseSpeed;
+        status[STATTYPE.ATKDELAY] = baseStat.defaultData.baseAttackDelay;
     }
 
     public void TakeDamage(float damage)
@@ -56,5 +69,17 @@ public class PlayerStatus
     public float PlayerDamage()
     {
         return status[STATTYPE.ATK];
+    }
+
+    public void UpgradStat(STATTYPE type, float value)
+    {
+        status[type] += value;
+    }
+
+    public void SaveStatus()
+    {
+        PlayerSaveData savedata = new PlayerSaveData(this);
+
+        DataSave<PlayerSaveData>.SaveData(savedata, "statData.json");
     }
 }

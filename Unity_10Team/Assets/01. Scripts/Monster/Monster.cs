@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Monster : Singleton<Monster>
 {
@@ -10,6 +11,7 @@ public class Monster : Singleton<Monster>
     public MonsterData monsterData;
     private MonsterAttack attack;
     public Transform target;
+    public EnemyAI ai;
 
     public string monsterName;
     public MonsterType monsterType;
@@ -36,6 +38,7 @@ public class Monster : Singleton<Monster>
         }
 
         attack = GetComponent<MonsterAttack>();
+        ai = GetComponent<EnemyAI>(); 
     }
 
     private void Update()
@@ -114,8 +117,13 @@ public class Monster : Singleton<Monster>
     public void TakeDamage(float damage)
     {
         health -= damage;
+        SoundManager.Instance.Playsfx("monster_hit");
+
         if (health <= 0)
         {
+            ai.agent.isStopped = true;
+            ai.agent.velocity = Vector3.zero;
+
             StartCoroutine(Die());
         }
     }
@@ -132,6 +140,7 @@ public class Monster : Singleton<Monster>
         Debug.Log("Die() called, invoking OnDeathEvent");
 
         animator.SetBool("isDie", true);
+        SoundManager.Instance.Playsfx("monster_die");
 
         isDead = true;
 
