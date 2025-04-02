@@ -24,7 +24,9 @@ public abstract class BaseDroneController : MonoBehaviour
     /// <returns></returns>
     protected async UniTaskVoid AutoAction()
     {
-        while(true)
+        await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
+
+        while (true)
         {
             await UniTask.WaitUntil(() => target != null);
 
