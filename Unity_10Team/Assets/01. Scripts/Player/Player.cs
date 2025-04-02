@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class Player : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class Player : MonoBehaviour
     public Transform shotPoint { get; private set; }
 
     private GameDataManager dataManager; //게임데이터매니저
+
+    public PlayableDirector cDDirector;
 
     private void Awake()
     {
@@ -56,6 +59,11 @@ public class Player : MonoBehaviour
         dataManager = FindObjectOfType<GameDataManager>();
         //LoadPlayerData(); //저장된 데이터 불러오기
 
+        if (cDDirector == null)
+        {
+            cDDirector = GameObject.Find("Clear&Dead Timeline").GetComponent<PlayableDirector>();
+        }
+
     }
 
     private void Start()
@@ -71,7 +79,12 @@ public class Player : MonoBehaviour
         // 테스트용
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            pStat.TakeDamage(100);
+            stateMachine.ChangeState(stateMachine.clearState);
+        }
+        else if (Input.GetKeyDown(KeyCode.F2))
+        {
+            pStat.Heal(10f);
+            stateMachine.ChangeState(stateMachine.idleState);
         }
     }
 

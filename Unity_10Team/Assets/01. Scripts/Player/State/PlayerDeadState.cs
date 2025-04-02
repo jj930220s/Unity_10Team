@@ -14,6 +14,8 @@ public class PlayerDeadState : PlayerBaseState
         stateMachine.movementSpeedModifier = 0f;
 
         base.StateEnter();
+
+        stateMachine.player.cDDirector.Play();
         StartAnimation(stateMachine.player.animationData.deadParameterHash);
         UIManager.Instance.PopUpUI(UITYPE.GAMEOVER);
     }
@@ -26,6 +28,8 @@ public class PlayerDeadState : PlayerBaseState
     public override void StateExit()
     {
         base.StateExit();
+
+        stateMachine.player.cDDirector.Stop();
         StopAnimation(stateMachine.player.animationData.deadParameterHash);
     }
 

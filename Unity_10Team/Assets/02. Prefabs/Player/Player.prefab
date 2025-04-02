@@ -435,7 +435,9 @@ MonoBehaviour:
     verticalParameterName: Vertical
     horizontalParameterName: Horizontal
     deadParameterName: Dead
+    cleatParameterName: Clear
   <bulletPrefab>k__BackingField: {fileID: 2443315521590755626, guid: aa3b91631fcbfe94481d0b2ee14fcba7, type: 3}
+  cDDirector: {fileID: 2170835850213001759, guid: b8143c66437d4694c800f12b95efa6fd, type: 3}
 --- !u!114 &1701183786303040969
 MonoBehaviour:
   m_ObjectHideFlags: 0
