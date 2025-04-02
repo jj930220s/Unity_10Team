@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -26,10 +27,13 @@ public class Player : MonoBehaviour
     public ObjectPool<Bullet> bulletPool { get; private set; }
     public Transform shotPoint { get; private set; }
 
-    private GameDataManager dataManager; //°ÔÀÓµ¥ÀÌÅÍ¸Å´ÏÀú
+    private GameDataManager dataManager; //ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½Í¸Å´ï¿½ï¿½ï¿½
 
     public PlayableDirector cDDirector;
 
+    private SelectedDrons droneData;
+
+    public Transform[] dronePoint;
     private void Awake()
     {
         foreach (IEnforce enforce in enforceData.EnforceStatusList)
@@ -46,7 +50,7 @@ public class Player : MonoBehaviour
         characterController = GetComponent<CharacterController>();
 
         pLevel = new PlayerLevel(1);
-        pStat = new PlayerStatus(this);
+        pStat = new PlayerStatus(data);
         pStat.Init();
 
         stateMachine = new PlayerStateMachine(this);
@@ -57,7 +61,7 @@ public class Player : MonoBehaviour
         stateMachine.ChangeState(stateMachine.idleState);
 
         dataManager = FindObjectOfType<GameDataManager>();
-        //LoadPlayerData(); //ÀúÀåµÈ µ¥ÀÌÅÍ ºÒ·¯¿À±â
+        LoadDroneData(); //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
 
         if (cDDirector == null)
         {
@@ -76,7 +80,7 @@ public class Player : MonoBehaviour
         stateMachine.StateHandleInput();
         stateMachine.StateUpdate();
 
-        // Å×½ºÆ®¿ë
+        // ï¿½×½ï¿½Æ®ï¿½ï¿½
         if (Input.GetKeyDown(KeyCode.F1))
         {
             stateMachine.ChangeState(stateMachine.clearState);
@@ -91,5 +95,23 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         stateMachine.StatePhysicsUpdate();
+    }
+
+    void LoadDroneData()
+    {
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        LoadDroneData loadDrone = new LoadDroneData();
+        loadDrone.LoadDrone();
+        droneData = loadDrone.GetSelectedDrons();
+
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        if (droneData != null)
+        {
+            for (int i = 0; i < droneData.list.Count(); i++)
+            {
+                GameObject drone = Instantiate(droneData.list[i].data.dronPrefeb, dronePoint[i]).gameObject;
+                drone.transform.localPosition = Vector3.zero;
+            }
+        }
     }
 }

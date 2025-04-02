@@ -34,5 +34,6 @@ public class PlayerLevel
     {
         level++;
         SetMaxExp();
+        UIManager.Instance.PopUpUI(UITYPE.GATCHA);
     }
 }

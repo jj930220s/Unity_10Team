@@ -5,7 +5,9 @@ using UnityEngine;
 public enum DRONTYPE
 {
     DEAL,
-    HEAL
+    HEAL,
+    RANGE,
+    DAMAGE
 }
 
 [CreateAssetMenu(fileName = "Dron", menuName = "Data/Dron")]

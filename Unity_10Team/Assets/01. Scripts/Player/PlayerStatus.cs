@@ -16,12 +16,12 @@ public enum STATTYPE
 [Serializable]
 public class PlayerStatus
 {
-    public PlayerStatus(Player player)
+    public PlayerStatus(PlayerSObj baseStat)
     {
-        this.player = player;
+        this.baseStat = baseStat;
     }
 
-    private Player player;
+    PlayerSObj baseStat;
 
     public Dictionary<STATTYPE, float> status { get; private set; } = new();
 
@@ -40,12 +40,12 @@ public class PlayerStatus
             return;
         }
 
-        status[STATTYPE.HP] = player.data.defaultData.baseHP;
+        status[STATTYPE.HP] = baseStat.defaultData.baseHP;
         status[STATTYPE.CHP] = status[STATTYPE.HP];
-        status[STATTYPE.ATK] = player.data.defaultData.baseAttack;
-        status[STATTYPE.DEF] = player.data.defaultData.baseDefence;
-        status[STATTYPE.SPEED] = player.data.defaultData.baseSpeed;
-        status[STATTYPE.ATKDELAY] = player.data.defaultData.baseAttackDelay;
+        status[STATTYPE.ATK] = baseStat.defaultData.baseAttack;
+        status[STATTYPE.DEF] = baseStat.defaultData.baseDefence;
+        status[STATTYPE.SPEED] = baseStat.defaultData.baseSpeed;
+        status[STATTYPE.ATKDELAY] = baseStat.defaultData.baseAttackDelay;
     }
 
     public void TakeDamage(float damage)

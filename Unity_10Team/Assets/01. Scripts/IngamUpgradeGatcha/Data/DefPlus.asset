@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ec60bb7dd8287d44a6433fb424587cf, type: 3}
-  m_Name: HealDron
+  m_Script: {fileID: 11500000, guid: 46049aa126424a7449e2f9af928aaf27, type: 3}
+  m_Name: DefPlus
   m_EditorClassIdentifier: 
-  dronName: Healer
-  dronPrefeb: {fileID: 3805368034786470664, guid: 838b0cbc56e133e47ae0946a9004e756, type: 3}
-  type: 1
+  upgaradeName: DefPlus
   icon: {fileID: 0}
+  upgradeStats:
+  - type: 3
+    value: 10

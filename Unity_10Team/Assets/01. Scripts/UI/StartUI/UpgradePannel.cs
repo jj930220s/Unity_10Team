@@ -28,10 +28,10 @@ public class UpgradePannel : MonoBehaviour
         return this;
     }
 
-    public void UpdateInfo()
+    public void UpdateInfo(PlayerWealth wealth)
     {
         if (!upgrade.upgraded)
-            cost.color = upgrade.data.cost > GameManager.Instance.wealth.wealths[WEALTHTYPE.Gold] ? costDisabled : costEnabled;
+            cost.color = upgrade.data.cost > wealth.wealths[WEALTHTYPE.Gold] ? costDisabled : costEnabled;
         else
             cost.text = "";
 
