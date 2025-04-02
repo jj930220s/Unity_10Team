@@ -15,4 +15,4 @@ MonoBehaviour:
   dronName: Attacker
   dronPrefeb: {fileID: 2877350331303355603, guid: 2d8ce0f3f721d3544bf6a6372ff6c972, type: 3}
   type: 0
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 410438034a06715458c3838067ae0e7a, type: 3}
