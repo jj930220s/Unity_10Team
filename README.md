@@ -26,48 +26,6 @@
 | **드론** | 전투에 사용할 드론을 선택할 수 있습니다. 드론은 스스로 움직이며 특수한 동작으로 플레이어를 돕습니다. |
 | **레벨** | 전투 중 획득한 경험치로 플레이어를 강화할 수 있습니다. 이 강화 내역은 전투가 끝나면 사라집니다. |
 
----
-
-## 📸 화면 구성
-|메인 화면|
-|:---:|
-|<img src="https://github.com/Dalsi-0/Factory404/blob/main/Readme/Main.png?raw=true" width="700"/>|
-|게임 시작 및 설정으로 이동할 수 있는 화면입니다.|
-
-<br /><br />
-
-|게임 플레이 장면|
-|:---:|
-|<img src="https://github.com/Dalsi-0/Factory404/blob/main/Readme/Play1.png?raw=true" width="700"/>|
-|<img src="https://github.com/Dalsi-0/Factory404/blob/main/Readme/Play2.png?raw=true" width="700"/>|
-|<img src="https://github.com/Dalsi-0/Factory404/blob/main/Readme/Play3.png?raw=true" width="700"/>|
-|<img src="https://github.com/Dalsi-0/Factory404/blob/main/Readme/Play4.png?raw=true" width="700"/>|
-|플레이어가 공장을 탐색하며 다양한 오브젝트와 상호작용하는 장면입니다.|  
-
-<br /><br />
-
-|퍼즐|
-|:---:|
-|<img src="https://github.com/Dalsi-0/Factory404/blob/main/Readme/Puzzle1.png?raw=true" width="700"/>|
-|<img src="https://github.com/Dalsi-0/Factory404/blob/main/Readme/Puzzle2.png?raw=true" width="700"/>|
-|각종 기계 장치와 단서를 활용해 퍼즐을 해결하는 장면입니다.|
-
-<br /><br />
-
-|인벤토리|
-|:---:|
-|<img src="https://github.com/Dalsi-0/Factory404/blob/main/Readme/Inven1.png?raw=true" width="700"/>|
-|<img src="https://github.com/Dalsi-0/Factory404/blob/main/Readme/Inven2.png?raw=true" width="700"/>|
-|플레이어가 수집한 아이템을 확인하고 사용할 수 있는 인벤토리 화면입니다. |
-|아이템을 마우스로 드래그해 회전시키며 상세하게 살펴볼 수 있습니다.|
-
-<br /><br />
-
-|로딩화면|
-|:---:|
-|<img src="https://github.com/Dalsi-0/Factory404/blob/main/Readme/Loading.png?raw=true" width="700"/>|
-|각 스테이지 진입 전 표시되는 로딩 화면입니다.|
-|포스트 프로세싱 효과를 활용해 시각적 변화를 주었습니다.|
 
 ---
 
@@ -139,12 +97,6 @@
 |<img src="https://github.com/Dalsi-0/Factory404/blob/main/Readme/UniRx.png?raw=true" width="500"/>|
 
 <br /><br />
-
----
-
-## 📹 플레이 영상
-
-**[![유튜브](https://github.com/Dalsi-0/Factory404/blob/main/Readme/Main.png?raw=true)](https://youtu.be/8zq_MxN52No)** 
 
 ---
 
