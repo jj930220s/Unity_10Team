@@ -16,6 +16,7 @@ public class PlayerDeadState : PlayerBaseState
         base.StateEnter();
 
         stateMachine.player.cDDirector.Play();
+        stateMachine.player.animator.updateMode = AnimatorUpdateMode.UnscaledTime;
         StartAnimation(stateMachine.player.animationData.deadParameterHash);
         SoundManager.Instance.Playsfx("death_sound");
         UIManager.Instance.PopUpUI(UITYPE.GAMEOVER);
@@ -31,6 +32,7 @@ public class PlayerDeadState : PlayerBaseState
         base.StateExit();
 
         stateMachine.player.cDDirector.Stop();
+        stateMachine.player.animator.updateMode = AnimatorUpdateMode.Normal;
         StopAnimation(stateMachine.player.animationData.deadParameterHash);
     }
 
