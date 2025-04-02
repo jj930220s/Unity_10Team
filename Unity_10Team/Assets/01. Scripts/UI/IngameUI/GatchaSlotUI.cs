@@ -17,6 +17,11 @@ public class GatchaSlotUI : MonoBehaviour
         labelTxt.text = data.upgaradeName;
         upgradeStats = data.upgradeStats;
 
+        string des = "";
+        foreach (var stat in upgradeStats)
+            des += stat.type.ToString() + " + " + stat.value.ToString() +"\n";
+        description.text = des;
+
         return this;
     }
 
