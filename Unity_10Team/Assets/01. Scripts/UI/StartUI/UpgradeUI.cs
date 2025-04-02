@@ -49,6 +49,8 @@ public class UpgradeUI : BaseUI
         foreach (var info in wealthInfos.list)
             wealthInfoUIs[info.wealthType] = Instantiate(wealthInfoPrefeb, wealth).Init(info);
 
+        pStat = new PlayerStatus(baseStat);
+        pStat.Init();
         foreach (var info in statInfos)
             statInfoUIs[info.statType] = Instantiate(StatusPrefeb, playerStat).Init(info);
 
@@ -71,8 +73,8 @@ public class UpgradeUI : BaseUI
                 info.Value.UpdateInfo(GameManager.Instance.wealth.wealths[info.Key]);
 
         foreach (var info in statInfoUIs)
-            if (GameManager.Instance.player.pStat.status.ContainsKey(info.Key))
-                info.Value.UpdateInfo((int)GameManager.Instance.pStat.status[info.Key]);
+            if (pStat.status.ContainsKey(info.Key))
+                info.Value.UpdateInfo((int)pStat.status[info.Key]);
 
         foreach (var pannel in upgradePannels)
             pannel.UpdateInfo();
@@ -105,16 +107,16 @@ public class UpgradeUI : BaseUI
     public void OnUpgrade()
     {
         GameManager.Instance.wealth.PerChase(WEALTHTYPE.Gold, selectedUpgrade.data.cost);
-        selectedUpgrade.ApplyUpgrade(GameManager.Instance.player);
+        selectedUpgrade.ApplyUpgrade(pStat);
 
-        GameManager.Instance.pStat.SaveStatus();
+        pStat.SaveStatus();
         DataSave<UpgradeList>.SaveData(upgrades, dataSavePath);
         UpdateUI();
     }
 
     private void OnDestroy()
     {
-        GameManager.Instance.pStat.SaveStatus();
+        pStat.SaveStatus();
         DataSave<UpgradeList>.SaveData(upgrades, dataSavePath);
     }
 }

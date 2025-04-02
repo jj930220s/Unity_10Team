@@ -130,6 +130,7 @@ MonoBehaviour:
   wealth: {fileID: 1002180835809062691}
   wealthInfos: {fileID: 11400000, guid: adb35f5516ffb284cb30d40be3419a39, type: 2}
   wealthInfoPrefeb: {fileID: 3400064161705983480, guid: 5a79e255c6987504ca4c898255ba5fa4, type: 3}
+  baseStat: {fileID: 11400000, guid: 2f53cb85624248a49ae47c95feaa97d5, type: 2}
   playerStat: {fileID: 4213816865555967466}
   statInfos:
   - statName: Hp
