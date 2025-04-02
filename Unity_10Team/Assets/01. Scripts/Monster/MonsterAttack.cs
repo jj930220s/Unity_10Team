@@ -106,7 +106,7 @@ public class MonsterAttack : MonoBehaviour
         Vector3 targetPosition = new Vector3(player.transform.position.x, player.transform.position.y + 1f, player.transform.position.z);
         Vector3 direction = (targetPosition - spawnPosition).normalized;
 
-        projectile.Launch(direction, monster.attackDamage, projectileContainer);
+        projectile.Launch(direction, monster.attackDamage, handTransform);
     }
 
     private bool CheckWall()
