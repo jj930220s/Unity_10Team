@@ -57,9 +57,9 @@ public class UpgradeUI : BaseUI
         foreach (var info in statInfos)
             statInfoUIs[info.statType] = Instantiate(StatusPrefeb, playerStat).Init(info);
 
-        UpgradeList saveData = DataSave<UpgradeList>.LoadData(dataSavePath);
-        if (saveData != default(UpgradeList))
-            upgrades = saveData;
+        upgrades = DataSave<UpgradeList>.LoadOrBase(upgrades, dataSavePath);
+
+
 
         foreach (var upgrade in upgrades.list)
             upgradePannels.Add(Instantiate(pannelPrefeb, content).Init(upgrade, UpgradeSelected, upgradePannels.Count));
