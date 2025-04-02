@@ -52,6 +52,7 @@ public class SoundManager : Singleton<SoundManager>
             bgmSource = gameObject.AddComponent<AudioSource>();
         sfxSource = gameObject.AddComponent<AudioSource>();
 
+        bgmSource.loop = true;
         PlayBgm();
     }
 
