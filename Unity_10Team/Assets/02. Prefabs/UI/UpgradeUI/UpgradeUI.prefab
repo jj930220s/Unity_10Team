@@ -127,6 +127,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526475489af6ad641a6fd4660b3a765a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseWealth:
+    baseWealths:
+    - type: 0
+      amount: 100
   wealth: {fileID: 1002180835809062691}
   wealthInfos: {fileID: 11400000, guid: adb35f5516ffb284cb30d40be3419a39, type: 2}
   wealthInfoPrefeb: {fileID: 3400064161705983480, guid: 5a79e255c6987504ca4c898255ba5fa4, type: 3}
