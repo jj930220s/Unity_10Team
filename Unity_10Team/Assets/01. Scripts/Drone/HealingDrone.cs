@@ -14,12 +14,14 @@ public class HealingDrone : BaseDroneController
         player = GameManager.Instance.player;
 
         SetAbility();
+        StartDrone();
     }
 
     private void SetAbility()
     {
         delayTime = 5f;
         heal = 10;
+        target = player.gameObject;
     }
 
     protected override void DroneAction()

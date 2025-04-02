@@ -14,6 +14,7 @@ public class DamageDrone : BaseDroneController
     {
         player = GameManager.Instance.player;
         SetAbility();
+        StartDrone();
     }
 
     private void SetAbility()
@@ -24,6 +25,7 @@ public class DamageDrone : BaseDroneController
 
     protected override void StartDrone()
     {
+        target = player.gameObject;
         base.StartDrone();
     }
 

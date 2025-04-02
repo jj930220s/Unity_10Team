@@ -80,10 +80,11 @@ public class Player : MonoBehaviour
         stateMachine.StateHandleInput();
         stateMachine.StateUpdate();
 
-        // �׽�Ʈ��
+        // 테스트용
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            stateMachine.ChangeState(stateMachine.clearState);
+            pStat.TakeDamage(1000f);
+            //stateMachine.ChangeState(stateMachine.clearState);
         }
         else if (Input.GetKeyDown(KeyCode.F2))
         {

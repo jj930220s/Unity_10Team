@@ -4,6 +4,7 @@ using System.Runtime.Serialization.Formatters;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Playables;
 
 public class Monster : Singleton<Monster>
 {
@@ -23,6 +24,7 @@ public class Monster : Singleton<Monster>
     public float moveSpeed;
     public bool isDead;
     public GameObject projectilePrefab;
+    public PlayableDirector timeLine;
 
     public delegate void OnDeathDelegate(Monster monster);
     public event OnDeathDelegate OnDeathEvent;
@@ -38,7 +40,8 @@ public class Monster : Singleton<Monster>
         }
 
         attack = GetComponent<MonsterAttack>();
-        ai = GetComponent<EnemyAI>(); 
+        ai = GetComponent<EnemyAI>();
+        timeLine = GetComponentInChildren<PlayableDirector>();
     }
 
     private void Update()
