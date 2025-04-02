@@ -23,8 +23,9 @@ public class EndPopUpUI : BaseUI
         resultTxt.text = playTimeTxt + $"\n{GameManager.Instance.score}";
     }
 
-    private void OnEnable()
+    public override void PopUpAction()
     {
+        base.PopUpAction();
         UpdateUI();
     }
 }
