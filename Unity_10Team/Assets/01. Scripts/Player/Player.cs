@@ -75,7 +75,8 @@ public class Player : MonoBehaviour
         // 테스트용
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            pStat.TakeDamage(100);
+            //pStat.TakeDamage(100);
+            pLevel.LevelUp();
         }
     }
 

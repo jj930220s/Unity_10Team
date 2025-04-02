@@ -43,6 +43,13 @@ public class UIManager : Singleton<UIManager>
     public void PopUpUI(BaseUI popupUI)
     {
         popupUI.gameObject.SetActive(!popupUI.gameObject.activeSelf);
+        if (popupUI.gameObject.activeSelf)
+        {
+            popupUI.PopUpAction();
+            Time.timeScale = 0f;
+        }
+        else
+            Time.timeScale = 1f;
     }
 
     public void PopUpUI(UITYPE type)

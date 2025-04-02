@@ -38,4 +38,9 @@ public class BaseUI : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+
+    public virtual void PopUpAction()
+    { 
+
+    }
 }
