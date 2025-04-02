@@ -76,10 +76,10 @@
 | 팀원 | 역할 | GitHub 링크 |
 |---|---|---|
 | **유재혁 (팀장)** | 드론 시스템, 오브젝트풀 | [링크](https://github.com/jj930220s?tab=repositories)  |
-| **강기석** | UI, 스텟 강화 | [링크](https://github.com/chajungto) |
-| **이정구** | 적 추적 AI | [링크](https://github.com/JeongChangBeom) |
-| **강진규** | 몬스터 패턴 | [링크](https://github.com/Dalsi-0) |
-| **김연호** | 플레이어, 시네머신 | [링크](https://github.com/DasaemKim) |
+| **김기석** | UI, 스텟 강화 | [링크](https://github.com/Kim-giseok) |
+| **이정구** | 적 추적 AI | [링크](https://github.com/JUNG99) |
+| **강진규** | 몬스터 패턴 | [링크](https://github.com/daeng98) |
+| **진연호** | 플레이어, 시네머신 | [링크](https://github.com/yhjin0704) |
 
 ---
 
