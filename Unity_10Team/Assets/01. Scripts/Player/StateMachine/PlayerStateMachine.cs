@@ -14,6 +14,8 @@ public class PlayerStateMachine : StateMachine
 
     public PlayerDeadState deadState { get; }
 
+    public PlayerClearState clearState { get; }
+
     public Vector2 movementInput { get; set; }
     public float movementSpeed { get; private set; }
     public float rotationDamping { get; private set; }
@@ -28,6 +30,7 @@ public class PlayerStateMachine : StateMachine
         moveState = new PlayerMoveState(this);
         attackState = new PlayerAttackState(this);
         deadState = new PlayerDeadState(this);
+        clearState = new PlayerClearState(this);
 
         movementSpeed = player.pStat.status[STATTYPE.SPEED];
         attackMovementSpeedModifier = player.data.attackData.attackMoveSpeedModifier;
