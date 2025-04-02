@@ -50,9 +50,9 @@ MonoBehaviour:
   - {fileID: 662468794185850985, guid: 4c3714f5736191e469189e389a49c46f, type: 3}
   - {fileID: 875073071404757921, guid: 621bf3e2b55090647952b6276b279777, type: 3}
   - {fileID: 3763740891234241738, guid: e007df8f9fb1b7a4d983c039bda53b7c, type: 3}
-  initialPoolSize: 5
+  initialPoolSize: 10
   maxMonsterCount: 10
-  player: {fileID: 6550412536768224311, guid: f17a32be80ef01b49a40f0ac4c073fde, type: 3}
+  player: {fileID: 0}
   spawnRadius: 20
   spawnCount: 1
-  safeRadius: 3
+  safeRadius: 5
