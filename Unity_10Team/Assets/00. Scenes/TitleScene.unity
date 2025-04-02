@@ -139,6 +139,14 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3655009480630077237, guid: 4059738abf078924094ca6925ea26414, type: 3}
+      propertyPath: m_text
+      value: Void Hunter
+      objectReference: {fileID: 0}
+    - target: {fileID: 3655009480630077237, guid: 4059738abf078924094ca6925ea26414, type: 3}
+      propertyPath: m_fontStyle
+      value: 32
+      objectReference: {fileID: 0}
     - target: {fileID: 3932728846970379187, guid: 4059738abf078924094ca6925ea26414, type: 3}
       propertyPath: selectedDrons.list.Array.size
       value: 2
