@@ -15,5 +15,5 @@ MonoBehaviour:
   upgaradeName: DefPlusPlus
   icon: {fileID: 0}
   upgradeStats:
-  - type: 2
+  - type: 3
     value: 20
