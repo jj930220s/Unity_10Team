@@ -46,6 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   experienceItemPrefab: {fileID: -7093071489147388452, guid: 00ef729ec59fea7468f77cba96027ec9, type: 3}
   goldItemPrefab: {fileID: 6013211563225173518, guid: faead53f904ee774aae067f2ce23e8f1, type: 3}
-  ExpDropCount: 0
-  GoldDropCount: 0
+  healthItemPrefab: {fileID: 6013211563225173518, guid: 896ec7e2a74ff1846921f43a4c318459, type: 3}
+  expDropCount: 0
+  goldDropCount: 0
+  healDropCount: 0
   maxDropCount: 50
