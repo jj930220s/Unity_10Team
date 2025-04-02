@@ -1,7 +1,7 @@
 ﻿수정 진행중
 ﻿ <div align="center">
 
-# 프로젝트 타이틀
+# Void Hunter
 
 <br/> [<img src="https://img.shields.io/badge/프로젝트 기간-2025.03.27~2025.04.02-73abf0?style=flat&logo=&logoColor=white" />]()
 
