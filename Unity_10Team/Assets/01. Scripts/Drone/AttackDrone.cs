@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
 public class AttackDrone : BaseDroneController
@@ -27,6 +28,7 @@ public class AttackDrone : BaseDroneController
         obstacleLayer = LayerMask.GetMask("Obstacle");
 
         SetAbility();
+        StartDrone();
     }
 
     private void SetAbility()
@@ -37,8 +39,7 @@ public class AttackDrone : BaseDroneController
 
     protected override void StartDrone()
     {
-
-
+        FindTarget();
         base.StartDrone();
     }
 
@@ -58,11 +59,16 @@ public class AttackDrone : BaseDroneController
         for (int i = 0; i < bulletCount; i++)
         {
             Bullet bullet = player.bulletPool.Get();
+            if (bullet.player == null)
+            {
+                bullet.player = GameManager.Instance.player;
+            }
 
             bullet.transform.position = transform.position;
             bullet.transform.rotation = Quaternion.LookRotation(dir);
             await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
         }
+        FindTarget();
     }
 
     public void IncreaseBulletCount(int cnt)

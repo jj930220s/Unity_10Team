@@ -2109,8 +2109,11 @@ MonoBehaviour:
     verticalParameterName: Vertical
     horizontalParameterName: Horizontal
     deadParameterName: Dead
+    cleatParameterName: Clear
   <bulletPrefab>k__BackingField: {fileID: 2443315521590755626, guid: aa3b91631fcbfe94481d0b2ee14fcba7, type: 3}
-  dronePoint: []
+  dronePoint:
+  - {fileID: 2636829854513515838}
+  - {fileID: 8856961129674873062}
 --- !u!114 &3014778391274671418
 MonoBehaviour:
   m_ObjectHideFlags: 0
