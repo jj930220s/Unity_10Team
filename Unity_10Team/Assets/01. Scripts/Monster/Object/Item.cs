@@ -57,6 +57,7 @@ public class Item : MonoBehaviour
         else if (itemType == ItemType.Gold)
         {
             //player.AddGold(goldValue);
+            GameManager.Instance.wealth.AddWealth(WEALTHTYPE.Gold, goldValue);
         }
         else if(itemType == ItemType.Heal)
         {
