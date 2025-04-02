@@ -15,4 +15,4 @@ MonoBehaviour:
   dronName: Healer
   dronPrefeb: {fileID: 3805368034786470664, guid: 838b0cbc56e133e47ae0946a9004e756, type: 3}
   type: 1
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 461ff4bf592d868469a1abf7cb280dd1, type: 3}
