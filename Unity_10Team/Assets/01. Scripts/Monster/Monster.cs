@@ -150,6 +150,8 @@ public class Monster : Singleton<Monster>
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
         OnDeathEvent?.Invoke(this); // <이걸로 경험치도 획득하게 하면 될듯?
+
+        GameManager.Instance.AddScore(1);
         Debug.Log($"{monsterName}가 사망했습니다");
     }
 }

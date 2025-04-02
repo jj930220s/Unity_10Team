@@ -140,12 +140,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3932728846970379187, guid: 4059738abf078924094ca6925ea26414, type: 3}
+      propertyPath: selectedDrons.list.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3932728846970379187, guid: 4059738abf078924094ca6925ea26414, type: 3}
       propertyPath: selectedDrons.list.Array.data[0].idx
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3932728846970379187, guid: 4059738abf078924094ca6925ea26414, type: 3}
       propertyPath: selectedDrons.list.Array.data[1].idx
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3932728846970379187, guid: 4059738abf078924094ca6925ea26414, type: 3}
       propertyPath: selectedDrons.list.Array.data[0].data
