@@ -21,7 +21,7 @@ public class Upgrade
 public class Status
 {
     public STATTYPE type;
-    public int value;
+    public float value;
 }
 
 [CreateAssetMenu(fileName = "Upgrade", menuName = "Data/Upgrade")]
@@ -36,6 +36,6 @@ public class UpgradeData : ScriptableObject
     public void ApplyUpgrade(Player player)
     {
         foreach (var stat in upgradeStat)
-            Debug.Log(player.pStat.status[stat.type] + stat.value);
+            player.pStat.UpgradStat(stat.type, stat.value);
     }
 }

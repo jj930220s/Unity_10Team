@@ -104,7 +104,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 5
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -123,4 +123,4 @@ MonoBehaviour:
   itemType: 0
   experienceValue: 0
   goldValue: 0
-  player: {fileID: 1488505038094802863, guid: f17a32be80ef01b49a40f0ac4c073fde, type: 3}
+  dropItem: {fileID: 5078410968141350815, guid: d85418254e8cf8d4183e9ebe1d0f8ee8, type: 3}

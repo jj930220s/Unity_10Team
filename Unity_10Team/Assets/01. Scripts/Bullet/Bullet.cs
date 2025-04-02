@@ -24,14 +24,18 @@ public class Bullet : MonoBehaviour
         StartCoroutine(ReleaseDelay());
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (other.CompareTag("Monster"))
         {
-            collision.gameObject.GetComponent<Monster>().TakeDamage(10);
+            Monster monster = other.GetComponent<Monster>();
 
-            player.bulletPool.Release(this);
+            if (!monster.isDead)
+            {
+                monster.TakeDamage(player.pStat.PlayerDamage());
+
+                player.bulletPool.Release(this);
+            }
         }
     }
 

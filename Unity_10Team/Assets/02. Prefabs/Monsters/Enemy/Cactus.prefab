@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 1124147710292032276}
   m_Layer: 7
   m_Name: Cactus
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -173,6 +173,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   monsterData: {fileID: 11400000, guid: 0d46548ac2e4d164491e44edd71017b7, type: 2}
   target: {fileID: 0}
+  ai: {fileID: 0}
   monsterName: 
   monsterType: 0
   attackType: 0
@@ -212,7 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  speed: 0.5
+  speed: 0.1
   lifeTime: 2
 --- !u!114 &-7339528428363561117
 MonoBehaviour:

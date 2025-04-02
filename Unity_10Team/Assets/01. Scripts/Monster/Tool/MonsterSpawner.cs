@@ -54,7 +54,7 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
             int attempts = 0;
             Monster monster = null;
 
-            while (attempts < 5)
+            while (attempts < initialPoolSize)
             {
                 GameObject randomPrefab = monsterPrefabs[Random.Range(0, monsterPrefabs.Length)];
                 monster = monsterPools[randomPrefab].Get();
@@ -69,7 +69,7 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
 
             if (monster == null || activeMonsters.Contains(monster))
             {
-                Debug.LogWarning("[SpawnMonsters] 중복이거나 monster가 Null입니다.");
+                Debug.Log("[SpawnMonsters] 중복이거나 monster가 Null입니다. 다시 생성합니다.");
                 break;
             }
 
@@ -110,9 +110,11 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
         if (activeMonsters.Remove(monster))
         {
             Debug.Log($"[Deactivate] 활성화된 몬스터 수: {activeMonsters.Count}");
-            monster.isDead = false;
+            
             HandleMonsterDeath(monster);
             ReturnMonster(monster);
+
+            monster.isDead = false;
         }
     }
 
@@ -149,6 +151,8 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
             Debug.Log($"[Return] 활성화된 몬스터 수: {activeMonsters.Count}");
         }
 
+        monster.ResetStats();
+
         foreach (var pool in monsterPools.Values)
         {
             if (monster.gameObject.activeSelf)
@@ -164,5 +168,13 @@ public class MonsterSpawner : Singleton<MonsterSpawner>
     {
         GameObject randomPrefab = monsterPrefabs[Random.Range(0, monsterPrefabs.Length)];
         return monsterPools[randomPrefab].Get();
+    }
+
+    public void IncreaseSpawnCount(int amount)
+    {
+        maxMonsterCount += amount;
+
+        if(maxMonsterCount == 50)
+            maxMonsterCount = 50;
     }
 }

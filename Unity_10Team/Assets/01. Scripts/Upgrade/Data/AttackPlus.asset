@@ -17,5 +17,5 @@ MonoBehaviour:
   description: upgrade atk.
   cost: 10
   upgradeStat:
-  - type: 1
+  - type: 2
     value: 5

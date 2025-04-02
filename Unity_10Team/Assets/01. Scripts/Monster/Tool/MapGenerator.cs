@@ -16,7 +16,7 @@ public class MapGenerator : MonoBehaviour
     public NavMeshSurface navMeshSurface;
     private Camera mainCamera;
 
-    void Start()
+    void Awake()
     {
         mainCamera = Camera.main;
         GenerateMap();

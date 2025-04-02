@@ -17,6 +17,8 @@ public class PlayerAnimationData
 
     [SerializeField] private string deadParameterName = "Dead";
 
+    [SerializeField] private string cleatParameterName = "Clear";
+
     public int defaultParameterHash { get; private set; }
     public int idleParameterHash { get; private set; }
     public int moveParameterHash { get; private set; }
@@ -27,6 +29,8 @@ public class PlayerAnimationData
     public int horizontalParameterHash { get; private set; }
 
     public int deadParameterHash { get; private set; }
+
+    public int clearParameterHash { get; private set; }
 
     public void Initialize()
     {
@@ -40,5 +44,7 @@ public class PlayerAnimationData
         horizontalParameterHash = Animator.StringToHash(horizontalParameterName);
 
         deadParameterHash = Animator.StringToHash(deadParameterName);
+
+        clearParameterHash = Animator.StringToHash(cleatParameterName);
     }
 }
