@@ -110,6 +110,8 @@ public class Player : MonoBehaviour
         {
             for (int i = 0; i < droneData.list.Count(); i++)
             {
+                if (droneData.list[i].idx == -1)
+                    continue;
                 GameObject drone = Instantiate(droneData.list[i].data.dronPrefeb, dronePoint[i]).gameObject;
                 drone.transform.localPosition = Vector3.zero;
             }

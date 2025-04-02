@@ -8,6 +8,7 @@ public class DamageDrone : BaseDroneController
 {
     private Player player;
     private float damage;
+    protected LayerMask enemyLayer; //적레이어
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,8 @@ public class DamageDrone : BaseDroneController
     {
         delayTime = 15;
         damage = 30;
+        enemyLayer = LayerMask.GetMask("Enemy");
+
     }
 
     protected override void StartDrone()
@@ -38,7 +41,7 @@ public class DamageDrone : BaseDroneController
     {
         while (true)
         {
-            Collider[] col = Physics.OverlapSphere(player.transform.position, 5);
+            Collider[] col = Physics.OverlapSphere(player.transform.position, 5,enemyLayer);
             foreach (var c in col)
             {
                 c.GetComponent<Monster>().TakeDamage(damage);
