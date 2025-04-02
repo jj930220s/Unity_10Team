@@ -15,6 +15,7 @@ public class GameManager : Singleton<GameManager>
     // Start is called before the first frame update
     void Awake()
     {
+        _instance = this;
         Time.timeScale = 1f;
         PlayerWealth savedWealth = DataSave<PlayerWealth>.LoadData("wealthData.json");
         if (savedWealth != default(PlayerWealth))

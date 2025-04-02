@@ -28,7 +28,7 @@ public class DataSave<T> where T : class
 
         string jsonData = File.ReadAllText(filePath);
         T data = JsonUtility.FromJson<T>(jsonData);
-        Debug.Log("file loaded succesfully");
+        Debug.Log(path + " loaded succesfully");
         return data;
     }
 
