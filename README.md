@@ -102,33 +102,29 @@
 
 <br /><br />
 
-### 🎬 카메라 연출 – Cinemachine & Timeline  
-게임 내 다양한 연출을 위해 Cinemachine과 Timeline을 활용했습니다.  
-씬 전환, 이벤트 컷씬 등에서 부드러운 카메라 이동과 동적인 화면 효과를 구현했습니다.  
-
-| DollyTrack | Timeline |
-|---|---|
-|<img src="https://github.com/Dalsi-0/Factory404/blob/main/Readme/Timeline1.png?raw=true" width="500"/>|<img src="https://github.com/Dalsi-0/Factory404/blob/main/Readme/Timeline2.png?raw=true" width="500"/>|
+### 🎬 카메라 연출 – Cinemachine  
+게임 내 다양한 연출을 위해 Cinemachine을 활용했습니다.  
+플레이어 사망, 클리어 장면 등에서 부드러운 카메라 이동과 동적인 화면 효과를 구현했습니다.  
 
 <br /><br />
 
 
-### 🗺 동적 네비게이션 메시 – Unity NavMesh  
-메인화면에서 무한 배경을 구현하기 위해 카메라가 새로운 경로를 지속적으로 탐색할 수 있도록 **동적 네비게이션 메시(Unity NavMesh)** 를 적용했습니다.
-무한 배경 기능에 따라 복도 프리팹의 변화에 따라 NavMesh를 실시간으로 재생성하여 보다 자연스러운 경로 탐색을 구현했습니다.
+### 🗺 네비게이션 메시 – Unity NavMesh  
+적 몬스터들이 플레이어을 자연스럽게 쫒아 올 수 있도록 Navmesh를 이용했습니다.
+플레이어를 추적하다가 공격 사거리에 들어오면 자연스럽게 플레이어를 공격하도록 구현했습니다.
 
-| Surface 컴포넌트 | 동적 네비메쉬 스크립트 |
-|---|---|
-|<img src="https://github.com/Dalsi-0/Factory404/blob/main/Readme/Nav1.png?raw=true" width="500"/>|<img src="https://github.com/Dalsi-0/Factory404/blob/main/Readme/Nav2.png?raw=true" width="500"/>|
+| Surface 컴포넌트  |
+|------|
+|<img src="https://github.com/Dalsi-0/Factory404/blob/main/Readme/Nav1.png?raw=true" width="500"/>|
 
 <br /><br />
 
 
-### 🏃 3D 캐릭터 경사면 이동 개선  
-기본적인 이동 방식에서는 경사면에서 캐릭터가 부자연스럽게 미끄러지거나 정상적으로 이동하지 못하는 문제가 발생했습니다.  
-이를 해결하기 위해 Vector3.ProjectOnPlane을 사용하여 경사면의 기울기를 고려한 이동 처리를 구현하였습니다.
+### 🏃 무한맵  
+플레이어 이동에 따라 주변에 바닥타일을 만들거나 없애 무한히 이동할 수 있는 맵을 구현해습니다.
+이로 인해 연산 부담 없이 넓은 맵을 이용할 수 있습니다.
 
-|경사면 이동 개선 코드|
+|무한맵 구현 코드|
 |:---:|
 |<img src="https://github.com/Dalsi-0/Factory404/blob/main/Readme/Slope.png?raw=true" width="500"/>|
 
@@ -138,9 +134,9 @@
 ### ⚡ Unitask 활용 
 이 프로젝트에서는 Unitask를 활용하여 일정 시간마다 동작하는 드론을 구현하였습니다.
 
-|  |  |
-|---|---|
-|<img src="https://github.com/Dalsi-0/Factory404/blob/main/Readme/UniRx.png?raw=true" width="500"/>|<img src="https://github.com/Dalsi-0/Factory404/blob/main/Readme/UniRx2.png?raw=true" width="500"/>|
+|     |
+|------|
+|<img src="https://github.com/Dalsi-0/Factory404/blob/main/Readme/UniRx.png?raw=true" width="500"/>|
 
 <br /><br />
 
