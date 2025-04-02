@@ -1,4 +1,4 @@
-﻿수정 진행중
+
 ﻿ <div align="center">
 
 # Void Hunter
