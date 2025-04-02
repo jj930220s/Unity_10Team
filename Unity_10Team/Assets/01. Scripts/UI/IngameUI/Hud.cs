@@ -43,6 +43,14 @@ public class Hud : BaseUI
 
         int playTime = (int)(Time.time - GameManager.Instance.gameStartTime);
         timeTxt.text = $"{playTime / 60:D2}:{playTime % 60:D2}";
+
+        foreach (var wealth in GameManager.Instance.wealth.wealths)
+        {
+            if (wealthInfoUIs.TryGetValue(wealth.Key, out var ui))
+            {
+                ui.UpdateInfo(wealth.Value);
+            }
+        }
     }
 
     private void Update()

@@ -8,21 +8,26 @@ public class MonsterDropItem : Singleton<MonsterDropItem>
 {
     public Item experienceItemPrefab;
     public Item goldItemPrefab;
+    public Item healthItemPrefab;
 
-    public int ExpDropCount;
-    public int GoldDropCount;
+    public int expDropCount;
+    public int goldDropCount;
+    public int healDropCount;
     public int maxDropCount;
 
     private ObjectPool<Item> experienceItemPool;
     private ObjectPool<Item> goldItemPool;
+    private ObjectPool<Item> healItemPool;
 
     void Awake()
     {
         experienceItemPool = new ObjectPool<Item>(experienceItemPrefab, maxDropCount, transform);
         goldItemPool = new ObjectPool<Item>(goldItemPrefab, maxDropCount, transform);
+        healItemPool = new ObjectPool<Item>(healthItemPrefab, maxDropCount, transform);
 
-        ExpDropCount = 0;
-        GoldDropCount = 0;
+        expDropCount = 0;
+        goldDropCount = 0;
+        healDropCount = 0;
     }
 
     public Item GetExperienceItem()
@@ -35,7 +40,12 @@ public class MonsterDropItem : Singleton<MonsterDropItem>
         return goldItemPool.Get();
     }
 
-    public void DropItems(Monster monster, int experienceGained, int goldGained)
+    public Item GetHealItem()
+    {
+        return healItemPool.Get();
+    }
+
+    public void DropItems(Monster monster, int experienceGained, int goldGained, int healGained)
     {
         if (monster == null)
         {
@@ -43,26 +53,37 @@ public class MonsterDropItem : Singleton<MonsterDropItem>
             return;
         }
 
-        if (ExpDropCount <= maxDropCount && Random.value <= 0.5f)
+        if (expDropCount <= maxDropCount && Random.value <= 0.5f)
         {
             Item droppedExperience = GetExperienceItem();
-            Vector3 experienceDropPosition = monster.transform.position + new Vector3(-1, 1, 0);
+            Vector3 experienceDropPosition = monster.transform.position + new Vector3(-1, 0.25f, 0);
             droppedExperience.transform.position = experienceDropPosition;
             droppedExperience.gameObject.SetActive(true);
             droppedExperience.Initialize(ItemType.Experience, experienceGained);
-            ExpDropCount++;
-            Debug.Log(ExpDropCount);
+            expDropCount++;
+            Debug.Log(expDropCount);
         }
 
-        if (GoldDropCount <= maxDropCount && Random.value <= 0.5f)
+        if (goldDropCount <= maxDropCount && Random.value <= 0.5f)
         {
             Item droppedGold = GetGoldItem();
-            Vector3 goldDropPosition = monster.transform.position + new Vector3(1, 1, 0);
+            Vector3 goldDropPosition = monster.transform.position + new Vector3(1, 0.25f, 0);
             droppedGold.transform.position = goldDropPosition;
             droppedGold.gameObject.SetActive(true);
             droppedGold.Initialize(ItemType.Gold, goldGained);
-            GoldDropCount++;
-            Debug.Log(GoldDropCount);
+            goldDropCount++;
+            Debug.Log(goldDropCount);
+        }
+
+        if (healDropCount <= maxDropCount && Random.value <= 0.1f)
+        {
+            Item droppedHeal = GetHealItem();
+            Vector3 healDropPosition = monster.transform.position + new Vector3(1, 0.25f, 1);
+            droppedHeal.transform.position = healDropPosition;
+            droppedHeal.gameObject.SetActive(true);
+            droppedHeal.Initialize(ItemType.Heal, healGained);
+            healDropCount++;
+            Debug.Log(healDropCount);
         }
     }
 
@@ -70,15 +91,21 @@ public class MonsterDropItem : Singleton<MonsterDropItem>
     {
         if (item.itemType == ItemType.Experience)
         {
-            ExpDropCount--;
-            Debug.Log(ExpDropCount);
+            expDropCount--;
+            Debug.Log(expDropCount);
             experienceItemPool.Release(item);
         }
         else if (item.itemType == ItemType.Gold)
         {
-            GoldDropCount--;
-            Debug.Log(GoldDropCount);
+            goldDropCount--;
+            Debug.Log(goldDropCount);
             goldItemPool.Release(item);
+        }
+        else if(item.itemType == ItemType.Heal)
+        {
+            healDropCount--;
+            Debug.Log(healDropCount);
+            healItemPool.Release(item);
         }
     }
 }
