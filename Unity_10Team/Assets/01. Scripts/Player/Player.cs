@@ -53,6 +53,11 @@ public class Player : MonoBehaviour
         pStat = new PlayerStatus(data);
         pStat.Init();
 
+
+    }
+
+    private void Start()
+    {
         stateMachine = new PlayerStateMachine(this);
 
         GameObject bulletPoolParent = new GameObject("BulletPool");
@@ -67,11 +72,6 @@ public class Player : MonoBehaviour
         {
             cDDirector = GameObject.Find("Clear&Dead Timeline").GetComponent<PlayableDirector>();
         }
-
-    }
-
-    private void Start()
-    {
         mainCameraTransform = Camera.main.transform;
     }
 
